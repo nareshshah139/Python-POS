@@ -14,3 +14,5 @@ class Controller:
 
     def closeday(self,):
         #Close the program and aggregate values in the list. Call get functions from model to do this
+
+  #Call input method inside the generalized while loop. Use if-else statements to parse which command was used.
