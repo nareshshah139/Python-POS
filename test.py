@@ -5,7 +5,7 @@ def inputCustid():
     if('Y' == newCust.upper()):
         name = input("Enter the customer's name: ")
         custid = id
-        id = id +1
+        id += 1
     else :
         custid = input("Enter the customer's ID: ")
         name = input("Enter the customer's name: ")
@@ -16,13 +16,13 @@ def inputSales():
     return sales
 
 def inputSKU():
-    sku = input("Enter the SKU: ")
+    sku = input("Enter the Product SKU: ")
     return sku
 
 def inputCC():
     cc = 2
     while(cc not in [0,1]):
-        cc = input("Cash (0) or CreditCard (1)? ")
+        cc = input("Paid in Cash (0) or CreditCard (1)? ")
         cc= int(cc)
     return cc
 
