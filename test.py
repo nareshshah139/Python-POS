@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 dName = {}
 dSales = {2:[3],5:['t']}
 dSKU = {}
@@ -26,3 +25,15 @@ def setCCSales(id,CC):
 
 def setCustomerID(id,Name):
     dName.update({id:Name})
+
+def getSales(CustId):
+    return dSales[CustId]
+
+def getSKU(CustID):
+    return dSKU[CustID]
+
+def getCCSales(CustID):
+    return dSales(CustID)
+
+def getName(CustID):
+    return dName(CustID)
