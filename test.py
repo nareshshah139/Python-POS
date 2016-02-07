@@ -9,7 +9,9 @@ def inputCustid():
     else :
         custid = input("Enter the customer's ID: ")
         name = input("Enter the customer's name: ")
-    return custid, name
+        sname = input("Enter the customer's surname")
+        bdate = input ("Enter the customer's birthdate")
+    return custid, name, sname, bday
 
 def inputSales():
     sales = input("Enter the amount of sales in €: ")
