@@ -72,4 +72,21 @@ def sumSales():
 		tot = tot + b
 	print (tot)
 
+def CRMSales():
+	tot = 0
+	for key,value in dSales.items():
+		a = value
+		b = sum(a)
+		tot = tot + b
+		print(tot,key)
+		tot = 0
+	
+		
+	
+		
+
+
+
+
+
 sumSales()
