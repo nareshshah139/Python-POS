@@ -13,7 +13,14 @@ class Controller:
 				self.view = View()
 				custID = random.randint(0,10000)
 				temp = 0
-				while(temp!=0):
+				
+					
+				
+	
+
+    def CommandCall(self,):
+        #Call the set functions from model and the  input functions from view to take user input and enter commands data into the model
+        while(temp!=0):
 					choice = input("Please enter the correct choice 1 for sales input,2 for SKU input and 3 for CC input ")
 					if choice == 1:
 						self.model.setSales(custID,self.view.inputSales())
@@ -23,12 +30,6 @@ class Controller:
 						self.model.setCC(custID,self.view.inputCC())
 					else:
 						temp =1
-					
-				
-	
-
-    def CommandCall(self,):
-        #Call the set functions from model and the  input functions from view to take user input and enter commands data into the model
 
     def ReportCall1(self,):
         #Call the Get functions from model and use the view functions to print a report
