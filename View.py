@@ -12,12 +12,34 @@ def inputCustid():
     return custid, name
 
 def inputSales():
-    sales = input("Enter the amount of sales in €")
-    return sales
+    sales = 0
+    while sales != type(float):
+        sales = input("Enter the sales amount in €: ")
+        try:
+            float(sales)
+            return sales
+        except:
+            print("Error")
+
+
 
 def inputSKU():
-    sku = input("Enter the SKU")
-    return sku
+    sku = ''
+    # while loop to ensure the right SKU format
+    while len(sku)!=9:
+        # have user input SKU
+        sku = input("Enter the SKU: ")
+        # check whether the SKU is in the correct format alphanumeric length 9
+        if len(sku)==9:
+            # feedback to user
+            print("Correct format ")
+            return sku
+        # if format is wrong have user input it again
+        elif len(sku)!=9:
+            print("Please enter a SKU in the correct format (9 digits): ")
+    # no way to check wehterh SKU exists in our dictionary as we are not storing anything yet
+
+
 
 def inputCC():
     cc = 2
