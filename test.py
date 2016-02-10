@@ -1,7 +1,10 @@
+#this is the model
+
 dName = {}
-dSales = {2:[3],5:['t']}
+dSales = {2:[3],5:[4]}
 dSKU = {}
 dCC = {}
+custID = set()
 
 
 
@@ -23,7 +26,7 @@ def setSKU(id,SKU):
 def setCCSales(id,CC):
     dCC.setdefault(id,[]).append(SKU)
 
-def setCustomerID(id,Name):
+def setCustomerNAME(id,Name):  #changed
     dName.update({id:Name})
 
 def getSales(CustId):
@@ -37,3 +40,19 @@ def getCCSales(CustID):
 
 def getName(CustID):
     return dName(CustID)
+    
+def setCustID(CustID):
+	custID.add(CustID)
+	
+def getCustID():
+	return custID
+	
+def sumSales():
+	tot = 0 
+	for key, value in dSales.items():
+		a = value
+		b = sum(a)
+		tot = tot + b
+	print (tot)
+
+sumSales()
