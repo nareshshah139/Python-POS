@@ -1,6 +1,6 @@
 import random
-import test
 import view
+import model
 
 def main():
 	custID = random.randint(0,10000)
@@ -9,10 +9,25 @@ def main():
 		custID = view.inputCustID()
 		model.setCustID(CustID)
 		model.setCustomerNAME(custID,name)
-		model.setSales(custID, view.inputSales())	
 		model.setSKU(custID, view.inputSKU())
 		model.setCC(custID,view.inputCC())
-					
+		model.setSales(custID, view.inputSales())
+
+		while view.inputSales() != type(float):
+			view.inputSales()
+			try:
+
+        # have user input the sales amount
+        sales = input("Enter the sales amount in €: ")
+        try:
+            # try to convert sales input to float
+            sales = float(sales)
+            # if it works return sales
+            return sales
+        except:
+            # provide an error message explaining wrong input
+            print("Input:", sales,"is  invalid. Please provide a number in format 1 or 1.00 ")
+
 				
 					
 				

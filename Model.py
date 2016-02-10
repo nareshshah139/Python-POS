@@ -1,27 +1,93 @@
-class Model:
-    def __init__(self):
-        #define dictionaries here
 
-    def SetSales(self,#Add both key = CustomerID and value = Sales):
-        #Add Sales to the list in the dictionary
+# Dictionary of Customers: {id: Name}
+# Values must be strings
+dName = {}
 
-    def GetSales(self,):
-        #Returns Sales value to the controller
+# Dictionary of Sales: {id: sales}
+# Values must be floats of 2 decimals
+dSales = {2:[3],5:[4,2]}
+#print("%.2f" % 3.14159)
+#print("%.2f" % round(sales,2))
 
-    def SetSKU(self,#Add both key = CustomerID and value = SKU Number):
-        #Add SKU to the list in the dictionary
 
-    def GetSKU(self,):
-        #Returns SKU value to the controller
+# Dictionary of SKUs: {id: SKU}
+# Values must be 9 digit alphanumerics
+dSKU = {}
 
-    def SetCCSales(self,):
-        #Gets CCSales value from the controller and adds it to the list in the dictionary
+# Dictionary of CC vs. Cash {id: CC}
+# Values must be 0 or 1
+dCC = {2:[1],5:[0,1]}
 
-    def GetCCSales(self):
-        #Returns CCSales value to the controller
+CustID = set()
 
-    def GetCustomerID(self,):
-        #Returns CustomerID value to the controller
 
-    def SetCustomerID(self,):
-        #Generates a unique Customer ID value
+
+def setSales(id,sales):
+    #Add Sales to the list in the dictionary
+    dSales.setdefault(id, []).append(sales)
+
+
+setSales(2,3)
+
+print(dSales)
+
+def setSKU(id,SKU):
+    dSKU.setdefault(id, []).append(SKU)
+
+
+def setCCSales(id,CC):
+    dCC.setdefault(id,[]).append(SKU)
+
+def setCustomerNAME(id,Name):  #changed
+    dName.update({id:Name})
+
+def newCustomer(Name):
+	return 0
+# Takes as argument the Name input by customer
+# Generates a new customer ID
+# Adds the customer ID and name to the dictionary
+def setCustID(CustID):
+	CustID.add(CustID)
+
+
+
+def getSales(CustID):
+	return dSales[CustID]
+
+def getSKU(CustID):
+    return dSKU[CustID]
+
+def getCCSales(CustID):
+    return dSales(CustID)
+
+def getName(CustID):
+    return dName(CustID)
+    
+def setCustID(CustID):
+	custID.add(CustID)
+	
+def getCustID():
+	return custID
+	
+def sumSales():
+	tot = 0 
+	for key, value in dSales.items():
+		a = value
+		b = sum(a)
+		tot = tot + b
+	print (tot)
+
+sumSales()
+
+def CashCC():
+	totCC = 0
+	totCash = 0
+	for key, value in dCC.items():
+		for i in value:
+			if i == 1:
+				totCC = totCC + (dSales[key])[value.index(i)]
+			else :
+				totCash = totCash + (dSales[key])[value.index(i)] 
+	return (totCC, totCash)
+
+print( CashCC())
