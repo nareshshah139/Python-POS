@@ -32,7 +32,6 @@ print(dSales)
 def setSKU(id,SKU):
     dSKU.setdefault(id, []).append(SKU)
 
-
 def setCCSales(id,CC):
     dCC.setdefault(id,[]).append(SKU)
 
