@@ -1,3 +1,6 @@
+def inputPurchase():
+
+
 def inputCustid():
     #Take input sales command and put it into controller
     id = 1
