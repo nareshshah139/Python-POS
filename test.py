@@ -1,12 +1,22 @@
-#this is the model
 
+# Dictionary of Customers: {id: Name}
+# Values must be strings
 dName = {}
-dSales = {2:[3],5:[4]}
+
+# Dictionary of Sales: {id: sales}
+# Values must be floats of 2 decimals
+dSales = {2:[3],5:['t']}
+#print("%.2f" % 3.14159)
+#print("%.2f" % round(sales,2))
+
+
+# Dictionary of SKUs: {id: SKU}
+# Values must be 9 digit alphanumerics
 dSKU = {}
+
+# Dictionary of CC vs. Cash {id: CC}
+# Values must be 0 or 1
 dCC = {}
-custID = set()
-
-
 
 
 
@@ -28,6 +38,13 @@ def setCCSales(id,CC):
 
 def setCustomerNAME(id,Name):  #changed
     dName.update({id:Name})
+
+def newCustomer(Name):
+# Takes as argument the Name input by customer
+# Generates a new customer ID
+# Adds the customer ID and name to the dictionary
+
+
 
 def getSales(CustId):
     return dSales[CustId]
