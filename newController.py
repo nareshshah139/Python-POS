@@ -20,18 +20,23 @@ def main():
 
     def CommandCall():
         #Call the set functions from model and the  input functions from view to take user input and enter commands data into the model
-        
+        		
         
 
-    def ReportCall1(self,):
+    def ReportCall1():
         #Call the Get functions from model and use the view functions to print a report
-				printReport()
+		cashCC = model.CashCC()
+		view.printReport(cashCC)
+	
 
-    def CRM(self,):
+    def CRM():
         #Call the Get functions from model and use the view functions to print a CRM Report
-			total = sumSales()
+		total = model.sumSales()
+		view.printCRM(total)
 			
 
     def closeday(self,):
         #Close the program and aggregate values in the list. Call get functions from model to do this
 				printCloseSales()
+				
+	

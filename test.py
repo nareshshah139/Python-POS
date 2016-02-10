@@ -5,7 +5,7 @@ dName = {}
 
 # Dictionary of Sales: {id: sales}
 # Values must be floats of 2 decimals
-dSales = {2:[3],5:['t']}
+dSales = {2:[3],5:[4,2]}
 #print("%.2f" % 3.14159)
 #print("%.2f" % round(sales,2))
 
@@ -16,7 +16,9 @@ dSKU = {}
 
 # Dictionary of CC vs. Cash {id: CC}
 # Values must be 0 or 1
-dCC = {}
+dCC = {2:[1],5:[0,1]}
+
+CustID = set()
 
 
 
@@ -40,14 +42,17 @@ def setCustomerNAME(id,Name):  #changed
     dName.update({id:Name})
 
 def newCustomer(Name):
+	return 0
 # Takes as argument the Name input by customer
 # Generates a new customer ID
 # Adds the customer ID and name to the dictionary
+def setCustID(CustID):
+	CustID.add(CustID)
 
 
 
-def getSales(CustId):
-    return dSales[CustId]
+def getSales(CustID):
+	return dSales[CustID]
 
 def getSKU(CustID):
     return dSKU[CustID]
@@ -73,3 +78,16 @@ def sumSales():
 	print (tot)
 
 sumSales()
+
+def CashCC():
+	totCC = 0
+	totCash = 0
+	for key, value in dCC.items():
+		for i in value:
+			if i == 1:
+				totCC = totCC + (dSales[key])[value.index(i)]
+			else :
+				totCash = totCash + (dSales[key])[value.index(i)] 
+	return (totCC, totCash)
+
+print( CashCC())
