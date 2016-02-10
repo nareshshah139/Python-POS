@@ -1,18 +1,22 @@
 def inputPurchase():
+	return 0
 
-
-def inputCustid():
+def inputCustID():
     #Take input sales command and put it into controller
     id = 1
+    print("<3 Rose")
     newCust = input("is this a new customer (y/n)")
     if('Y' == newCust.upper()):
-        name = input("enter the customer's name")
+        name = input("Enter the customer's name ")
         custid = id
         id = id +1
     else :
         custid = input("Enter the customer's ID")
         name = input("Enter the customer's name")
     return custid, name
+
+def inputName():
+	return input("input name por favor")
 
 def inputSales():
     sales = input("Enter the sales amount in €: ")
@@ -50,14 +54,22 @@ def inputSKU():
         elif len(sku)!=9:
             print("Please enter a SKU in the correct format (9 digits): ")
     # no way to check wehterh SKU exists in our dictionary as we are not storing anything yet
-
+	# check for when characters are added
 
 
 def inputCC():
+    #Take input credit card command and put it into controller
     cc = 2
-    while(cc not in [0,1]):
-        cc = input("Cash (0) or CreditCard (1)?")
-        cc= int(cc)
+    while (cc not in [0,1]):
+        try:
+            cc = int(input("Cash (0) or CreditCard (1)?"))
+            if (cc not in [0,1]):
+                print("Wrong input! Either 0 for Cash or 1 for CreditCard!")
+                cc = int(input("Cash (0) or CreditCard (1)?"))
+            else:
+                break
+        except:
+            print("Wrong input! Either number 0 or 1 not CHARACTERS!")
     return cc
 
 

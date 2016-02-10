@@ -18,14 +18,14 @@ dSKU = {}
 # Values must be 0 or 1
 dCC = {2:[1],5:[0,1]}
 
-CustID = set()
+Customers = set()
 
 
 
 def setSales(id,sales):
     #Add Sales to the list in the dictionary
     dSales.setdefault(id, []).append(sales)
-
+    print(dSales)
 
 setSales(2,3)
 
@@ -35,8 +35,8 @@ def setSKU(id,SKU):
     dSKU.setdefault(id, []).append(SKU)
 
 
-def setCCSales(id,CC):
-    dCC.setdefault(id,[]).append(SKU)
+def setCC(id,CC):
+    dCC.setdefault(id,[]).append(CC)
 
 def setCustomerNAME(id,Name):  #changed
     dName.update({id:Name})
@@ -47,7 +47,7 @@ def newCustomer(Name):
 # Generates a new customer ID
 # Adds the customer ID and name to the dictionary
 def setCustID(CustID):
-	CustID.add(CustID)
+	Customers.add(CustID)
 
 
 
@@ -63,11 +63,9 @@ def getCCSales(CustID):
 def getName(CustID):
     return dName(CustID)
     
-def setCustID(CustID):
-	custID.add(CustID)
 	
 def getCustID():
-	return custID
+	return CustID
 	
 def sumSales():
 	tot = 0 
