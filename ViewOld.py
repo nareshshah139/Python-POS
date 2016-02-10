@@ -1,6 +1,6 @@
 def inputCustid():
     #Take input sales command and put it into controller
-    id = i00000000
+    id = 1
     newCust = input("is this a new customer (y/n)")
     if('Y' == newCust.upper()):
         name = input("enter the customer's name")
@@ -10,8 +10,6 @@ def inputCustid():
         custid = input("Enter the customer's ID")
         name = input("Enter the customer's name")
     return custid, name
-
-
 
 def inputSales():
     sales = input("Enter the sales amount in €: ")
@@ -25,7 +23,7 @@ def inputSales():
         sales = input("Enter the sales amount in €: ")
         try:
             # try to convert sales input to float
-            sales = float(round(sales,2)
+            sales = float(sales)
             # if it works return sales
             return sales
         except:
