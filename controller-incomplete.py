@@ -21,6 +21,8 @@ class Controller:
 						self.model.setSKU(custID,self.view.inputSKU())
 					elif choice == 3:
 						self.model.setCC(custID,self.view.inputCC())
+					else:
+						temp =1
 					
 				
 	
