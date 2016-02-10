@@ -12,14 +12,20 @@ def inputCustid():
     return custid, name
 
 def inputSales():
+    # set sales to 0
     sales = 0
+    # while loop to check whether input can be converted to float
     while sales != type(float):
+        # have user input the sales amount
         sales = input("Enter the sales amount in €: ")
         try:
-            float(sales)
+            # try to convert sales input to float
+            sales = float(sales)
+            # if it works return sales
             return sales
         except:
-            print("Error")
+            # provide an error message explaining wrong input
+            print("Input:", sales,"is  invalid. Please provide a number in format 1 or 1.00 ")
 
 
 
