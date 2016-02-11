@@ -10,12 +10,13 @@ def main():
 		#Parser starts here
 		inputList = []
 		inputList = userinput.split()
-		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number 
-		#in the list which is definitely the Sale value. 
+		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number
+		#in the list which is definitely the Sale value.
 		#
 		for element in inputList:
 			if inputList[element].isalnum():
-				for element2 in inputList:	
+				for element2 in inputList:
+					# catch sales amount
 					if inputList[element2].isnumeric():
 						model.SetSales(inputList[element],float(inputList[element2]))
 					elif inputList[element2].lower() == 'CC':
@@ -50,11 +51,11 @@ def main():
 					view.printCommandList()
 				else:
 					view.printError()
-			
-			
-					
-						
-		  
+
+
+
+
+
 
 def ReportCall1():
         #Call the Get functions from model and use the view functions to print a report

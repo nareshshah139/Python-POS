@@ -21,7 +21,6 @@ dCC = {2:[1],5:[0,1]}
 Customers = set()
 
 
-
 def setSales(id,sales):
     #Add Sales to the list in the dictionary
     dSales.setdefault(id, []).append(sales)
