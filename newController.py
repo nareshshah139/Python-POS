@@ -1,7 +1,7 @@
 
 import random
-import View as view
-import Model as model
+import view
+import model
 
 def main():
 	temp = 0
