@@ -16,15 +16,17 @@ def main():
 		inputList = []
 		inputList = userinput.split()
 		if inputList[0] == 'Sale':
-			if inputList.length == 2:
+			if len(inputList) == 2:
 				
 				if inputList[1].isnumeric():
 					model.setSales(float(inputList[1]))
 				
 				elif inputList[1].isalnum():
 					model.setSKU(float(inputList[1].split(':')[1]))
+				else:
+					view.printError()
 					
-			elif inputList.length == 3: 
+			elif len(inputList) == 3: 
 				
 				if inputList[2] == 'CC':
 					model.setCC(inputList[2])
@@ -37,16 +39,16 @@ def main():
 			else:
 				view.printError()
 			
-		elif inputList[0] == 'Customer':
+		elif inputList[0].lower() == 'customer':
 			model.setCustID(inputList[2])
 			model.setCustomerName(inputList[2],inputList[1])
-		elif inputList[0] == 'Close day':
+		elif inputList[0].lower() == 'close day':
 			closeday()
-		elif inputList[0] == 'Report':
+		elif inputList[0].lower() == 'report':
 			ReportCall1()
-		elif inputList[0] == 'CRM':
+		elif inputList[0].lower() == 'crm':
 			CRM()
-		elif inputList[0] == 'Help':
+		elif inputList[0].lower() == 'help':
 			view.printCommandList()
 		else:
 			view.printError()
