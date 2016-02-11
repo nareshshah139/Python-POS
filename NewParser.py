@@ -1,7 +1,8 @@
+# check for upper en lower letters
 
 import random
-import view
-import model
+import View as view
+import Model as model
 
 def main():
 	temp = 0
@@ -13,44 +14,78 @@ def main():
 		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number 
 		#in the list which is definitely the Sale value. Look for a list value = CC to classify it as a CC Sale. Look for a 
 		#alphanumeric value which can be parsed as a name. Do the same with a default customer ID otherwise.
+	
+	
+### Sale NUMBER CC SKU:number ID:alphanum9
+### Customer NAME ID
+
+		if 'sale' in userinput.lower():
+			custID = checkID(inputList)
+			salesInput(inputList, custID)
+		elif 'customer' in userinput.lower(): 
+			customerInput(inputList)
+		elif 'crm' in userinput.lower():
+			CRM()
+		elif 'report' in userinput.lower():
+			ReportCall1()
+		elif 'close day' in userinput.lower():
+			closeDay()
+		else:		
+			view.printError()
 		
+ 
+
+def salesInput(inputList, custID):
+	
+	if 'CC' in inputList:
+		setCC(custID, 1)
+	else : 
+		setCC(custID, 0)
+		
+	if 'SKU:' in inputList:
+		for word in inputList:
+			if word.startswith('SKU:'):
+				sku = word.split(':')[1]
+				setSKU(custID, sku)
+	else:
+		setSKU(custID, sku)
+	
+	for element in inputList:
+        try:
+            saleAMT = float(element)
+            if saleAMT < 10000:
+                setSales(custID,saleAMT)
+            else:
+                pass
+        except:
+            pass
+		
+		"""
+		if word.lower() == 'sale' :
+			i = inputList.index(word)
+			sales = float(inputList[i+1])
+			model.setSales(custID, sales)
+			"""
+        
+		
+	
+	
+	
+	
+	
+def checkID(inputList)	
+#check whether ID already exist
+	if 'id:' in userinput:		
 		for element in inputList:
-			if inputList[element].isalnum():
-				for element2 in inputList:	
-					if inputList[element2].isnumeric():
-						model.SetSales(inputList[element],float(inputList[element2]))
-					elif inputList[element2].lower() == 'CC':
-						model.SetCC(inputList[element],inputList[element2])
-					elif inputList[element2].startswith('SKU:'):
-						model.SetSKU(inputList[element],float(inputList[element2].split(':')[1]))
-					elif inputList[element2].isalpha():
-						model.SetCustomerName(inputList[element],inputList[element2]
-					else:
-						view.printError()
-			else:
-				if inputList[element].isnumeric():
-					model.SetSales('Anon12345',float(inputList[element]))
-				elif inputList[element] == 'CC':
-					model.SetCC('Anon12345',inputList[element])
-				elif inputList[element2].startswith('SKU:'):
-					model.SetSKU('Anon12345',float(inputList[element].split(':')[1]))
-				elif inputList[element].isalpha():
-					model.SetCustomerName('Anon12345',inputList[element]
-				elif inputList[element].lower() == 'close day':
-					closeday()
-				#Checks if the user wants to print the sales for that day with cash or CC breakdwon
-				#Example command: report
-				elif inputList[element].lower() == 'report':
-					view.printReport(model.CashCC())
-				#Checks if the user want to print the sale for that day by client
-				#Example command: crm
-				elif inputList[element].lower() == 'crm':
-					view.printCRM(model.sumSales())
-				#Example command: help
-				elif inputList[element].lower() == 'help':
-					view.printCommandList()
-				else:
-					view.printError()
+			if element.startswith == 'ID:':
+				return element.split(':')[1]
+	else: 
+		return 'Anonymous'
+			
+		
+				
+						
+	
 			
 					
 						
@@ -59,7 +94,7 @@ def main():
 		
 
 
-def closeday(self,):
+def closeDay():
         #Close the program and aggregate values in the list. Call get functions from model to do this
 		ReportCall1()
 		CRM()
@@ -88,8 +123,6 @@ def CRM():
 	view.printCRM(total)
 
 
-def closeday(self,):
-    #Close the program and aggregate values in the list. Call get functions from model to do this
-	printCloseSales()
+
 
 main()
