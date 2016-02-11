@@ -26,7 +26,7 @@ def main():
 					elif inputList[element2].startswith('SKU:'):
 						model.SetSKU(inputList[element],float(inputList[element2].split(':')[1]))
 					elif inputList[element2].isalpha():
-						model.SetCustomerName(inputList[element],inputList[element2]
+						model.SetCustomerName(inputList[element],inputList[element2])
 					else:
 						view.printError()
 			else:
@@ -37,7 +37,7 @@ def main():
 				elif inputList[element2].startswith('SKU:'):
 					model.SetSKU('Anon12345',float(inputList[element].split(':')[1]))
 				elif inputList[element].isalpha():
-					model.SetCustomerName('Anon12345',inputList[element]
+					model.SetCustomerName('Anon12345',inputList[element])
 				elif inputList[element].lower() == 'close day':
 					closeday()
 				#Checks if the user wants to print the sales for that day with cash or CC breakdwon
