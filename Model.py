@@ -31,6 +31,7 @@ setSales(2,3)
 print(dSales)
 
 def setSKU(id,SKU):
+"""Adds the SKU """
     dSKU.setdefault(id, []).append(SKU)
 
 
