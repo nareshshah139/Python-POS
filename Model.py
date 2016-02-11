@@ -71,6 +71,7 @@ def getName(CustID):
 def getCustID():
 	return CustID
 
+# change name to closeDay()
 def sumSales():
 	tot = 0
 	for key, value in dSales.items():
@@ -81,6 +82,7 @@ def sumSales():
 
 sumSales()
 
+# change name to report()
 def CashCC():
 	totCC = 0
 	totCash = 0
@@ -97,7 +99,7 @@ CashCC()
 {custID123: [123,8 0, 100, 12]}
 
 
-def report():
+def crm():
     totCust = 0
     for key, value in dSales.items():
         purchase = value
@@ -105,7 +107,7 @@ def report():
         dCustSales.update({key:totCust})
     return dCustSales
 
-report()
+crm()
 
 
 
