@@ -10,16 +10,11 @@ def main():
 		#Parser starts here
 		inputList = []
 		inputList = userinput.split()
-<<<<<<< HEAD
+
 		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number
-		#in the list which is definitely the Sale value.
-		#
-=======
-		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number 
-		#in the list which is definitely the Sale value. Look for a list value = CC to classify it as a CC Sale. Look for a 
+		#in the list which is definitely the Sale value. Look for a list value = CC to classify it as a CC Sale. Look for a
 		#alphanumeric value which can be parsed as a name. Do the same with a default customer ID otherwise.
-		
->>>>>>> a78099f6245cf3a2c2a2817e4d3d9a7953d89159
+
 		for element in inputList:
 			if inputList[element].isalnum():
 				for element2 in inputList:
@@ -58,21 +53,6 @@ def main():
 					view.printCommandList()
 				else:
 					view.printError()
-<<<<<<< HEAD
-
-
-
-
-
-=======
-			
-					
-						
-		  
->>>>>>> a78099f6245cf3a2c2a2817e4d3d9a7953d89159
-
-		
-
 
 def closeday(self,):
         #Close the program and aggregate values in the list. Call get functions from model to do this
