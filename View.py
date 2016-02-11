@@ -20,3 +20,6 @@ def printCloseSales(closeSales):
     """Use this function to print out a summary of the current day, clear out the dictionaries and end the day and program"""
     #Define how to print aggregated values
     print(closeSales)
+
+def idMatch():
+    print("This ID already exists in the database, please try another ID.")

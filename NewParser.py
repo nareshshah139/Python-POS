@@ -20,7 +20,7 @@ def main():
 ### Customer NAME ID
 
 		if 'sale' in userinput.lower():
-			custID = checkID(inputList)
+			custID = checkID(userinput, inputList)
 			salesInput(inputList, custID)
 		elif 'customer' in userinput.lower(): 
 			customerInput(inputList)
@@ -34,62 +34,62 @@ def main():
 			view.printError()
 		
  
-
-def salesInput(inputList, custID):
-	
-	if 'CC' in inputList:
-		setCC(custID, 1)
-	else : 
-		setCC(custID, 0)
-		
-	if 'SKU:' in inputList:
-		for word in inputList:
-			if word.startswith('SKU:'):
-				sku = word.split(':')[1]
-				setSKU(custID, sku)
-	else:
-		setSKU(custID, sku)
-	
-	for element in inputList:
-        try:
-            saleAMT = float(element)
-            if saleAMT < 10000:
-                setSales(custID,saleAMT)
-            else:
-                pass
-        except:
-            pass
-		
-		"""
-		if word.lower() == 'sale' :
-			i = inputList.index(word)
-			sales = float(inputList[i+1])
-			model.setSales(custID, sales)
-			"""
         
 		
+def salesInput(inputList, custID):
+
+    if 'CC' in inputList:
+        model.setCC(custID, 1)
+    else :
+        model.setCC(custID, 0)
+
+    if 'SKU:' in inputList:
+        for word in inputList:
+            if word.startswith('SKU:'):
+                sku = word.split(':')[1]
+                model.setSKU(custID, sku)
+            else :
+                pass
+    else:
+        model.setSKU(custID, 0)
+
+    for word1 in inputList:
+        if word1.lower() == 'sale':
+            i = inputList.index(word1)
+            sales = float(inputList[i+1])
+            model.setSales(custID, sales)
+        else:
+            pass
 	
 	
 	
-	
-	
-def checkID(inputList)	
+def checkID(userinput, inputList):	
 #check whether ID already exist
-	if 'id:' in userinput:		
+	if 'id:' in userinput.lower():		
 		for element in inputList:
-			if element.startswith == 'ID:':
+			if element.startswith('ID:'):
+				return element.split(':')[1]
+			elif element.startswith('id:'):
 				return element.split(':')[1]
 	else: 
 		return 'Anonymous'
 			
 		
 				
-						
+def customerInput():
+    #first check whether ID exists somewhere in the dictionary dName
+    if inputList[2].split(':')[1] in model.dName:
+        view.idMatch()
+        main()
+    else:
+        model.setCustomerNAME(inputList[1], inputList[2])
+    
+					
 	
 			
 					
 						
-		  
+# Sale 123 CC SKU:123 ID:123		  
 
 		
 

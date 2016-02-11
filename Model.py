@@ -73,7 +73,7 @@ def sumSales():
 		a = value
 		b = sum(a)
 		tot = tot + b
-	print (tot)
+	return (tot)
 
 sumSales()
 
