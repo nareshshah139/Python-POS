@@ -1,7 +1,7 @@
 
 import random
-import view
-import model
+import View as view
+import Model as model
 
 def main():
 	temp = 0
@@ -16,43 +16,49 @@ def main():
 		#alphanumeric value which can be parsed as a name. Do the same with a default customer ID otherwise.
 
 		for element in inputList:
-			if inputList[element].isalnum():
-				for element2 in inputList:
-					# catch sales amount
-					if inputList[element2].isnumeric():
-						model.SetSales(inputList[element],float(inputList[element2]))
-					elif inputList[element2].lower() == 'CC':
-						model.SetCC(inputList[element],inputList[element2])
-					elif inputList[element2].startswith('SKU:'):
-						model.SetSKU(inputList[element],float(inputList[element2].split(':')[1]))
-					elif inputList[element2].isalpha():
-						model.SetCustomerName(inputList[element],inputList[element2]
+			try:
+				round(float(element),2)
+			except:
+				view.printError()
+
+			finally:
+				if element.isalnum():
+					for element2 in inputList:
+						# catch sales amount
+						if element2.isnumeric():
+							model.setSales(element,float(element2))
+						elif element2.lower() == 'CC':
+							model.setCC(element,element2)
+						elif element2.startswith('SKU:'):
+							model.setSKU(element,float(element2.split(':')[1]))
+						elif element2.isalpha():
+							model.setCustomerNAME(element,element2)
+						else:
+							view.printError()
+				else:
+					if element.isnumeric():
+						model.setSales('Anon12345',float(element))
+					elif element == 'CC':
+						model.setCC('Anon12345',element)
+					elif element2.startswith('SKU:'):
+						model.setSKU('Anon12345',float(element.split(':')[1]))
+					elif element.isalpha():
+						model.setCustomerNAME('Anon12345',element)
+					elif element.lower() == 'close day':
+						closeday()
+					#Checks if the user wants to print the sales for that day with cash or CC breakdwon
+					#Example command: report
+					elif element.lower() == 'report':
+						view.printReport(model.CashCC())
+					#Checks if the user want to print the sale for that day by client
+					#Example command: crm
+					elif element.lower() == 'crm':
+						view.printCRM(model.sumSales())
+					#Example command: help
+					elif element.lower() == 'help':
+						view.printCommandList()
 					else:
 						view.printError()
-			else:
-				if inputList[element].isnumeric():
-					model.SetSales('Anon12345',float(inputList[element]))
-				elif inputList[element] == 'CC':
-					model.SetCC('Anon12345',inputList[element])
-				elif inputList[element2].startswith('SKU:'):
-					model.SetSKU('Anon12345',float(inputList[element].split(':')[1]))
-				elif inputList[element].isalpha():
-					model.SetCustomerName('Anon12345',inputList[element]
-				elif inputList[element].lower() == 'close day':
-					closeday()
-				#Checks if the user wants to print the sales for that day with cash or CC breakdwon
-				#Example command: report
-				elif inputList[element].lower() == 'report':
-					view.printReport(model.CashCC())
-				#Checks if the user want to print the sale for that day by client
-				#Example command: crm
-				elif inputList[element].lower() == 'crm':
-					view.printCRM(model.sumSales())
-				#Example command: help
-				elif inputList[element].lower() == 'help':
-					view.printCommandList()
-				else:
-					view.printError()
 
 def closeday(self,):
         #Close the program and aggregate values in the list. Call get functions from model to do this
