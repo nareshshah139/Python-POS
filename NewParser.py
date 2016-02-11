@@ -11,8 +11,9 @@ def main():
 		inputList = []
 		inputList = userinput.split()
 		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number 
-		#in the list which is definitely the Sale value. 
-		#
+		#in the list which is definitely the Sale value. Look for a list value = CC to classify it as a CC Sale. Look for a 
+		#alphanumeric value which can be parsed as a name. Do the same with a default customer ID otherwise.
+		
 		for element in inputList:
 			if inputList[element].isalnum():
 				for element2 in inputList:	
