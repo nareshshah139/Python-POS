@@ -18,6 +18,10 @@ dSKU = {}
 # Values must be 0 or 1
 dCC = {2:[1],5:[0,1]}
 
+# Dictionary of total sales by customer ID
+# values must be floats
+dCustSales = {}
+
 Customers = set()
 
 
@@ -73,7 +77,7 @@ def sumSales():
 		a = value
 		b = sum(a)
 		tot = tot + b
-	print (tot)
+	return (tot)
 
 sumSales()
 
@@ -88,4 +92,23 @@ def CashCC():
 				totCash = totCash + (dSales[key])[value.index(i)]
 	return (totCC, totCash)
 
-print( CashCC())
+CashCC()
+
+{custID123: [123,8 0, 100, 12]}
+
+
+def report():
+    totCust = 0
+    for key, value in dSales.items():
+        purchase = value
+        totCust = sum(purchase)
+        dCustSales.update({key:totCust})
+    return dCustSales
+
+report()
+
+
+
+
+
+
