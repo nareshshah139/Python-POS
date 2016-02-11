@@ -36,15 +36,15 @@ def main():
 			#Example commands: Sale 100 Anon12345
 			elif len(inputList) == 3:
 				#If third entry is CC adds it to the Credit Card count
-				if inputList[2] == 'CC':
-					model.setCC(inputList[2])
+				if inputList[2].isnumeric():
+					model.setCC(inputList[1],inputList[2])
 					#and second one to the Sales
-					model.setSales('Anon12345',inputList[1])
-					model.setCustID('Anon12345')
+					model.setSales(inputList[1],inputList[2])
+					model.setCustID(inputList[1])
 				#else dd the second one to the Sales
 				elif inputList[2].isalnum():
 					model.setSales(inputList[1])
-					#and the third one as Cuctomers Name
+					#and the third one as Customers Name
 					model.setCustID(inputList[2])
 				else:
 					view.printError()
