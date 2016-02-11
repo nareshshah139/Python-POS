@@ -14,20 +14,12 @@ def main():
 		inputList = []
 		inputList = userinput.split()
 
-		# if/else check for sale / customer
-		# if s
-
-
-
-
 
 
 if "sale" in input.lower():
 	# enter sale info
-
-
-
-
+	custID = checkID(inputList)
+	salesInput(inputList, custID)
 
 
 elif "customer" in input.lower():
@@ -44,3 +36,24 @@ elif "close day" in input.lower():
 
 else:
 	# print error
+
+
+def salesInput(inputList, custID):
+
+	for element in inputList:
+		try:
+			round(float(element),2)
+			
+		except:
+			# error
+
+
+
+
+	def checkID(inputList):
+		if "id:" in userinput:
+			for element in inputList:
+				if element.startswith == 'ID:':
+					return element.split(:)[1]
+		else:
+			return "Anonymous"
