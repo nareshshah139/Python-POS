@@ -1,5 +1,7 @@
+
 def inputPurchase():
 	return 0
+
 
 def inputCustID():
     #Take input sales command and put it into controller
@@ -71,7 +73,6 @@ def inputCC():
         except:
             print("Wrong input! Either number 0 or 1 not CHARACTERS!")
     return cc
-
 
 def printCRM(crm):
     #Define how to print aggregated values
