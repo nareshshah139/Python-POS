@@ -10,9 +10,16 @@ def main():
 		#Parser starts here
 		inputList = []
 		inputList = userinput.split()
+<<<<<<< HEAD
 		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number
 		#in the list which is definitely the Sale value.
 		#
+=======
+		#Basic idea: Look for CustID as a alphanumeric in the list. If the list finds an alphanumeric, look for a number 
+		#in the list which is definitely the Sale value. Look for a list value = CC to classify it as a CC Sale. Look for a 
+		#alphanumeric value which can be parsed as a name. Do the same with a default customer ID otherwise.
+		
+>>>>>>> a78099f6245cf3a2c2a2817e4d3d9a7953d89159
 		for element in inputList:
 			if inputList[element].isalnum():
 				for element2 in inputList:
@@ -41,30 +48,30 @@ def main():
 				#Checks if the user wants to print the sales for that day with cash or CC breakdwon
 				#Example command: report
 				elif inputList[element].lower() == 'report':
-					ReportCall1()
+					view.printReport(model.CashCC())
 				#Checks if the user want to print the sale for that day by client
 				#Example command: crm
 				elif inputList[element].lower() == 'crm':
-					CRM()
+					view.printCRM(model.sumSales())
 				#Example command: help
 				elif inputList[element].lower() == 'help':
 					view.printCommandList()
 				else:
 					view.printError()
+<<<<<<< HEAD
 
 
 
 
 
+=======
+			
+					
+						
+		  
+>>>>>>> a78099f6245cf3a2c2a2817e4d3d9a7953d89159
 
-def ReportCall1():
-        #Call the Get functions from model and use the view functions to print a report
-		view.printReport(model.CashCC())
-
-
-def CRM():
-        #Call the Get functions from model and use the view functions to print a CRM Report
-		view.printCRM(model.sumSales())
+		
 
 
 def closeday(self,):
