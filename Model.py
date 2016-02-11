@@ -74,7 +74,7 @@ def getName(CustID):
 def getCustID():
 	return CustID
 
-# change name to closeDay()
+
 def sumSales():
 	tot = 0
 	for key, value in dSales.items():
@@ -83,7 +83,6 @@ def sumSales():
 		tot = tot + b
 	return (tot)
 
-sumSales()
 
 # change name to report()
 def CashCC():
@@ -97,10 +96,6 @@ def CashCC():
 				totCash = totCash + (dSales[key])[value.index(i)]
 	return (totCC, totCash)
 
-CashCC()
-
-{custID123: [123,8 0, 100, 12]}
-
 
 def crm():
     totCust = 0
@@ -110,8 +105,13 @@ def crm():
         dCustSales.update({key:totCust})
     return dCustSales
 
-crm()
-
+def closeDay():
+	''' Resets all dictionaries to empty, closing out the day and clearing the reports.'''
+	dName = {}
+	dSales = {}
+	dSKU = {}
+	dCC = {}
+	dCustSales = {}
 
 
 
