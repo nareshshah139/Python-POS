@@ -1,7 +1,7 @@
 
 import random
-import view
-import model
+import View as view
+import Model as model
 
 def main():
 	temp = 0
@@ -67,7 +67,7 @@ def CRM():
 		view.printCRM(model.sumSales())
 
 
-def closeday(self,):
+def closeday():
         #Close the program and aggregate values in the list. Call get functions from model to do this
 		ReportCall1()
 		CRM()
