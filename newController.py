@@ -16,12 +16,12 @@ def main():
 			if len(inputList) == 2:
 				#If second entry is numeric it's the sale price
 				if inputList[1].isnumeric():
-					model.setSales('abc1234567',float(inputList[1]))
-					model.setCustID('abc1234567')
+					model.setSales('Anon12345',float(inputList[1]))
+					model.setCustID('Anon12345')
 				#If second entry is alphanumeric it's the SKU
 				elif inputList[1].isalnum():
-					model.setSKU('abc1234567',float(inputList[1].split(':')[1]))
-					model.setCustID('abc1234567')
+					model.setSKU('Anon12345',float(inputList[1].split(':')[1]))
+					model.setCustID('Anon12345')
 				else:
 					view.printError()
 			#Checks if the user inputed three values
@@ -30,8 +30,8 @@ def main():
 				if inputList[2] == 'CC':
 					model.setCC(inputList[2])
 					#and second one to the Sales
-					model.setSales('abc1234567',inputList[1])
-					model.setCustID('abc1234567')
+					model.setSales('Anon12345',inputList[1])
+					model.setCustID('Anon12345')
 				#else dd the second one to the Sales
 				elif inputList[2].isalnum():
 					model.setSales(inputList[1])
