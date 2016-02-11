@@ -56,9 +56,12 @@ def setCustID(CustID):
 
 
 def getSales(CustID):
+	"""Retrieves the sales values for the customer ID input as an argument."""
 	return dSales[CustID]
 
 def getSKU(CustID):
+	"""Retrieves the SKU values for the customer ID input as an argument."""
+
     return dSKU[CustID]
 
 def getCCSales(CustID):
