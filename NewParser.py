@@ -41,30 +41,22 @@ def main():
 				#Checks if the user wants to print the sales for that day with cash or CC breakdwon
 				#Example command: report
 				elif inputList[element].lower() == 'report':
-					ReportCall1()
+					view.printReport(model.CashCC())
 				#Checks if the user want to print the sale for that day by client
 				#Example command: crm
 				elif inputList[element].lower() == 'crm':
-					CRM()
+					view.printCRM(model.sumSales())
 				#Example command: help
 				elif inputList[element].lower() == 'help':
 					view.printCommandList()
 				else:
 					view.printError()
 			
-			
 					
 						
 		  
 
-def ReportCall1():
-        #Call the Get functions from model and use the view functions to print a report
-		view.printReport(model.CashCC())
-
-
-def CRM():
-        #Call the Get functions from model and use the view functions to print a CRM Report
-		view.printCRM(model.sumSales())
+		
 
 
 def closeday(self,):
