@@ -56,14 +56,12 @@ def main():
 
 def ReportCall1():
         #Call the Get functions from model and use the view functions to print a report
-		cash = model.CashCC()
-		view.printReport(cash)
+		view.printReport(model.CashCC())
 	
 
 def CRM():
         #Call the Get functions from model and use the view functions to print a CRM Report
-		total = model.sumSales()
-		view.printCRM(total)
+		view.printCRM(model.sumSales())
 			
 
 def closeday(self,):
