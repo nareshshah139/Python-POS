@@ -18,8 +18,11 @@ dSKU = {}
 # Values must be 0 or 1
 dCC = {2:[1],5:[0,1]}
 
-Customers = set()
+# Dictionary of total sales by customer ID
+# values must be floats
+dCustSales = {}
 
+Customers = set()
 
 
 def setSales(id,sales):
@@ -32,6 +35,7 @@ setSales(2,3)
 print(dSales)
 
 def setSKU(id,SKU):
+"""Adds the SKU """
     dSKU.setdefault(id, []).append(SKU)
 
 
@@ -52,9 +56,12 @@ def setCustID(CustID):
 
 
 def getSales(CustID):
+	"""Retrieves the sales values for the customer ID input as an argument."""
 	return dSales[CustID]
 
 def getSKU(CustID):
+	"""Retrieves the SKU values for the customer ID input as an argument."""
+
     return dSKU[CustID]
 
 def getCCSales(CustID):
@@ -67,6 +74,7 @@ def getName(CustID):
 def getCustID():
 	return CustID
 
+# change name to closeDay()
 def sumSales():
 	tot = 0
 	for key, value in dSales.items():
@@ -77,6 +85,7 @@ def sumSales():
 
 sumSales()
 
+# change name to report()
 def CashCC():
 	totCC = 0
 	totCash = 0
@@ -88,4 +97,23 @@ def CashCC():
 				totCash = totCash + (dSales[key])[value.index(i)]
 	return (totCC, totCash)
 
-print( CashCC())
+CashCC()
+
+{custID123: [123,8 0, 100, 12]}
+
+
+def crm():
+    totCust = 0
+    for key, value in dSales.items():
+        purchase = value
+        totCust = sum(purchase)
+        dCustSales.update({key:totCust})
+    return dCustSales
+
+crm()
+
+
+
+
+
+
