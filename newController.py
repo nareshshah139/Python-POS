@@ -1,12 +1,12 @@
 
 import random
-import View
-import Model
+import View as view
+import Model as model
 
 def main():
 	temp = 0
 	while(temp!=1):
-		userinput = input("Please Enter a command")
+		userinput = input("Please Enter a command > ")
 		#Parser starts here
 		inputList = []
 		inputList = userinput.split()
@@ -99,7 +99,5 @@ def CRM():
 def closeday(self,):
     #Close the program and aggregate values in the list. Call get functions from model to do this
 	printCloseSales()
-
-
 
 main()

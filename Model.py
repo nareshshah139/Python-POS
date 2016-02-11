@@ -62,13 +62,13 @@ def getCCSales(CustID):
 
 def getName(CustID):
     return dName(CustID)
-    
-	
+
+
 def getCustID():
 	return CustID
-	
+
 def sumSales():
-	tot = 0 
+	tot = 0
 	for key, value in dSales.items():
 		a = value
 		b = sum(a)
@@ -85,7 +85,7 @@ def CashCC():
 			if i == 1:
 				totCC = totCC + (dSales[key])[value.index(i)]
 			else :
-				totCash = totCash + (dSales[key])[value.index(i)] 
+				totCash = totCash + (dSales[key])[value.index(i)]
 	return (totCC, totCash)
 
 print( CashCC())

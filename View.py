@@ -3,6 +3,9 @@ def inputPurchase():
     purchase = input("Please input purchase variables: ")
     return purchase
 
+def printError():
+    print("The input you provided is incorrect")
+
 def printCRM(crm):
     """Use this function to print out a summary of the CRM function"""
     #Define how to print aggregated values
