@@ -1,4 +1,6 @@
 # Python-POS
 
-Please choose which part you will work on using Issues
-I have provided a skeleton code for the POS program. I will start working on the Controller.
+Things to start thinking about for submission #2:
+1. File handling, storage and reopening
+2. Error Logging and removing all prints
+3. GUI Interface
