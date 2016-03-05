@@ -9,40 +9,42 @@ import time
 #Start by connecting to the pos.db database
 conn = sqlite3.connect('pos.db')
 c = conn.cursor()
-
-
+# MAKE SURE CONN AND C EXIST IN VIEW IF INTERACTING WITH SQLITE
 
 # Create the sales table if it does not exist
-c.execute('''CREATE TABLE IF NOT EXISTS sales (
-	SaleIDcol INTEGER, 
-	CustIDcol VARCHAR(9), 
-	CCcol BOOLEAN, 
-	SKUcol VARCHAR(9), 
-	Salescol FLOAT(9), 
-	Datecol DATE 
-	PRIMARY KEY (SaleIDcol)
-	FOREIGN KEY (CustIDcol)
-	REFERENCES customers (CustIDcol)
-	FOREIGN KEY (SKUcol)
-	REFERENCES products (SKUcol)
-	)''')
-conn.commit()
+def salesTable():
+	c.execute('''CREATE TABLE IF NOT EXISTS sales (
+		SaleIDcol INTEGER, 
+		CustIDcol VARCHAR(9), 
+		CCcol BOOLEAN, 
+		SKUcol VARCHAR(9), 
+		Salescol FLOAT(9), 
+		Datecol DATE 
+		PRIMARY KEY (SaleIDcol)
+		FOREIGN KEY (CustIDcol)
+		REFERENCES customers (CustIDcol)
+		FOREIGN KEY (SKUcol)
+		REFERENCES products (SKUcol)
+		)''')
+	conn.commit()
 
 # Create the customers table if it does not exist
-c.execute('''CREATE TABLE IF NOT EXISTS customers (
-	CustIDcol VARCHAR(9), 
-	Namecol VARCHAR(20), 
-	PRIMARY KEY (CustIDcol)
-	)''')
-conn.commit()
+def customersTable():
+	c.execute('''CREATE TABLE IF NOT EXISTS customers (
+		CustIDcol VARCHAR(9), 
+		Namecol VARCHAR(20), 
+		PRIMARY KEY (CustIDcol)
+		)''')
+	conn.commit()
 
 # Create the products table if it does not exist
-c.execute('''CREATE TABLE IF NOT EXISTS products (
-	SKUcol VARCHAR(9), 
-	Productcol VARCHAR(20), 
-	PRIMARY KEY (SKUcol)
-	)''')
-conn.commit()
+def productsTable():
+	c.execute('''CREATE TABLE IF NOT EXISTS products (
+		SKUcol VARCHAR(9), 
+		Productcol VARCHAR(20), 
+		PRIMARY KEY (SKUcol)
+		)''')
+	conn.commit()
 
 
 
@@ -115,7 +117,6 @@ class Product(object):
 # Definition of the POS class
 class POS(object):
 	POScount = 0
-
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
 	def __init__(self, CustID, CC=0, SKU, sales, date):
