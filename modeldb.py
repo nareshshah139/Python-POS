@@ -3,8 +3,8 @@
 import sqlite3
 import time
 
-from datetime import date
-d = date.fromordinal(100)
+#from datetime import date
+#d = date.fromordinal(100)
 
 #Start by connecting to the pos.db database
 conn = sqlite3.connect('pos.db')
@@ -54,17 +54,19 @@ class Customer(object):
 			self.date
 			)''')
 
+#Customer.custDBpush(New_Cust_Name)
+
 
 # Definition of the POS class
 class POS(object):
-	totalSales = 0
+	POScount = 0
 	date = d
 
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
-	def _init_(self, CustID, Name, CC, SKU, sales):
+	def _init_(self, CustID, CC=0, SKU, sales):
 #		self.SaleID =  totalSales + 1
-		self.SaleID = c.execute('''SELECT MAX(SaleID) FROM sales''') + 1
+		self.SaleID = c.execute('''SELECT MAX(SaleIDcol) FROM sales''') + 1
 		POS.totalSales +=1
 
 		self.CustID = CustID
@@ -74,14 +76,13 @@ class POS(object):
 		self.CC = CC
 		self.SKU = SKU
 		self.sales = sales
-		self.date = pos.date
+		self.date = POS.date
 
 # The insertDB method inserts the pos information into the sqlite database
-	def insertDB(self):
+	def submitPOS(self):
 		c.execute('''INSERT INTO sales VALUES (
 			self.SaleID,
 			self.CustID,
-			self.Name,
 			self.CC,
 			self.SKU,
 			self.sales,
@@ -90,7 +91,8 @@ class POS(object):
 
 	def closeDay():
 		"""Closes the books for the day."""
-		pos.day +=1 
+		pos.date +=1
+
 		print("The day has been closed and books reset for tomorrow. Have a nice night! Don't drink and drive.")
 
 
