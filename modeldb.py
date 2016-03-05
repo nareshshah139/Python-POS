@@ -24,6 +24,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS sales (
 	FOREIGN KEY (CustIDcol)
 	REFERENCES customers (CustIDcol)
 	)''')
+conn.commit()
 
 
 
@@ -32,6 +33,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS customers (
 	Namecol VARCHAR(20), 
 	PRIMARY KEY (CustIDcol)
 	)''')
+conn.commit()
 
 
 # Definition of the customer class
@@ -39,20 +41,20 @@ c.execute('''CREATE TABLE IF NOT EXISTS customers (
 class Customer(object):
 	totalCustomers = 0
 	currentID = 100000000
-	date = d
 
-	def _init_(self, Name):
+	def _init_(self, Name, date):
 		self.CustID = currentID
 		Customer.currentID +=1
 		self.Name = Name
-		self.date = Customer.date
+		self.date = date
 
-	def custDBpush(self):
+	def push(self):
 		c.execute('''INSERT INTO customers VALUES (
 			self.CustID,
 			self.Name,
 			self.date
 			)''')
+		conn.commit()
 
 #Customer.custDBpush(New_Cust_Name)
 
@@ -60,11 +62,10 @@ class Customer(object):
 # Definition of the POS class
 class POS(object):
 	POScount = 0
-	date = d
 
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
-	def _init_(self, CustID, CC=0, SKU, sales):
+	def _init_(self, CustID, CC=0, SKU, sales, date):
 #		self.SaleID =  totalSales + 1
 		self.SaleID = c.execute('''SELECT MAX(SaleIDcol) FROM sales''') + 1
 		POS.totalSales +=1
@@ -72,14 +73,13 @@ class POS(object):
 		self.CustID = CustID
 #		if CustID NOT IN customers table, then print("must  create new customer")
 
-		self.Name = Name
 		self.CC = CC
 		self.SKU = SKU
 		self.sales = sales
-		self.date = POS.date
+		self.date = date
 
 # The insertDB method inserts the pos information into the sqlite database
-	def submitPOS(self):
+	def submit(self):
 		c.execute('''INSERT INTO sales VALUES (
 			self.SaleID,
 			self.CustID,
@@ -88,28 +88,15 @@ class POS(object):
 			self.sales,
 			self.date
 			)''')
+		conn.commit()
+
+
+
 
 	def closeDay():
 		"""Closes the books for the day."""
-		pos.date +=1
-
-		print("The day has been closed and books reset for tomorrow. Have a nice night! Don't drink and drive.")
-
-
-
-#transaction.addSaleDB()
-
-
-
-
-
-
-
-# SAVE CHANGES TO DB
-#conn.commit()
-
-# CLOSE THE DB
-#conn.close()
+		conn.commit()
+		conn.close()
 
 
 
