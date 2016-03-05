@@ -24,21 +24,16 @@ dCustSales = {}
 
 Customers = set()
 
-
 def setSales(id,sales):
     #Add Sales to the list in the dictionary
     dSales.setdefault(id, []).append(sales)
     
     
-
-
 print(dSales)
 
 def setSKU(id,SKU):
 	dSKU.setdefault(id, []).append(SKU)
 	
-
-
 
 def setCC(id,CC):
     dCC.setdefault(id,[]).append(CC)

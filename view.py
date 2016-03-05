@@ -38,9 +38,9 @@ def idMatch():
     
 def intro():
 	print("Welcome to Noob_POS1977\n"
-"Possible Inputs:\n"
-"1.Sale AMOUNT SKU:NUMBER CC or leave blank for cash payment ID:NUMBER \n"
-"2.Customer NAME ID:123456789 - to create a new customer, checks whether your ID is taken already.\n"
-"3.CRM - to print breakdown of sales per client. \n"
-"4.Report - to print Sales for the day with a cash vs Credit Card breakdown. \n"
-"5.Close Day - to clear the books and end your day. \n")
+    "Possible Inputs:\n"
+    "1.Sale AMOUNT SKU:NUMBER CC or leave blank for cash payment ID:NUMBER \n"
+    "2.Customer NAME ID:123456789 - to create a new customer, checks whether your ID is taken already.\n"
+    "3.CRM - to print breakdown of sales per client. \n"
+    "4.Report - to print Sales for the day with a cash vs Credit Card breakdown. \n"
+    "5.Close Day - to clear the books and end your day. \n")
