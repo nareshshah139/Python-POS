@@ -12,7 +12,7 @@ c = conn.cursor()
 
 
 
-# Create the table if it does not exists
+# Create the sales table if it does not exist
 c.execute('''CREATE TABLE IF NOT EXISTS sales (
 	SaleIDcol INTEGER, 
 	CustIDcol VARCHAR(9), 
@@ -23,11 +23,12 @@ c.execute('''CREATE TABLE IF NOT EXISTS sales (
 	PRIMARY KEY (SaleIDcol)
 	FOREIGN KEY (CustIDcol)
 	REFERENCES customers (CustIDcol)
+	FOREIGN KEY (SKUcol)
+	REFERENCES products (SKUcol)
 	)''')
 conn.commit()
 
-
-
+# Create the customers table if it does not exist
 c.execute('''CREATE TABLE IF NOT EXISTS customers (
 	CustIDcol VARCHAR(9), 
 	Namecol VARCHAR(20), 
@@ -35,19 +36,49 @@ c.execute('''CREATE TABLE IF NOT EXISTS customers (
 	)''')
 conn.commit()
 
+# Create the products table if it does not exist
+c.execute('''CREATE TABLE IF NOT EXISTS products (
+	SKUcol VARCHAR(9), 
+	Productcol VARCHAR(20), 
+	PRIMARY KEY (SKUcol)
+	)''')
+conn.commit()
 
-# Definition of the customer class
+
+
+# Definition of the Customer class
 # Only created when CustID not found in customers table
 class Customer(object):
 	totalCustomers = 0
 	currentID = 100000000
 
-	def _init_(self, Name, date):
+	def __init__(self, Name, date):
 		self.CustID = currentID
 		Customer.currentID +=1
 		self.Name = Name
 		self.date = date
 
+# check if custID exists in the customers table
+	def checkCustID(self):
+		"""checks if custID exists in the customers table"""
+		c.execute('''SELECT CustIDcol FROM customers''')
+		custIDtuple = c.fetchone()
+		if self.CustID in  custIDtuple:
+			True
+		else:
+			False
+
+# check if sale is negative or not a number
+	def checkSale(self):
+		try:
+			if self.Sale > 0 : 
+				return True
+			elif:
+				return False
+		except:
+			return False
+
+# Push customer object to the sqlite database
 	def push(self):
 		c.execute('''INSERT INTO customers VALUES (
 			self.CustID,
@@ -56,7 +87,23 @@ class Customer(object):
 			)''')
 		conn.commit()
 
-#Customer.custDBpush(New_Cust_Name)
+
+# Definition of the Product class
+class Product(object):
+	countProducts = 0
+
+	def __init__(self, SKU):
+		Product.countProducts +=1
+		self.SKU = SKU
+
+# get unique items from the database	
+	def getItems(self):
+		c.execute('''SELECT SKUcol, Productcol FROM products''')
+		tupleSKU = c.fetchone()
+		return tupleSKU
+
+
+
 
 
 # Definition of the POS class
@@ -65,7 +112,7 @@ class POS(object):
 
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
-	def _init_(self, CustID, CC=0, SKU, sales, date):
+	def __init__(self, CustID, CC=0, SKU, sales, date):
 #		self.SaleID =  totalSales + 1
 		self.SaleID = c.execute('''SELECT MAX(SaleIDcol) FROM sales''') + 1
 		POS.totalSales +=1
@@ -92,11 +139,11 @@ class POS(object):
 
 
 
-
-	def closeDay():
-		"""Closes the books for the day."""
-		conn.commit()
-		conn.close()
+# Save and close the database.
+def closeDay():
+	"""Closes the books for the day."""
+	conn.commit()
+	conn.close()
 
 
 
