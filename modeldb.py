@@ -102,7 +102,13 @@ class Product(object):
 		tupleSKU = c.fetchone()
 		return tupleSKU
 
-
+# Add products to the database
+	def setItems(self, SKU, Product):
+		c.execute('''INSERT INTO products VALUES (
+			self.SKU,
+			self.Product
+			)''')
+		conn.commit()
 
 
 
