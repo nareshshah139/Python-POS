@@ -75,7 +75,7 @@ class Customer(object):
 		try:
 			if self.Sale > 0 : 
 				return True
-			elif:
+			else:
 				return False
 		except:
 			return False
@@ -119,7 +119,7 @@ class POS(object):
 	POScount = 0
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
-	def __init__(self, CustID, CC=0, SKU, sales, date):
+	def __init__(self, CustID, CC, SKU, sales, date):
 #		self.SaleID =  totalSales + 1
 		self.SaleID = c.execute('''SELECT MAX(SaleIDcol) FROM sales''') + 1
 		POS.totalSales +=1
