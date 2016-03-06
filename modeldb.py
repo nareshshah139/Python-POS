@@ -11,8 +11,9 @@ conn = sqlite3.connect('pos.db')
 c = conn.cursor()
 # MAKE SURE CONN AND C EXIST IN VIEW IF INTERACTING WITH SQLITE
 
-# Create the sales table if it does not exist
 def salesTable():
+	'''Creates the sales table in the sqlite database
+	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS sales (
 		SaleIDcol INTEGER, 
 		CustIDcol VARCHAR(9), 
@@ -28,8 +29,9 @@ def salesTable():
 		)''')
 	conn.commit()
 
-# Create the customers table if it does not exist
 def customersTable():
+	'''Creates the customers table in the sqlite database
+	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
 		CustIDcol VARCHAR(9), 
 		Namecol VARCHAR(20), 
@@ -37,8 +39,9 @@ def customersTable():
 		)''')
 	conn.commit()
 
-# Create the products table if it does not exist
 def productsTable():
+	'''Creates the products table in the sqlite database
+	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS products (
 		SKUcol VARCHAR(9), 
 		Productcol VARCHAR(20), 
@@ -55,14 +58,14 @@ class Customer(object):
 	currentID = 100000000
 
 	def __init__(self, Name, date):
+	'''Create a new instance of a Customer.'''
 		self.CustID = currentID
 		Customer.currentID +=1
 		self.Name = Name
 		self.date = date
 
-# check if custID exists in the customers table
 	def checkCustID(self):
-		"""checks if custID exists in the customers table"""
+		'''Checks if custID exists in the customers table.'''
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchone()
 		if self.CustID in  custIDtuple:
@@ -70,8 +73,8 @@ class Customer(object):
 		else:
 			False
 
-# check if sale is negative or not a number
 	def checkSale(self):
+		'''Checks if the sale amount is a number greater than 0.'''
 		try:
 			if self.Sale > 0 : 
 				return True
@@ -80,8 +83,9 @@ class Customer(object):
 		except:
 			return False
 
-# Push customer object to the sqlite database
 	def push(self):
+		'''Adds a row in the customers table with the information
+		from the customer provided as an argument.'''
 		c.execute('''INSERT INTO customers VALUES (
 			self.CustID,
 			self.Name,
@@ -90,22 +94,23 @@ class Customer(object):
 		conn.commit()
 
 
-# Definition of the Product class
 class Product(object):
 	countProducts = 0
 
 	def __init__(self, SKU):
+		'''Creates a new instance of a Product.'''
 		Product.countProducts +=1
 		self.SKU = SKU
 
-# get unique items from the database	
 	def getItems(self):
+		'''Returns the list of products available, as stored in the products table.'''
 		c.execute('''SELECT SKUcol, Productcol FROM products''')
 		tupleSKU = c.fetchone()
 		return tupleSKU
 
-# Add products to the database
-	def setItems(self, SKU, Product):
+	def setItems(self):
+		'''Adds a row in the Products table with the information
+		from the product provided as an argument.'''
 		c.execute('''INSERT INTO products VALUES (
 			self.SKU,
 			self.Product
@@ -120,13 +125,11 @@ class POS(object):
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
 	def __init__(self, CustID, CC, SKU, sales, date):
-#		self.SaleID =  totalSales + 1
+		'''Creates a new instance of a POS (sales transaction).'''
 		self.SaleID = c.execute('''SELECT MAX(SaleIDcol) FROM sales''') + 1
 		POS.totalSales +=1
-
 		self.CustID = CustID
 #		if CustID NOT IN customers table, then print("must  create new customer")
-
 		self.CC = CC
 		self.SKU = SKU
 		self.sales = sales
@@ -134,6 +137,8 @@ class POS(object):
 
 # The insertDB method inserts the pos information into the sqlite database
 	def submit(self):
+		'''Adds a row in the sales table with the information
+		from the POS provided as an argument.'''
 		c.execute('''INSERT INTO sales VALUES (
 			self.SaleID,
 			self.CustID,
