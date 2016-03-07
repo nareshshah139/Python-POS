@@ -31,15 +31,12 @@ def load_data_sql():
 
 
 
-
-
-
 def callback():
     print('Button Clicked')
 
 def callback1():
-    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
     print(CC.get())
+    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
     Controllerv2.newsalebutton(list1)
 
 def printerrors():
