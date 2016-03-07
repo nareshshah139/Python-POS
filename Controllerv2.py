@@ -72,26 +72,27 @@ def main():
 	Modelv2.productsTable()
 
 
-	Modelv2.Product.setItems("abc123456","Vacuum cleaner")
-	Modelv2.Product.setItems("abc123457","Radio")
-	Modelv2.Product.setItems("abc123458","Television")
-	Modelv2.Product.setItems("abc123459","Laptop")
-	Modelv2.Product.setItems("abc123450","Desktop")
+#	Modelv2.Product.setItems("abc123456","Vacuum cleaner")
+#	Modelv2.Product.setItems("abc123457","Radio")
+#	Modelv2.Product.setItems("abc123458","Television")
+#	Modelv2.Product.setItems("abc123459","Laptop")
+#	Modelv2.Product.setItems("abc123450","Desktop")
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
 
 def newsalebutton():
-	grv = Viewv2.returnvalues()
-
+	grv = Viewv2.returnValues()
+	print(grv)
 # should we check for negative numbers, etc. here before pushing?
+# check if CustID exists
 	try:
 		CustID = int(grv[0])
 		CC = int(grv[1])
 		SKU = grv[2]
 		sales = float(grv[3])
 		datePOS = grv[4]
-
+		print(CustID, CC, SKU, sales, datePOS)
 		hold = POS(CustID, CC, SKU, sales, datePOS)
 		hold.submit()
 	except:
