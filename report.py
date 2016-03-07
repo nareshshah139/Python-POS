@@ -2,17 +2,18 @@
 import sqlite3
 import pandas as pd
 import matplotlib as plt
-plt.style.use('ggplot')
+#plt.style.use('ggplot')
 import numpy as np
 import os
+import modeldb as Modelv2
 
 #get table from SQL once DB is set up to build the tables and graphs below
 #Probably need to fix the sql query
 def load_data_sql():
-    connection = sqlite3.connect("pos.db")
-    df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",connection)
+    conn = sqlite3.connect("pos.db")
+    df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",conn)
     return(df)
-load_data_sql()
+#load_data_sql()
 
 #test array
 transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
@@ -27,20 +28,22 @@ transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 
 #create df from .csv files and insert into sales, customer and sku table
 #jonas
+"""
 def write_data_sql():
     connection = sqlit3.connect("pos.db")
     sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
     sales_table.to_sql("sales", connection)
+"""
 
 
 def write_data_sql():
-    connection = sqlit3.connect("pos.db")
+    conn = sqlite3.connect("pos.db")
     sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
-    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0) #specify path
-    sku_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0) #specify path
-    sales_table.to_sql("sales", connection)
-    customer_table.to_sql("customer", connection)
-    sku_table.to_sql("sku", connection)
+    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0) #specify path
+    sku_table = pd.DataFrame.from_csv(os.getcwd()+"/products.csv",sep=";",header=0) #specify path
+    sales_table.to_sql(Modelv2.sales, conn)
+    customer_table.to_sql(Modelv2.customers, conn)
+    sku_table.to_sql(Modelv2.products, conn)
 write_data_sql()
 
 # Create pandas dataframe from graph array with additional variable creation
