@@ -54,7 +54,7 @@ class Customer(object):
 
 	def __init__(self, Name, date):
 		'''Create a new instance of a Customer.'''
-		self.CustID = currentID
+		CustID = Customer.currentID
 		Customer.currentID +=1
 		self.Name = Name
 		self.date = date
@@ -87,6 +87,7 @@ class Product(object):
 
 
 # Add products to the database
+
 	@staticmethod
 	def setItems(SKU, Product):
 		'''Adds a row in the Products table with the information

@@ -4,7 +4,7 @@ import modeldb as Modelv2
 import sqlite3
 
 #import Viewv2
-
+"""
 def formatError():
 	return "Sorry, wrong format."
 
@@ -53,7 +53,7 @@ def checkSales():
 			return noSale()
 	except:
 		formatError()
-
+"""
 
 def main():
 
