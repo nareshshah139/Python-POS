@@ -2,9 +2,8 @@
 
 import modeldb as Modelv2
 import sqlite3
+import Viewv2
 
-#import Viewv2
-"""
 def formatError():
 	return "Sorry, wrong format."
 
@@ -14,46 +13,53 @@ def noSale():
 def bigspender():
 	return "Are you sure? Toilet paper doesn't cost $400..."
 
-def notnewcust():
+def notcust():
 	return "Sorry, we don't recognize your ID. Please create a new customer."
+
+
+
 
 def checkCC():
 	try:
-		if int(griv[0]) == 1:
-			pass
-		elif int(griv[1]) ==0:
-			pass
+		if int(grv[1]) == 1:
+			return ""
+		elif int(grv[1]) ==0:
+			return ""
 		else:
-			formatError()
+			return formatError()
 	except:
-		formatError()
+		return formatError()
 
 
 def checkC_ID():
 	try:
-		ccid = int(griv[1])
-		
-		c.execute('''SELECT CustIDcol FROM customers''')
-		custIDtuple = c.fetchone()
-		if ccid in  custIDtuple:
-			pass
-		else:
-			notnewcust()
+		ccid = int(grv[1])
+		return ""
+#		c.execute('''SELECT CustIDcol FROM customers''')
+#		custIDtuple = c.fetchone()
+#		if ccid in  custIDtuple:
+#			return ""
+#		else:
+#			return notcust()
 	except:
-		formatError()
+		return formatError()
 
 	
 def checkSales():
 	try:
-		if int(griv[3]) > 0 : 
-			pass
-		elif int(griv[3]) > 400:
+		if int(grv[3]) > 0 : 
+			return ""
+		elif int(grv[3]) > 400:
 			return bigspender()
 		else:
 			return noSale()
 	except:
-		formatError()
-"""
+		return formatError()
+
+def allerrors(): 
+	'''collects a list of all the errors'''
+	return checkCC() + "\n" + checkC_ID() + "\n" + checkSales()
+
 
 def main():
 
@@ -73,44 +79,37 @@ def main():
 	Modelv2.Product.setItems("abc123450","Desktop")
 
 
+# GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
+
+def newsalebutton():
+	grv = Viewv2.returnvalues()
+
+# should we check for negative numbers, etc. here before pushing?
+	try:
+		CustID = int(grv[0])
+		CC = int(grv[1])
+		SKU = grv[2]
+		sales = float(grv[3])
+		datePOS = grv[4]
+
+		hold = POS(CustID, CC, SKU, sales, datePOS)
+		hold.submit()
+	except:
+		pass
 
 
-# Launch GUI with gui() function?
-	#Viewv2.gui()
+# GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB
+def newcustbutton():
+	clist = Viewv2.newcustinfo()
+	try:
+		name = clist[0]
+		dateCV = clist[1]
+		cnew = Customer(name,dateCV)
+		cnew.push()
+	except:
+		pass
+
+
 
 main()
 
-a = Modelv2.POS(50,1,"abc123456",30,"12/10/2015")
-a.submit()
-
-"""
-=======
-# Start by connecting to SQLite database and creating the tables for Sales, Customers and Products
-	Modelv2.salesTable()
-	Modelv2.customersTable()
-	Modelv2.productsTable()
-
-	grv = Viewv2.returnvalues()
-
-	checkCC()
-	checkC_ID()
-	checkSales()
-
-	CustID = int(grv[0])
-	CC = int(grv[1])
-	SKU = grv[2]
-	sales = float(griv[3])
-	datePOS = grv[4]
-	dateCV = grv[5]
-
-	hold = POS(CustID, CC, SKU, sales, datePOS)
-	hold.submit()
-
-
-
-
-
-#main()
-
->>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
-"""

@@ -62,11 +62,7 @@ class Customer(object):
 	def push(self):
 		'''Adds a row in the customers table with the information
 		from the customer provided as an argument.'''
-		c.execute('''INSERT INTO customers VALUES (
-			self.CustID,
-			self.Name,
-			self.date
-			)''')
+		c.execute('''INSERT INTO customers VALUES (?,?,?)''', (self.CustID, self.Name, self.date))
 		conn.commit()
 
 
@@ -134,13 +130,12 @@ class POS(object):
 
 
 
-
-
 # Save and close the database.
 def closeDay():
 	"""Closes the books for the day."""
 	conn.commit()
 	conn.close()
+
 
 
 

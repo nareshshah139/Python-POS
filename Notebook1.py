@@ -133,11 +133,11 @@ Label(f5_POS,text = 'Current Date').pack(side = LEFT)
 Label(f5_POS,text = time.strftime("%d/%m/%Y")).pack(side = LEFT, padx = 5)
 Date_POS_Var = time.strftime("%d/%m/%Y")
 
-<<<<<<< Updated upstream
+f7_POS = Frame(POSView)
+f7_POS.pack(fill=X)
+label(f7_POS, text = allerrors()).pack(side= LEFT)
 
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
+
 f6_POS = Frame(POSView)
 f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback).pack()
@@ -181,124 +181,13 @@ toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
-def returnValues():
-    return [CC,C_ID_Var,SKU_Var,Sales_Var,Date_POS_Var]
-        
-<<<<<<< Updated upstream
-
-# CC Variable is CC
-# CustomerID Variable is C_ID_Var
-# SKU Variable is SKU_Var
-# Sales Variable is Sales_Var
-# Date Variable in POS is Date_POS_Var
-
 
 def returnvalues():
-	return [CC, C_ID_Var, SKU_Var, Sales_Var, Date_POS_Var, Date_CV_Var]
+	return [CC, C_ID_Var, SKU_Var, Sales_Var, Date_POS_Var]
+
+def newcustinfo():
+	return [C_Name_Var, Date_CV_Var]
 
 
 
 
-=======
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-
-
-
-
-
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
-##class CustomerView(tk.Frame):
-##
-##    def __init__(self, parent, controller):
-##        tk.Frame.__init__(self, parent)
-##        label = tk.Label(self, text="Page One!!!", font=LARGE_FONT)
-##        label.pack(pady=10,padx=10)
-##
-##        button1 = ttk.Button(self, text="Back to Home",
-##                            command=lambda: controller.show_frame(StartPage))
-##        button1.pack()
-##
-##        button2 = ttk.Button(self, text="Page Two",
-##                            command=lambda: controller.show_frame(PageTwo))
-##        button2.pack()
-##
-##
-##class SalesView(tk.Frame):
-##
-##    def __init__(self, parent, controller):
-##        tk.Frame.__init__(self, parent)
-##        label = tk.Label(self, text="Page One!!!", font=LARGE_FONT)
-##        label.pack(pady=10,padx=10)
-##
-##        button1 = ttk.Button(self, text="Back to Home",
-##                            command=lambda: controller.show_frame(StartPage))
-##        button1.pack()
-##
-##        button2 = ttk.Button(self, text="Page Two",
-##                            command=lambda: controller.show_frame(PageTwo))
-##        button2.pack()
-##
-##class POSView(tk.Frame):
-##
-##    def __init__(self, parent, controller):
-##        tk.Frame.__init__(self, parent)
-##        label = tk.Label(self, text="Page One!!!", font=LARGE_FONT)
-##        label.pack(pady=10,padx=10)
-##
-##        button1 = ttk.Button(self, text="Back to Home",
-##                            command=lambda: controller.show_frame(StartPage))
-##        button1.pack()
-##
-##        button2 = ttk.Button(self, text="Page Two",
-##                            command=lambda: controller.show_frame(PageTwo))
-##        button2.pack()
-##
-##
-##class SKUView(tk.Frame):
-##
-##    def __init__(self, parent, controller):
-##        tk.Frame.__init__(self, parent)
-##        label = tk.Label(self, text="Page Two!!!", font=LARGE_FONT)
-##        label.pack(pady=10,padx=10)
-##
-##        button1 = ttk.Button(self, text="Back to Home",
-##                            command=lambda: controller.show_frame(StartPage))
-##        button1.pack()
-##
-##        button2 = ttk.Button(self, text="Page One",
-##                            command=lambda: controller.show_frame(PageOne))
-##        button2.pack()
-##
-##
-##class ReportView(tk.Frame):
-##
-##    def __init__(self, parent, controller):
-##        tk.Frame.__init__(self, parent)
-##        label = tk.Label(self, text="Graph Page!", font=LARGE_FONT)
-##        label.pack(pady=10,padx=10)
-##
-##        button1 = ttk.Button(self, text="Back to Home",
-##                            command=lambda: controller.show_frame(StartPage))
-##        button1.pack()
-##
-##        f = Figure(figsize=(5,5), dpi=100)
-##        a = f.add_subplot(111)
-##        a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
-##
-##
-##
-##        canvas = FigureCanvasTkAgg(f, self)
-##        canvas.show()
-##        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-##
-##        toolbar = NavigationToolbar2TkAgg(canvas, self)
-##        toolbar.update()
-##        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-##
->>>>>>> Stashed changes
->>>>>>> Stashed changes
