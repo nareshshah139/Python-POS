@@ -180,3 +180,22 @@ canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 def returnValues():
     return [CC,C_ID_Var,SKU_Var,Sales_Var,Date_POS_Var]
         
+
+# CC Variable is CC
+# CustomerID Variable is C_ID_Var
+# SKU Variable is SKU_Var
+# Sales Variable is Sales_Var
+# Date Variable in POS is Date_POS_Var
+
+
+def returnvalues():
+	return [CC, C_ID_Var, SKU_Var, Sales_Var, Date_POS_Var, Date_CV_Var]
+
+
+
+
+
+
+
+
+
