@@ -84,11 +84,6 @@ class Product(object):
 		tupleSKU = c.fetchall()
 		return tupleSKU
 
-<<<<<<< HEAD
-
-# Add products to the database
-=======
->>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
 	@staticmethod
 	def setItems(SKU, Product):
 		'''Adds a row in the Products table with the information
@@ -125,14 +120,14 @@ class POS(object):
 	def submit(self):
 		'''Adds a row in the sales table with the information
 		from the POS provided as an argument.'''
-		c.execute('''INSERT INTO sales VALUES (
-			self.SaleID,
-			self.CustID,
-			self.CC,
-			self.SKU,
-			self.sales,
-			self.date
-			)''')
+		a = self.SaleID
+		b = self.CustID
+		c = self.CC
+		d = self.SKU
+		e = self.sales
+		f = self.date
+
+		c.execute('''INSERT INTO sales VALUES (a, b, c, d, e, f )''')
 		conn.commit()
 
 	@staticmethod
