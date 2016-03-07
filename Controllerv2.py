@@ -72,7 +72,7 @@ def main():
 	Modelv2.Product.setItems("abc123459","Laptop")
 	Modelv2.Product.setItems("abc123450","Desktop")
 
-<<<<<<< HEAD
+
 
 
 # Launch GUI with gui() function?
@@ -80,8 +80,10 @@ def main():
 
 main()
 
-Modelv2.POS.submit(50,1,"abc123456",30,"12/10/2015")
-	
+a = Modelv2.POS(50,1,"abc123456",30,"12/10/2015")
+a.submit()
+
+"""
 =======
 # Start by connecting to SQLite database and creating the tables for Sales, Customers and Products
 	Modelv2.salesTable()
@@ -111,3 +113,4 @@ Modelv2.POS.submit(50,1,"abc123456",30,"12/10/2015")
 #main()
 
 >>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
+"""

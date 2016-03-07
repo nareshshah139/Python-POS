@@ -84,36 +84,27 @@ class Product(object):
 		tupleSKU = c.fetchall()
 		return tupleSKU
 
-<<<<<<< HEAD
+
 
 # Add products to the database
-=======
->>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
 	@staticmethod
 	def setItems(SKU, Product):
 		'''Adds a row in the Products table with the information
 		from the product provided as an argument.'''
-<<<<<<< HEAD
 		c.execute("insert into products values (?, ?)", (SKU, Product))
-=======
-		c.execute('''INSERT INTO products VALUES (
-			self.SKU,
-			self.Product
-			)''')
->>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
 		conn.commit()
+
 
 
 
 # Definition of the POS class
 class POS(object):
-	POScount = 0
+	maxSaleID = 0
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
 	def __init__(self, CustID, CC, SKU, sales, date):
 		'''Creates a new instance of a POS (sales transaction).'''
-		self.SaleID = c.execute('''SELECT MAX(SaleIDcol) FROM sales''') + 1
-		POS.totalSales +=1
+		POS.maxSaleID += 1
 		self.CustID = CustID
 #		if CustID NOT IN customers table, then print("must  create new customer")
 		self.CC = CC
@@ -125,20 +116,23 @@ class POS(object):
 	def submit(self):
 		'''Adds a row in the sales table with the information
 		from the POS provided as an argument.'''
-		c.execute('''INSERT INTO sales VALUES (
-			self.SaleID,
+		c.execute("INSERT INTO sales VALUES (?,?,?,?,?,?)", (
+			POS.maxSaleID,
 			self.CustID,
 			self.CC,
 			self.SKU,
 			self.sales,
 			self.date
-			)''')
+			))
 		conn.commit()
 
 	@staticmethod
 	def getPosData():
 		df = c.execute("SELECT * FROM sales, customer LEFT JOIN sales.CustIDcol, customers.CustIDCol")
 		return(df)
+
+
+
 
 
 # Save and close the database.
