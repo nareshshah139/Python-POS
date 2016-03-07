@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 import time
 import pandas as pd
 import numpy as np
-import Controllerv2
+
 
 
 ## Creating Master Frame.
@@ -18,14 +18,11 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-
-# SHOULD NOT GO IN THE GUI
-# CONSISTENCY -- THIS AND/OR FETCH?
 #-----Fotis-----
-def load_data_sql():
-    connection = sqlite3.connect("pos.db")
-    df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
-    return(df)
+#def load_data_sql():
+#    connection = sqlite3.connect("pos.db")
+#    df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",connection)
+#    return(df)
 
 #load_data_sql()
 
@@ -34,6 +31,7 @@ def load_data_sql():
 def callback():
     print('Button Clicked')
 
+<<<<<<< Updated upstream
 def callback1():
     print(CC.get())
     list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
@@ -45,6 +43,8 @@ def printerrors():
 
 
 
+=======
+>>>>>>> Stashed changes
 graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'CustID':['123','123','124','125','122','123','123','124','125','122'],
 'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
@@ -116,11 +116,6 @@ def sku_overview():
     return sku_sales.head(5)
 
 
-
-    
-
-
-
 ##---- Fotis -----
     
 CustomerView = ttk.Frame(n)
@@ -179,6 +174,7 @@ Label(f1_POS,text = 'Customer ID').pack(side = LEFT)
 C_ID = Entry(f1_POS)
 C_ID.pack(fill = X,padx = 5, expand = TRUE)
 C_ID_Var = C_ID.get()
+C_ID.delete(0,END)
 
 f2_POS = Frame(POSView)
 f2_POS.pack(fill = X)
@@ -186,13 +182,13 @@ Label(f2_POS,text = 'Credit Card').pack(side = LEFT)
 CC = IntVar()
 Checkbutton(f2_POS, text="Yes?", variable=CC).pack(side = LEFT)
 
-
 f3_POS = Frame(POSView)
 f3_POS.pack(fill = X)
 Label(f3_POS,text = 'SKU').pack(side = LEFT)
 SKU = Entry(f3_POS)
 SKU.pack(fill = X,padx = 5, expand = TRUE)
 SKU_Var = SKU.get()
+SKU.delete(0,END)
 
 f4_POS = Frame(POSView)
 f4_POS.pack(fill = X)
@@ -200,6 +196,7 @@ Label(f4_POS,text = 'Sales Amount').pack(side = LEFT)
 Sales = Entry(f4_POS)
 Sales.pack(fill = X,padx = 5,expand = TRUE)
 Sales_Var = Sales.get()
+Sales.delete(0,END)
 
 f5_POS = Frame(POSView)
 f5_POS.pack(fill=X)
@@ -210,13 +207,7 @@ Date_POS_Var = time.strftime("%d/%m/%Y")
 
 f6_POS = Frame(POSView)
 f6_POS.pack(fill = X)
-B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
-
-#f7_POS = Frame(POSView)
-#f7_POS.pack(fill=X)
-#Label(f7_POS, text = printerrors()).pack(side= LEFT)
-
-
+B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback).pack()
 
 
 
@@ -268,11 +259,13 @@ toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
+<<<<<<< Updated upstream
 
+=======
+def returnValues():
+    return [CC,C_ID_Var,SKU_Var,Sales_Var,Date_POS_Var]
+>>>>>>> Stashed changes
 
-#C_ID.delete(0,END)
-#SKU.delete(0,END)
-#Sales.delete(0,END)
 
 
 
