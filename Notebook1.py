@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 import time
 import pandas as pd
 import numpy as np
-
+import Controllerv2 as con
 
 ## Creating Master Frame.
 root = Tk()
@@ -135,7 +135,7 @@ Date_POS_Var = time.strftime("%d/%m/%Y")
 
 f7_POS = Frame(POSView)
 f7_POS.pack(fill=X)
-label(f7_POS, text = allerrors()).pack(side= LEFT)
+Label(f7_POS, text = con.allerrors()).pack(side= LEFT)
 
 
 f6_POS = Frame(POSView)

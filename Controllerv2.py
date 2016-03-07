@@ -2,7 +2,7 @@
 
 import modeldb as Modelv2
 import sqlite3
-import Viewv2
+import Notebook1 as Viewv2
 
 def formatError():
 	return "Sorry, wrong format."
