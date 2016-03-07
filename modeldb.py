@@ -31,7 +31,8 @@ def customersTable():
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
 		CustIDcol VARCHAR(9), 
-		Namecol VARCHAR(20), 
+		Namecol VARCHAR(20),
+		Datecol VARCHAR(20),
 		PRIMARY KEY (CustIDcol)
 		)''')
 	conn.commit()
@@ -62,8 +63,14 @@ class Customer(object):
 	def push(self):
 		'''Adds a row in the customers table with the information
 		from the customer provided as an argument.'''
-		c.execute('''INSERT INTO customers VALUES (?,?,?)''', (self.CustID, self.Name, self.date))
+		c.execute('''INSERT INTO customers VALUES (?,?,?)''', (Customer.currentID, self.Name, self.date))
 		conn.commit()
+	@staticmethod
+	def checkCust():
+		c.execute('''SELECT CustIDcol FROM customers''')
+		custIDtuple = c.fetchall()
+		return custIDtuple
+
 
 
 class Product(object):
