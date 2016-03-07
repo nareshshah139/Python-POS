@@ -9,12 +9,13 @@ import pandas as pd
 import numpy as np
 
 
+
 ## Creating Master Frame.
 root = Tk()
 master = Frame(root, name = 'master')
 master.pack(fill = BOTH)
 root.title('Point of Sale System')
-root.protocol('WM_DELETE_WINDOW',master.quit)
+#root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
 #-----Fotis-----
@@ -26,13 +27,24 @@ n = ttk.Notebook(master, name = 'n')
 #load_data_sql()
 
 
-CC = IntVar()
-Cash = IntVar()
-
 
 def callback():
     print('Button Clicked')
 
+<<<<<<< Updated upstream
+def callback1():
+    print(CC.get())
+    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    Controllerv2.newsalebutton(list1)
+
+def printerrors():
+    Controllerv2.allerrors()
+
+
+
+
+=======
+>>>>>>> Stashed changes
 graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'CustID':['123','123','124','125','122','123','123','124','125','122'],
 'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
@@ -51,7 +63,7 @@ transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
 
 df5 = pd.DataFrame(graphArray)
-df2 =df5.groupby('Name')['Sales'].sum()
+df2 = df5.groupby('Name')['Sales'].sum()
 df3 = pd.DataFrame({'Name':df2.index, 'TotalSales':df2.values})
 
 def create_df():
@@ -60,25 +72,25 @@ def create_df():
     df['CC'] = df['Payment']==1
     df['Cash'] = df['Payment']==0
     df['CCSales'] = df.Sales*df.CC
-    df['CashSales']=df.Sales*df.Cash
+    df['CashSales']= df.Sales*df.Cash
     return df
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
-##def top_customers():
-##    df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
-##    df_sales.columns = ['SalesAmount','ItemCount']
-##    # Sort by sum of sales in descending order
-##    df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
-##    return(df_sales.head(10))
+def top_customers():
+    df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
+    df_sales.columns = ['SalesAmount','ItemCount']
+    # Sort by sum of sales in descending order
+    df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
+    return df_sales.head(10)
 
 
 #Top SKU Table
-##def top_sku():
-##    df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
-##    df_topSKU.columns=['SalesAmount','SalesCount']
-##    df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
-##    return(df_topSKU_sort.head(10))
+def top_sku():
+    df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
+    df_topSKU.columns=['SalesAmount','SalesCount']
+    df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
+    return df_topSKU_sort.head(10)
 
 #PLOTTING
 #Create Sales by Day Table
@@ -98,15 +110,10 @@ def sales_overview():
 #Create Sales by SKU Table
 def sku_overview():
     global sku_sales
-    sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU'])
+    sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
     sku_sales.columns = ['CCSales','CashSales']
-    #sku_sales = sku_sales.sort(['Amount'], ascending=False)
-    return sku_sales
-
-
-
-    
-
+    sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
+    return sku_sales.head(5)
 
 
 ##---- Fotis -----
@@ -172,7 +179,8 @@ C_ID.delete(0,END)
 f2_POS = Frame(POSView)
 f2_POS.pack(fill = X)
 Label(f2_POS,text = 'Credit Card').pack(side = LEFT)
-Checkbutton(f2_POS, text="Yes/No", variable=CC).pack(side = LEFT)
+CC = IntVar()
+Checkbutton(f2_POS, text="Yes?", variable=CC).pack(side = LEFT)
 
 f3_POS = Frame(POSView)
 f3_POS.pack(fill = X)
@@ -218,7 +226,9 @@ sku_overview()
 
 ax1 = f.add_subplot(211)
 ax3 = f.add_subplot(212)
-daily_sales.plot(title="Sales by Payment Method",lw=2,colormap='gnuplot',marker='.',markersize=10,ax=ax1)
+#pd.options.display.mpl_style = 'default'
+daily_sales.plot(ax=ax1)
+#pd.options.display.mpl_style = 'default'
 sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
 
 
@@ -249,8 +259,13 @@ toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
+<<<<<<< Updated upstream
+
+=======
 def returnValues():
     return [CC,C_ID_Var,SKU_Var,Sales_Var,Date_POS_Var]
+>>>>>>> Stashed changes
 
 
-        
+
+

@@ -72,37 +72,36 @@ def main():
     c.execute("drop table products")
 
 
-
     # Start by connecting to SQLite database and creating the tables for Sales, Customers and Products
     Modelv2.salesTable()
     Modelv2.customersTable()
     Modelv2.productsTable()
 
-    Modelv2.Product.setItems("abc123456", "Vacuum cleaner")
-    Modelv2.Product.setItems("abc123457", "Radio")
-    Modelv2.Product.setItems("abc123458", "Television")
-    Modelv2.Product.setItems("abc123459", "Laptop")
-    Modelv2.Product.setItems("abc123450", "Desktop")
+#    Modelv2.Product.setItems("abc123456", "Vacuum cleaner")
+#    Modelv2.Product.setItems("abc123457", "Radio")
+#    Modelv2.Product.setItems("abc123458", "Television")
+#    Modelv2.Product.setItems("abc123459", "Laptop")
+#    Modelv2.Product.setItems("abc123450", "Desktop")
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
 
-def newsalebutton():
-    grv = Viewv2.returnvalues()
-
-    # should we check for negative numbers, etc. here before pushing?
-    try:
-        CustID = int(grv[0])
-        CC = int(grv[1])
-        SKU = grv[2]
-        sales = float(grv[3])
-        datePOS = grv[4]
-
-        hold = Modelv2.POS(CustID, CC, SKU, sales, datePOS)
-        hold.submit()
-    except:
-        pass
-
+def newsalebutton(list1):
+	
+# should we check for negative numbers, etc. here before pushing?
+# check if CustID exists
+	try:
+		CustID = int(list1[0])
+		CC = int(list1[1])
+		SKU = list1[2]
+		sales = float(list1[3])
+		datePOS = list1[4]
+		print(CustID, CC, SKU, sales, datePOS)
+		
+		hold = Modelv2.POS(CustID, CC, SKU, sales, datePOS)
+		hold.submit()
+	except:
+		pass
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB
 def newcustbutton():
@@ -118,5 +117,7 @@ def newcustbutton():
 
 main()
 
-a= Modelv2.Customer("Bigboobs","22/08/1990")
-Modelv2.Customer.push(a)
+#a= Modelv2.Customer("Bigboobs","22/08/1990")
+#Modelv2.Customer.push(a)
+
+
