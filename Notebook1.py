@@ -112,8 +112,8 @@ def sku_overview():
     global sku_sales
     sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
     sku_sales.columns = ['CCSales','CashSales']
-    #sku_sales = sku_sales.sort(['Amount'], ascending=False)
-    return sku_sales
+    sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
+    return sku_sales.head(5)
 
 
 
@@ -234,7 +234,9 @@ sku_overview()
 
 ax1 = f.add_subplot(211)
 ax3 = f.add_subplot(212)
-daily_sales.plot(title="Sales by Payment Method",lw=2,colormap='gnuplot',marker='.',markersize=10,ax=ax1)
+pd.options.display.mpl_style = 'default'
+daily_sales.plot(title="Sales by Payment Method",lw=2, marker='.',markersize=10,ax=ax1)
+pd.options.display.mpl_style = 'default'
 sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
 
 
