@@ -105,7 +105,8 @@ class Product(object):
 		return tupleSKU
 
 # Add products to the database
-	def setItems(self, SKU, Product):
+	@staticmethod
+	def setItems(SKU, Product):
 		c.execute('''INSERT INTO products VALUES (
 			self.SKU,
 			self.Product
