@@ -15,15 +15,14 @@ def salesTable():
 	'''Creates the sales table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS sales (
-		SaleIDcol INTEGER, 
-		CustIDcol VARCHAR(9), 
+		SaleIDcol INTEGER PRIMARY KEY ,
+		CustIDcol VARCHAR(20),
 		CCcol BOOLEAN, 
-		SKUcol VARCHAR(9), 
-		Salescol FLOAT(9), 
-		Datecol DATE 
-		PRIMARY KEY (SaleIDcol)
+		SKUcol VARCHAR(20),
+		Salescol FLOAT(20),
+		Datecol DATE ,
 		FOREIGN KEY (CustIDcol)
-		REFERENCES customers (CustIDcol)
+		REFERENCES customers (CustIDcol),
 		FOREIGN KEY (SKUcol)
 		REFERENCES products (SKUcol)
 		)''')
@@ -39,14 +38,12 @@ def customersTable():
 		)''')
 	conn.commit()
 
+
+
 def productsTable():
 	'''Creates the products table in the sqlite database
 	if it does not already exist.'''
-	c.execute('''CREATE TABLE IF NOT EXISTS products (
-		SKUcol VARCHAR(9), 
-		Productcol VARCHAR(20), 
-		PRIMARY KEY (SKUcol)
-		)''')
+	c.execute("CREATE TABLE IF NOT EXISTS products (SKUcol VARCHAR(20) PRIMARY KEY ,Productcol VARCHAR(20))")
 	conn.commit()
 
 
@@ -58,7 +55,7 @@ class Customer(object):
 	currentID = 100000000
 
 	def __init__(self, Name, date):
-	'''Create a new instance of a Customer.'''
+		'''Create a new instance of a Customer.'''
 		self.CustID = currentID
 		Customer.currentID +=1
 		self.Name = Name
@@ -101,26 +98,20 @@ class Product(object):
 		'''Creates a new instance of a Product.'''
 		Product.countProducts +=1
 		self.SKU = SKU
-
-	def getItems(self):
+	@staticmethod
+	def getItems():
 		'''Returns the list of products available, as stored in the products table.'''
 		c.execute('''SELECT SKUcol, Productcol FROM products''')
-		tupleSKU = c.fetchone()
+		tupleSKU = c.fetchall()
 		return tupleSKU
 
-<<<<<<< HEAD
+
 # Add products to the database
 	@staticmethod
 	def setItems(SKU, Product):
-=======
-	def setItems(self):
 		'''Adds a row in the Products table with the information
 		from the product provided as an argument.'''
->>>>>>> 21c5b526e21dd39c8a8392c05f5e37fc78261c94
-		c.execute('''INSERT INTO products VALUES (
-			self.SKU,
-			self.Product
-			)''')
+		c.execute("insert into products values (?, ?)", (SKU, Product))
 		conn.commit()
 
 
@@ -162,8 +153,6 @@ def closeDay():
 	"""Closes the books for the day."""
 	conn.commit()
 	conn.close()
-
-
 
 
 
