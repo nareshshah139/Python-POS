@@ -3,12 +3,10 @@
 import sqlite3
 import time
 
-#from datetime import date
-#d = date.fromordinal(100)
-
 #Start by connecting to the pos.db database
 conn = sqlite3.connect('pos.db')
 c = conn.cursor()
+
 # MAKE SURE CONN AND C EXIST IN VIEW IF INTERACTING WITH SQLITE
 
 def salesTable():
@@ -61,25 +59,6 @@ class Customer(object):
 		self.Name = Name
 		self.date = date
 
-	def checkCustID(self):
-		'''Checks if custID exists in the customers table.'''
-		c.execute('''SELECT CustIDcol FROM customers''')
-		custIDtuple = c.fetchone()
-		if self.CustID in  custIDtuple:
-			True
-		else:
-			False
-
-	def checkSale(self):
-		'''Checks if the sale amount is a number greater than 0.'''
-		try:
-			if self.Sale > 0 : 
-				return True
-			else:
-				return False
-		except:
-			return False
-
 	def push(self):
 		'''Adds a row in the customers table with the information
 		from the customer provided as an argument.'''
@@ -105,13 +84,23 @@ class Product(object):
 		tupleSKU = c.fetchall()
 		return tupleSKU
 
+<<<<<<< HEAD
 
 # Add products to the database
+=======
+>>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
 	@staticmethod
 	def setItems(SKU, Product):
 		'''Adds a row in the Products table with the information
 		from the product provided as an argument.'''
+<<<<<<< HEAD
 		c.execute("insert into products values (?, ?)", (SKU, Product))
+=======
+		c.execute('''INSERT INTO products VALUES (
+			self.SKU,
+			self.Product
+			)''')
+>>>>>>> e5fc99ea0fef9ac775d07ea5320abed0b90a4361
 		conn.commit()
 
 
