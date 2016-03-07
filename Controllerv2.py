@@ -29,5 +29,5 @@ def main():
 
 main()
 
-
+Modelv2.POS.submit(50,1,"abc123456",30,"12/10/2015")
 	

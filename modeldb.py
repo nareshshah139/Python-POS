@@ -146,6 +146,10 @@ class POS(object):
 			)''')
 		conn.commit()
 
+	@staticmethod
+	def getPosData():
+		df = c.execute("SELECT * FROM sales, customer LEFT JOIN sales.CustIDcol, customers.CustIDCol")
+		return(df)
 
 
 # Save and close the database.
