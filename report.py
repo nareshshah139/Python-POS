@@ -26,6 +26,13 @@ transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 
 
 #create df from .csv files and insert into sales, customer and sku table
+#jonas
+def write_data_sql():
+    connection = sqlit3.connect("pos.db")
+    sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
+    sales_table.to_sql("sales", connection)
+
+
 def write_data_sql():
     connection = sqlit3.connect("pos.db")
     sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
@@ -69,6 +76,7 @@ def sales_overview():
     global daily_sales
     daily_sales = df[['Date','Sales','CCSales','CashSales']].groupby(['Day']).agg([np.sum])
     daily_sales.columns = ['TotalSales','CCSales','CashSales']
+    return daily_sales
 
 #create plot
 def sales_plot():
@@ -82,8 +90,15 @@ def sku_overview():
     global sku_sales
     sku_sales = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum])
     sku_sales.columns = ['Amount']
-    sku_sales = sort_values(['Amount'], ascending=False)
+    sku_sales = sku_sales.sort_values(['Amount'], ascending=False)
     return(sku_sales)
+sku_overview()
+
+def sku_plot():
+    global plot2
+    plot2 = sku_sales.plot(kind="bar")
+    return plot2
+
 
 
 create_df()
