@@ -56,7 +56,7 @@ class Customer(object):
 	currentID = 100000000
 
 	def __init__(self, Name, date):
-	'''Create a new instance of a Customer.'''
+		'''Create a new instance of a Customer.'''
 		self.CustID = currentID
 		Customer.currentID +=1
 		self.Name = Name
