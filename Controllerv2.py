@@ -66,13 +66,6 @@ def main():
 	Modelv2.customersTable()
 	Modelv2.productsTable()
 
-<<<<<<< Updated upstream
-# Launch GUI with gui() function?
-	Viewv2.gui()
-	
-	
-	
-=======
 	grv = Viewv2.returnvalues()
 
 	checkCC()
@@ -95,5 +88,3 @@ def main():
 
 #main()
 
-
->>>>>>> Stashed changes
