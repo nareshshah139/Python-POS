@@ -51,7 +51,7 @@ transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
 
 df5 = pd.DataFrame(graphArray)
-df2 =df5.groupby('Name')['Sales'].sum()
+df2 = df5.groupby('Name')['Sales'].sum()
 df3 = pd.DataFrame({'Name':df2.index, 'TotalSales':df2.values})
 
 def create_df():
@@ -60,25 +60,25 @@ def create_df():
     df['CC'] = df['Payment']==1
     df['Cash'] = df['Payment']==0
     df['CCSales'] = df.Sales*df.CC
-    df['CashSales']=df.Sales*df.Cash
+    df['CashSales']= df.Sales*df.Cash
     return df
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
-##def top_customers():
-##    df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
-##    df_sales.columns = ['SalesAmount','ItemCount']
-##    # Sort by sum of sales in descending order
-##    df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
-##    return(df_sales.head(10))
+def top_customers():
+    df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
+    df_sales.columns = ['SalesAmount','ItemCount']
+    # Sort by sum of sales in descending order
+    df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
+    return df_sales.head(10)
 
 
 #Top SKU Table
-##def top_sku():
-##    df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
-##    df_topSKU.columns=['SalesAmount','SalesCount']
-##    df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
-##    return(df_topSKU_sort.head(10))
+def top_sku():
+    df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
+    df_topSKU.columns=['SalesAmount','SalesCount']
+    df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
+    return df_topSKU_sort.head(10)
 
 #PLOTTING
 #Create Sales by Day Table
@@ -98,7 +98,7 @@ def sales_overview():
 #Create Sales by SKU Table
 def sku_overview():
     global sku_sales
-    sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU'])
+    sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
     sku_sales.columns = ['CCSales','CashSales']
     #sku_sales = sku_sales.sort(['Amount'], ascending=False)
     return sku_sales
