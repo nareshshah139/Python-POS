@@ -73,6 +73,7 @@ Label(f1_CV,text = 'Customer Name').pack(side = LEFT)
 C_Name = Entry(f1_CV)
 C_Name.pack(fill = X,padx = 10, expand = TRUE)
 C_Name_Var = C_Name.get()
+C_Name.delete(0,END)
 
 
 f2_CV = Frame(CustomerView)
@@ -103,7 +104,7 @@ Label(f1_POS,text = 'Customer ID').pack(side = LEFT)
 C_ID = Entry(f1_POS)
 C_ID.pack(fill = X,padx = 5, expand = TRUE)
 C_ID_Var = C_ID.get()
-
+C_ID.delete(0,END)
 
 f2_POS = Frame(POSView)
 f2_POS.pack(fill = X)
@@ -116,6 +117,7 @@ Label(f3_POS,text = 'SKU').pack(side = LEFT)
 SKU = Entry(f3_POS)
 SKU.pack(fill = X,padx = 5, expand = TRUE)
 SKU_Var = SKU.get()
+SKU.delete(0,END)
 
 f4_POS = Frame(POSView)
 f4_POS.pack(fill = X)
@@ -123,12 +125,14 @@ Label(f4_POS,text = 'Sales Amount').pack(side = LEFT)
 Sales = Entry(f4_POS)
 Sales.pack(fill = X,padx = 5,expand = TRUE)
 Sales_Var = Sales.get()
+Sales.delete(0,END)
 
 f5_POS = Frame(POSView)
 f5_POS.pack(fill=X)
 Label(f5_POS,text = 'Current Date').pack(side = LEFT)
 Label(f5_POS,text = time.strftime("%d/%m/%Y")).pack(side = LEFT, padx = 5)
 Date_POS_Var = time.strftime("%d/%m/%Y")
+
 
 f6_POS = Frame(POSView)
 f6_POS.pack(fill = X)
@@ -161,15 +165,18 @@ Label(f1_CRM,text = 'CRM Reports').pack(padx = 10, pady = 10)
 
 f2_CRM = Frame(CRMView)
 f2_CRM.pack(fill = BOTH, expand = TRUE)
-f = Figure(figsize = (5,5),dpi = 100)
-ax = f.add_subplot(111)
-##df3.plot(x = 'Name', y= 'Total Sales', ax = ax)
+f1 = Figure(figsize = (5,5),dpi = 100)
+ax = f1.add_subplot(111)
+df3.plot(x = 'Name', y= 'TotalSales',kind = 'bar', ax = ax)
 
 
-canvas = FigureCanvasTkAgg(f, f2_RV)
+canvas = FigureCanvasTkAgg(f1, f2_CRM)
 canvas.show()
 canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
-toolbar = NavigationToolbar2TkAgg(canvas, f2_RV)
+toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
+
+def returnValues():
+    return [CC,C_ID_Var,SKU_Var,Sales_Var,Date_POS_Var]
         
