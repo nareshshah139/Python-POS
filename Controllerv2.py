@@ -86,23 +86,22 @@ def main():
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
 
-def newsalebutton():
-	grv = Viewv2.returnValues()
-	print(grv)
+def newsalebutton(list1):
+	
 # should we check for negative numbers, etc. here before pushing?
 # check if CustID exists
 	try:
-		CustID = int(grv[0])
-		CC = int(grv[1])
-		SKU = grv[2]
-		sales = float(grv[3])
-		datePOS = grv[4]
+		CustID = int(list1[0])
+		CC = int(list1[1])
+		SKU = list1[2]
+		sales = float(list1[3])
+		datePOS = list1[4]
 		print(CustID, CC, SKU, sales, datePOS)
+		
 		hold = Modelv2.POS(CustID, CC, SKU, sales, datePOS)
 		hold.submit()
 	except:
 		pass
-
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB
 def newcustbutton():

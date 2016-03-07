@@ -9,12 +9,13 @@ import pandas as pd
 import numpy as np
 import Controllerv2
 
+
 ## Creating Master Frame.
 root = Tk()
 master = Frame(root, name = 'master')
 master.pack(fill = BOTH)
 root.title('Point of Sale System')
-root.protocol('WM_DELETE_WINDOW',master.quit)
+#root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
 
@@ -29,20 +30,22 @@ def load_data_sql():
 #load_data_sql()
 
 
-CC = IntVar()
-Cash = IntVar()
+
+
 
 
 def callback():
     print('Button Clicked')
 
 def callback1():
-    Controllerv2.newsalebutton()
+    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    print(CC.get())
+    Controllerv2.newsalebutton(list1)
 
 def printerrors():
     Controllerv2.allerrors()
 
-C_ID_1 = StringVar
+
 
 
 graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
@@ -183,7 +186,8 @@ C_ID_Var = C_ID.get()
 f2_POS = Frame(POSView)
 f2_POS.pack(fill = X)
 Label(f2_POS,text = 'Credit Card').pack(side = LEFT)
-Checkbutton(f2_POS, text="Yes/No", variable=CC).pack(side = LEFT)
+CC = IntVar()
+Checkbutton(f2_POS, text="Yes?", variable=CC).pack(side = LEFT)
 
 
 f3_POS = Frame(POSView)
@@ -234,9 +238,9 @@ sku_overview()
 
 ax1 = f.add_subplot(211)
 ax3 = f.add_subplot(212)
-pd.options.display.mpl_style = 'default'
-daily_sales.plot(title="Sales by Payment Method",lw=2, marker='.',markersize=10,ax=ax1)
-pd.options.display.mpl_style = 'default'
+#pd.options.display.mpl_style = 'default'
+daily_sales.plot(ax=ax1)
+#pd.options.display.mpl_style = 'default'
 sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
 
 
@@ -267,11 +271,11 @@ toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
-def returnValues():
-    return [C_ID_Var,CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
+
 
 #C_ID.delete(0,END)
 #SKU.delete(0,END)
 #Sales.delete(0,END)
 
-        
+
+
