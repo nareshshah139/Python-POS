@@ -87,15 +87,10 @@ class Product(object):
 		tupleSKU = c.fetchone()
 		return tupleSKU
 
-<<<<<<< HEAD
-# Add products to the database
 	@staticmethod
 	def setItems(SKU, Product):
-=======
-	def setItems(self):
 		'''Adds a row in the Products table with the information
 		from the product provided as an argument.'''
->>>>>>> 21c5b526e21dd39c8a8392c05f5e37fc78261c94
 		c.execute('''INSERT INTO products VALUES (
 			self.SKU,
 			self.Product
