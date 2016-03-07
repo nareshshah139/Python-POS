@@ -7,11 +7,11 @@ import numpy as np
 
 #get table from SQL once DB is set up to build the tables and graphs below
 #Probably need to fix the sql query
-#def load_data_sql():
-    #connection = sqlite3.connect("pos.db")
-    #df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",connection)
-    #return(df)
-#load_data_sql()
+def load_data_sql():
+    connection = sqlite3.connect("pos.db")
+    df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",connection)
+    return(df)
+load_data_sql()
 
 #test array
 graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
@@ -22,6 +22,10 @@ graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'Sales':[20,30,30,40,20,20,30,30,40,30],
 'Day': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
 
+def write_data_sql():
+    connection = sqlit3.connect("pos.db")
+    df.to_sql(sales, connection)
+write_data_sql()
 # Create pandas dataframe from graph array with additional variable creation
 def create_df():
     global df
