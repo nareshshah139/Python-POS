@@ -90,11 +90,14 @@ def main():
     Modelv2.write_data_sql()
     Modelv2.Customer.checkCust()
 
+def update_data():
+    Modelv2.customersTable()
+
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
 
 def newsalebutton(list1):
-	
+
 # should we check for negative numbers, etc. here before pushing?
 # check if CustID exists
 	try:
@@ -104,7 +107,7 @@ def newsalebutton(list1):
 		sales = float(list1[3])
 		datePOS = list1[4]
 		print(CustID, CC, SKU, sales, datePOS)
-		
+
 		hold = Modelv2.POS(CustID, CC, SKU, sales, datePOS)
 		hold.submit()
 	except:

@@ -1,6 +1,6 @@
-CustIDcol;Namecol;Datecol
-123;Chris;"""22/08/2014"""
-124;Fotis;"""23/08/2014"""
-125;Lionel;"""22/09/2014"""
-126;Naresh;"""22/08/2017"""
-127;Jonas;"""22/08/2018"""
+CustID;Name
+123;Chris
+124;Fotis
+125;Lionel
+126;Naresh
+127;Jonas

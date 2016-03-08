@@ -9,14 +9,12 @@ import modeldb as Modelv2
 
 #get table from SQL once DB is set up to build the tables and graphs below
 #Probably need to fix the sql query
-def load_data_sql():
+"""def load_data_sql():
     connection = sqlite3.connect("pos.db")
     df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",connection)
     return(df)
-load_data_sql()
+load_data_sql()"""
 Modelv2.POS.getPosData()
-
-
 
 #test array
 transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
@@ -37,7 +35,14 @@ def write_data_sql():
     sales_table.to_sql("sales", connection)
 
 
-
+def write_data_sql():
+    connection = sqlit3.connect("pos.db")
+    sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
+    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0) #specify path
+    sku_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0) #specify path
+    sales_table.to_sql("sales", connection)
+    customer_table.to_sql("customer", connection)
+    sku_table.to_sql("sku", connection)
 #write_data_sql()
 
 # Create pandas dataframe from graph array with additional variable creation

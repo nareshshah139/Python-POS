@@ -46,6 +46,9 @@ def callback1():
     print(list1)
     Controllerv2.newsalebutton(list1)
 
+
+
+
 def callback2():
     '''Callback function for adding new user to the database'''
     list2 = [C_Name.get(), Date_CV_Var]

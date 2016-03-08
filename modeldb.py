@@ -71,8 +71,16 @@ class Customer(object):
 	def checkCust():
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchall()
-		print(custIDtuple)
-		return custIDtuple
+		CustIDlist = []
+		try:
+			for i in custIDtuple:
+				CustIDlist.append(i[0])
+# checking if the new list prints:
+			print("Model list", custIDlist)
+			return custIDlist
+#			return custIDtuple
+		except:
+			print("why not?")
 
 
 
