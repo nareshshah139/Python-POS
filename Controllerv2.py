@@ -68,6 +68,7 @@ def allerrors(list1):
 
 
 def main():
+
     conn = sqlite3.connect('pos.db')
     c = conn.cursor()
 
@@ -87,6 +88,7 @@ def main():
     Modelv2.Product.setItems("abc123459", "Laptop")
     Modelv2.Product.setItems("abc123450", "Desktop")
 
+    Modelv2.write_data_sql()
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
 
@@ -97,7 +99,7 @@ def newsalebutton(list1):
 	try:
 		CustID = int(list1[0])
 		CC = int(list1[1])
-		SKU = list1[2]
+		SKU = list1[2]   #needs change
 		sales = float(list1[3])
 		datePOS = list1[4]
 		print(CustID, CC, SKU, sales, datePOS)
@@ -130,6 +132,6 @@ print(a)
 
 def getSKUItems():
     skus =Modelv2.Product.getItems()
-    print(skus)
+    return skus
 
 getSKUItems()

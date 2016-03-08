@@ -2,6 +2,8 @@
 
 import sqlite3
 import time
+import pandas as pd
+import os
 
 #Start by connecting to the pos.db database
 conn = sqlite3.connect('pos.db')
@@ -152,5 +154,11 @@ def closeDay():
 
 
 
-
+def write_data_sql():
+    sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
+    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0) #specify path
+    sku_table = pd.DataFrame.from_csv(os.getcwd()+"/sku.csv",sep=";",header=0) #specify path
+    sales_table.to_sql(sales, conn)
+    customer_table.to_sql(customers, conn)
+    sku_table.to_sql(products, conn)
 

@@ -35,14 +35,7 @@ def write_data_sql():
     sales_table.to_sql("sales", connection)
 
 
-def write_data_sql():
-    connection = sqlit3.connect("pos.db")
-    sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
-    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0) #specify path
-    sku_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0) #specify path
-    sales_table.to_sql("sales", connection)
-    customer_table.to_sql("customer", connection)
-    sku_table.to_sql("sku", connection)
+
 #write_data_sql()
 
 # Create pandas dataframe from graph array with additional variable creation

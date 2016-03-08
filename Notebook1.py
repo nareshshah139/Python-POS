@@ -25,7 +25,7 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-
+"""
 # SHOULD NOT GO IN THE GUI
 # CONSISTENCY -- THIS AND/OR FETCH?
 #-----Fotis-----
@@ -35,7 +35,7 @@ def load_data_sql():
     return(df)
 
 #load_data_sql()
-
+"""
 
 
 def callback1():
