@@ -24,7 +24,7 @@ master.pack(fill = BOTH)
 root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
-
+
 
 # SHOULD NOT GO IN THE GUI
 # CONSISTENCY -- THIS AND/OR FETCH?
@@ -40,7 +40,7 @@ def load_data_sql():
 
 def callback1():
     '''Callback function to push values from GUI to controller'''
-    list1 = [C_ID.get(),CC_Var.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
     print(list1)
     Controllerv2.newsalebutton(list1)
 
@@ -209,9 +209,10 @@ Cash = Radiobutton(f2_POS,text = "Cash",variable = CC_Var,value=0,command = sel)
 f3_POS = Frame(POSView)
 f3_POS.pack(fill = X)
 Label(f3_POS,text = 'SKU').pack(side = LEFT)
-SKU = Entry(f3_POS)
+SKU_Var = StringVar()
+SKU = OptionMenu(f3_POS,SKU_Var,'Vacuum Cleaner','Radio','Television','Laptop','Desktop')
 SKU.pack(fill = X,padx = 5, expand = TRUE)
-SKU_Var = SKU.get()
+
 
 f4_POS = Frame(POSView)
 f4_POS.pack(fill = X)
