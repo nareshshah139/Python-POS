@@ -69,8 +69,15 @@ class Customer(object):
 	def checkCust():
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchall()
-		return custIDtuple
-
+		print("Model tuples",custIDtuple)
+		CustIDlist = []
+		try:
+			for i in custIDtuple:
+				CustIDlist.append(i[0])
+			print("Model list", custIDlist)
+			return custIDlist
+		except:
+			print("why not?")
 
 
 class Product(object):
