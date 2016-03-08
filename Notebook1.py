@@ -25,7 +25,7 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-"""
+
 # SHOULD NOT GO IN THE GUI
 # CONSISTENCY -- THIS AND/OR FETCH?
 #-----Fotis-----
@@ -34,12 +34,8 @@ def load_data_sql():
     df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
     return(df)
 
-#load_data_sql()    THIS FUNCTION CAN BE CALLED THROUGH =>    Modelv2.POS.getPosData()  BUT WHERE??
-"""
+#load_data_sql()
 
-def sel():
-    '''Callback function for radiobutton to return values'''
-    CC_1 = CC_Var.get()
 
 
 def callback1():
@@ -54,13 +50,14 @@ def callback2():
     print(list2)
     Controllerv2.newcustbutton(list2)
 
-def printerrors():
-    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
-    Controllerv2.allerrors(list1)
+def sel():
+    '''Callback function for radiobutton to return values'''
+    CC_1 = CC_Var.get()
+    
 
-#def printerrors():
-#    '''Callback function to check values input in GUI for errors and return a printed value'''
-#    Controllerv2.allerrors()
+def printerrors():
+    '''Callback function to check values input in GUI for errors and return a printed value'''
+    Controllerv2.allerrors()
 
 
 
@@ -152,7 +149,6 @@ POSView = ttk.Frame(n)
 ReportView = ttk.Frame(n)
 CRMView = ttk.Frame(n)
 n.add(POSView, text = 'Point of Sale System View')
-n.add(SalesView, text = 'Sales View')
 n.add(CustomerView,text = 'New Customer View')
 n.add(ReportView, text = 'Report View')
 n.add(CRMView, text = 'CRM View')
@@ -236,6 +232,7 @@ f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
 
 
+
 ##f7_POS = Frame(POSView)
 ##f7_POS.pack(fill=BOTH,expand = TRUE)
 ##Label(f7_POS,image=photo).pack()
@@ -243,6 +240,9 @@ B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
 #f7_POS = Frame(POSView)
 #f7_POS.pack(fill=X)
 #Label(f7_POS, text = printerrors()).pack(side= LEFT)
+
+
+
 
 
 #Report View
