@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import Controllerv2
 import matplotlib.pyplot as plt
+import modeldb as Modelv2
 ##from PIL import Image, ImageTk
 plt.style.use('ggplot')
 ##
@@ -80,16 +81,14 @@ transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
 
 
-
 def create_df():
     ''' Creates Dataframe from the Data collected in the database '''
     global df
-    df = pd.DataFrame(transaction_data)
-    df['CC'] = df['Payment']==1
-    df['Cash'] = df['Payment']==0
+    df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['CustID','SalesID','CC','SKU','Sales','Date'])
+    df['Cash'] = df['CC']==0
     df['CCSales'] = df.Sales*df.CC
-    df['CashSales']= df.Sales*df.Cash
-    return df
+    df['CashSales']=df.Sales*df.Cash
+    return(df)
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
