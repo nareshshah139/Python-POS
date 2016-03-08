@@ -95,6 +95,18 @@ def sku_plot():
     return plot2
 
 
+# Print breakdown of sales for the day by client
+def crm_summary():
+    global crm_output
+    crm_output = df[['CustID','Sales']].groupby(['CustID']).agg([np.sum])
+    crm_output.columns = ['Amount']
+    crm_output = crm_output.sort_values(['Amount'], ascending=False)
+    return(crm_output)
+crm_summary()
+
+
+
+
 
 create_df()
 top_customers()
