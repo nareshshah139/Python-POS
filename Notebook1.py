@@ -36,6 +36,9 @@ def load_data_sql():
 
 #load_data_sql()
 
+def sel():
+    '''Callback function for radiobutton to return values'''
+    CC_1 = CC_Var.get()
 
 def callback1():
     '''Callback function to push values from GUI to controller'''
