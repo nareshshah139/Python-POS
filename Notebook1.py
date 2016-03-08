@@ -25,7 +25,7 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-
+"""
 # SHOULD NOT GO IN THE GUI
 # CONSISTENCY -- THIS AND/OR FETCH?
 #-----Fotis-----
@@ -34,11 +34,13 @@ def load_data_sql():
     df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
     return(df)
 
-#load_data_sql()
+#load_data_sql()    THIS FUNCTION CAN BE CALLED THROUGH =>    Modelv2.POS.getPosData()  BUT WHERE??
+"""
 
 def sel():
     '''Callback function for radiobutton to return values'''
     CC_1 = CC_Var.get()
+
 
 def callback1():
     '''Callback function to push values from GUI to controller'''
