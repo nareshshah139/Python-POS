@@ -17,7 +17,7 @@ def salesTable():
 	c.execute('''CREATE TABLE IF NOT EXISTS sales (
 		SaleIDcol INTEGER PRIMARY KEY ,
 		CustIDcol VARCHAR(20),
-		CCcol BOOLEAN, 
+		CCcol BOOLEAN,
 		SKUcol VARCHAR(20),
 		Salescol FLOAT(20),
 		Datecol DATE ,
@@ -32,7 +32,7 @@ def customersTable():
 	'''Creates the customers table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
-		CustIDcol VARCHAR(9), 
+		CustIDcol VARCHAR(9),
 		Namecol VARCHAR(20),
 		Datecol VARCHAR(20),
 		PRIMARY KEY (CustIDcol)
@@ -156,8 +156,8 @@ def closeDay():
 
 
 def write_data_sql():
-    sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
-    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0) #specify path
-    sales_table.to_sql('sales', conn, if_exists='append')
-    customer_table.to_sql('customers', conn, if_exists='append')
-
+	"""Function that takes sales.csv and customers.csv files and pushes them into the pos.db via SQLITE"""
+	sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
+	customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0)
+	sales_table.to_sql('sales', conn, if_exists='append')
+	customer_table.to_sql('customers', conn, if_exists='append')
