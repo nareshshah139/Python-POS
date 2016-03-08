@@ -122,4 +122,9 @@ main()
 #a= Modelv2.Customer("Bigboobs","22/08/1990")
 #Modelv2.Customer.push(a)
 
+b= Modelv2.POS(123,1,"aer135",12,"12/03/2016")
+Modelv2.POS.submit(b)
+
+a = Modelv2.POS.CRM()
+print(a)
 

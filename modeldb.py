@@ -132,8 +132,15 @@ class POS(object):
 
 	@staticmethod
 	def getPosData():
-		df = c.execute("SELECT * FROM sales, customer LEFT JOIN sales.CustIDcol, customers.CustIDCol")
+		c.execute("SELECT * FROM sales, customer LEFT JOIN sales.CustIDcol, customers.CustIDCol")
+		df = c.fetchall()
 		return(df)
+
+	@staticmethod
+	def CRM():
+		c.execute("SELECT CustIDcol, SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) GROUP BY CustIDcol ")
+		crm = c.fetchall()
+		return crm
 
 
 
