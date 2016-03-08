@@ -30,17 +30,21 @@ def load_data_sql():
 #load_data_sql()
 
 
-
 def callback():
     print('Button Clicked')
 
 def callback1():
-    print(CC.get())
     list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
     Controllerv2.newsalebutton(list1)
 
+def callback2():
+    list2 = [C_Name.get(), Date_CV_Var]
+    print(list2)
+    Controllerv2.newcustbutton(list2)
+
 def printerrors():
-    Controllerv2.allerrors()
+    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    Controllerv2.allerrors(list1)
 
 
 
@@ -160,8 +164,7 @@ f3_CV = Frame(CustomerView)
 f3_CV.pack(fill = X)
 Label(f3_CV,text = "Today's date is "+time.strftime("%d/%m/%Y")).pack(side = LEFT)
 Date_CV_Var = time.strftime("%d/%m/%Y")
-B_Add_User = Button(f3_CV,text = 'Add User', command = callback).pack(side = RIGHT)
-B_Switch = Button(f3_CV,text = 'POS Pane',command = callback).pack(side = RIGHT)
+B_Add_User = Button(f3_CV,text = 'Add User', command = callback2).pack(side = RIGHT)
 
 # POS View Tab
 # Make a frame to hold all elements
@@ -212,9 +215,11 @@ f6_POS = Frame(POSView)
 f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
 
-#f7_POS = Frame(POSView)
-#f7_POS.pack(fill=X)
-#Label(f7_POS, text = printerrors()).pack(side= LEFT)
+
+f7_POS = Frame(POSView)
+f7_POS.pack(fill=X)
+varerr = printerrors()
+Label(f7_POS, textvariable = varerr).pack(side= LEFT)
 
 
 

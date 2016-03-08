@@ -2,65 +2,69 @@
 
 import modeldb as Modelv2
 import sqlite3
-import Notebook1 as Viewv2
 
 
 def formatError():
     return "Sorry, wrong format."
 
-
 def noSale():
     return "Did you even buy anything? Enter a sale > 0.00"
 
-
 def bigspender():
     return "Are you sure? Toilet paper doesn't cost $400..."
-
 
 def notcust():
     return "Sorry, we don't recognize your ID. Please create a new customer."
 
 
-def checkCC():
-    try:
-        if int(Viewv2.grv[1]) == 1:
-            return ""
-        elif int(Viewv2.grv[1]) == 0:
-            return ""
-        else:
-            return formatError()
-    except:
-        return formatError()
+def checkCC(list1):
+	print("checking CC")
+	try:
+		if int(list1[1]) == 1:
+			return ""
+		elif int(list1[1]) == 0:
+			return ""
+		else:
+			return formatError()
+	except:
+		return formatError()
 
-
-def checkC_ID():
+def checkC_ID(list1):
+	print("checking C_ID")
+	return ""
+'''
     try:
-        ccid = int(Viewv2.grv[1])
+        ccid = int(list1[0])
         return ""
         custIDT = Modelv2.Customer.checkCust()
-        if ccid in custIDT:
-            return ""
-        else:
-            return notcust()
+       	if ccid in custIDT:
+         	return ""
+	    else:
+        	return notcust()
     except:
         return formatError()
+'''
+
+def checkSales(list1):
+	print("checking sales")
+	try:
+		if int(list1[3]) > 400:
+			return bigspender()
+		elif int(list1[3]) > 0:
+			return ""
+		else:
+			return "Did you even buy anything? Enter a sale > 0.00"
+	except:
+		return formatError()
 
 
-def checkSales():
-    try:
-        if int(Viewv2.grv[3]) > 0:
-            return ""
-        elif int(Viewv2.grv[3]) > 400:
-            return bigspender()
-        else:
-            return noSale()
-    except:
-        return formatError()
+def allerrors(list1):
+	print("I'm in all errors")
+	return checkCC(list1) + "\n" + checkC_ID(list1) + "\n" + checkSales(list1)
 
 
-def allerrors():
-    '''collects a list of all the errors'''
-    return checkCC() + "\n" + checkC_ID() + "\n" + checkSales()
+
+
 
 
 def main():
@@ -104,8 +108,7 @@ def newsalebutton(list1):
 		pass
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB
-def newcustbutton():
-    clist = Viewv2.newcustinfo()
+def newcustbutton(clist):
     try:
         name = clist[0]
         dateCV = clist[1]
@@ -113,7 +116,6 @@ def newcustbutton():
         cnew.push()
     except:
         pass
-
 
 main()
 
