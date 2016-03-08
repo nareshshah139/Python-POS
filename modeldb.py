@@ -138,6 +138,7 @@ class POS(object):
 		c.execute("SELECT * FROM sales")
 		sales_data = c.fetchall()
 		return(sales_data)
+		print(sales_data)
 
 	@staticmethod
 	def CRM():

@@ -69,6 +69,7 @@ def create_df():
     df['CCSales'] = df.Sales*df.CC
     df['CashSales']=df.Sales*df.Cash
     return df
+    print(df.head(5))
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
@@ -234,6 +235,7 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 f1_RV = Frame(ReportView)
 f1_RV.pack(fill=X)
+Refresh_data = Button(f1_RV,text = 'Refresh Data', command = create_df()).pack()
 Label(f1_RV,text = 'Report and Graphs').pack(padx = 10,pady=10)
 
 f2_RV = Frame(ReportView)
