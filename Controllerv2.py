@@ -81,11 +81,11 @@ def main():
     Modelv2.customersTable()
     Modelv2.productsTable()
 
-#    Modelv2.Product.setItems("abc123456", "Vacuum cleaner")
-#    Modelv2.Product.setItems("abc123457", "Radio")
-#    Modelv2.Product.setItems("abc123458", "Television")
-#    Modelv2.Product.setItems("abc123459", "Laptop")
-#    Modelv2.Product.setItems("abc123450", "Desktop")
+    Modelv2.Product.setItems("abc123456", "Vacuum cleaner")
+    Modelv2.Product.setItems("abc123457", "Radio")
+    Modelv2.Product.setItems("abc123458", "Television")
+    Modelv2.Product.setItems("abc123459", "Laptop")
+    Modelv2.Product.setItems("abc123450", "Desktop")
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
@@ -119,8 +119,8 @@ def newcustbutton(clist):
 
 main()
 
-#a= Modelv2.Customer("Bigboobs","22/08/1990")
-#Modelv2.Customer.push(a)
+a= Modelv2.Customer("Bigboobs","22/08/1990")
+Modelv2.Customer.push(a)
 
 b= Modelv2.POS(123,1,"aer135",12,"12/03/2016")
 Modelv2.POS.submit(b)
@@ -128,3 +128,8 @@ Modelv2.POS.submit(b)
 a = Modelv2.POS.CRM()
 print(a)
 
+def getSKUItems():
+    skus =Modelv2.Product.getItems()
+    print(skus)
+
+getSKUItems()
