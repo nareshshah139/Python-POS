@@ -6,11 +6,21 @@ plt.style.use('ggplot')
 import numpy as np
 import os
 
+#get table from SQL once DB is set up to build the tables and graphs below
+#Probably need to fix the sql query
+def load_data_sql():
+    connection = sqlite3.connect("pos.db")
+    df = pd.read_sql_query("SELECT * FROM sales, customer LEFT JOIN sales.custid, customer.custid",connection)
+    return(df)
+load_data_sql()
+
+getPosData()
+
 #test array
 transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
 'CustID':['123','123','124','125','122','123','123','124','125','122'],
 'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
-'Payment':[1,0,1,0,1,0,0,1,1,0],
+'CC':[1,0,1,0,1,0,0,1,1,0],
 'SKU':['123456789','123456788','123456788','123456787','123456784','123456789','123456788','123456788','123456787','123456784'],
 'Sales':[20,30,30,40,20,20,30,30,40,30],
 'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
