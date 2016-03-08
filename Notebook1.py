@@ -1,4 +1,3 @@
-#import modules
 from tkinter import *
 from tkinter import ttk
 import matplotlib
@@ -27,17 +26,17 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-
+"""
 # SHOULD NOT GO IN THE GUI
 # CONSISTENCY -- THIS AND/OR FETCH?
 #-----Fotis-----
-#def load_data_sql():
-    #connection = sqlite3.connect("pos.db")
-    #df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
-    #return(df)
+def load_data_sql():
+    connection = sqlite3.connect("pos.db")
+    df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
+    return(df)
 
 #load_data_sql()
-
+"""
 
 
 def callback1():
@@ -45,9 +44,6 @@ def callback1():
     list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
     print(list1)
     Controllerv2.newsalebutton(list1)
-
-
-
 
 def callback2():
     '''Callback function for adding new user to the database'''
@@ -58,21 +54,41 @@ def callback2():
 def sel():
     '''Callback function for radiobutton to return values'''
     CC_1 = CC_Var.get()
-
+    
 
 def printerrors():
     '''Callback function to check values input in GUI for errors and return a printed value'''
     Controllerv2.allerrors()
 
+
+
+#Placeholder Data for Fotis and Chris
+graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
+'CustID':['123','123','124','125','122','123','123','124','125','122'],
+'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
+'Payment':[1,0,1,0,1,0,0,1,1,0],
+'SKU':['123456789','123456788','123456788','123456787','123456784','123456789','123456788','123456788','123456787','123456784'],
+'Sales':[20,30,30,40,10,20,30,30,40,10],
+'Day':[1,1,2,3,4,4,5,5,5,6],
+'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
+
+transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
+'CustID':['123','123','124','125','122','123','123','124','125','122'],
+'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
+'Payment':[1,0,1,0,1,0,0,1,1,0],
+'SKU':['123456789','123456788','123456788','123456787','123456784','123456789','123456788','123456788','123456787','123456784'],
+'Sales':[20,30,30,40,20,20,30,30,40,30],
+'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
+
+
 def create_df():
     ''' Creates Dataframe from the Data collected in the database '''
     global df
-    df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
+    df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['CustID','SalesID','CC','SKU','Sales','Date'])
     df['Cash'] = df['CC']==0
     df['CCSales'] = df.Sales*df.CC
     df['CashSales']=df.Sales*df.Cash
     return(df)
-
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
@@ -288,9 +304,9 @@ f5_CRM = Frame(CRMView)
 f5_CRM.pack(fill = BOTH, expand = TRUE)
 f1 = Figure(figsize = (5,5),dpi = 100)
 ax2 = f1.add_subplot(111)
-df5 = create_df()
-df2 = df5.groupby('CustID')['Sales'].sum()
-df3 = pd.DataFrame({'Name':df2.index, 'TotalSales':df2.values}).sort_values(['TotalSales'], ascending=False)
+df5 = pd.DataFrame(graphArray)
+df2 = df5.groupby('Name')['Sales'].sum()
+df3 = pd.DataFrame({'Name':df2.index, 'TotalSales':df2.values})
 df3.plot(x = 'Name', y= 'TotalSales',kind = 'bar', ax = ax2)
 
 canvas = FigureCanvasTkAgg(f1, f5_CRM)

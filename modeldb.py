@@ -2,6 +2,8 @@
 
 import sqlite3
 import time
+import pandas as pd
+import os
 
 #Start by connecting to the pos.db database
 conn = sqlite3.connect('pos.db')
@@ -69,6 +71,7 @@ class Customer(object):
 	def checkCust():
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchall()
+		print(custIDtuple)
 		return custIDtuple
 
 
@@ -132,9 +135,9 @@ class POS(object):
 
 	@staticmethod
 	def getPosData():
-		c.execute("SELECT * FROM sales, customer LEFT JOIN sales.CustIDcol, customers.CustIDCol")
-		df = c.fetchall()
-		return(df)
+		c.execute("SELECT * FROM sales")
+		sales_data = c.fetchall()
+		return(sales_data)
 
 	@staticmethod
 	def CRM():
@@ -152,5 +155,9 @@ def closeDay():
 
 
 
-
+def write_data_sql():
+    sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
+    customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0) #specify path
+    sales_table.to_sql('sales', conn, if_exists='append')
+    customer_table.to_sql('customers', conn, if_exists='append')
 

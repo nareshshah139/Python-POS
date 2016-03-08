@@ -68,6 +68,7 @@ def allerrors(list1):
 
 
 def main():
+
     conn = sqlite3.connect('pos.db')
     c = conn.cursor()
 
@@ -86,30 +87,49 @@ def main():
     Modelv2.Product.setItems("abc123459", "Laptop")
     Modelv2.Product.setItems("abc123450", "Desktop")
 
-def update_data():
-    Modelv2.customersTable()
-
+    Modelv2.write_data_sql()
+    a = Modelv2.Customer.checkCust()
+    b = a[0][0]
+    print(type(b))
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
 
 def newsalebutton(list1):
+	
 # should we check for negative numbers, etc. here before pushing?
 # check if CustID exists
 	try:
 		CustID = int(list1[0])
 		CC = int(list1[1])
-		SKU = list1[2]
+		SKU = SKUcode(list1)
 		sales = float(list1[3])
 		datePOS = list1[4]
 		print(CustID, CC, SKU, sales, datePOS)
-
+		
 		hold = Modelv2.POS(CustID, CC, SKU, sales, datePOS)
 		hold.submit()
 	except:
 		pass
 
-# GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB
+def SKUcode(list1):
+    try:
+        skucode1 = list1[2]
+        if skucode1 == "Vacuum Cleaner":
+            return 'abc123456'
+        elif skucode1 == "Radio":
+            return 'abc123457'
+        elif skucode1 == "Television":
+            return 'abc123458'
+        elif skucode1 == "Laptop":
+            return 'abc123459'
+        elif skucode1 == "Desktop":
+            return "abc123460"
+    except:
+        pass
+
+"""# GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB """
+
 def newcustbutton(clist):
     try:
         name = clist[0]
@@ -119,20 +139,19 @@ def newcustbutton(clist):
     except:
         pass
 
-
 main()
 
 a= Modelv2.Customer("Bigboobs","22/08/1990")
 Modelv2.Customer.push(a)
-
+"""
 b= Modelv2.POS(123,1,"aer135",12,"12/03/2016")
 Modelv2.POS.submit(b)
-
+"""
 a = Modelv2.POS.CRM()
 print(a)
 
 def getSKUItems():
     skus =Modelv2.Product.getItems()
-    print(skus)
+    return skus
 
 getSKUItems()
