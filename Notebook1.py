@@ -38,7 +38,6 @@ def load_data_sql():
 
 """
 
-
 def callback1():
     '''Callback function to push values from GUI to controller'''
     list1 = [C_ID.get(),CC_Var.get(),SKU.get(),Sales.get(),Date_POS_Var]
@@ -51,14 +50,13 @@ def callback2():
     print(list2)
     Controllerv2.newcustbutton(list2)
 
-def sel():
-    '''Callback function for radiobutton to return values'''
-    CC_1 = CC_Var.get()
-    
-
 def printerrors():
-    '''Callback function to check values input in GUI for errors and return a printed value'''
-    Controllerv2.allerrors()
+    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    Controllerv2.allerrors(list1)
+
+#def printerrors():
+#    '''Callback function to check values input in GUI for errors and return a printed value'''
+#    Controllerv2.allerrors()
 
 
 
@@ -234,7 +232,6 @@ f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
 
 
-
 ##f7_POS = Frame(POSView)
 ##f7_POS.pack(fill=BOTH,expand = TRUE)
 ##Label(f7_POS,image=photo).pack()
@@ -242,9 +239,6 @@ B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
 #f7_POS = Frame(POSView)
 #f7_POS.pack(fill=X)
 #Label(f7_POS, text = printerrors()).pack(side= LEFT)
-
-
-
 
 
 #Report View
