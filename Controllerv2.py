@@ -83,11 +83,15 @@ def main():
 	Modelv2.customersTable()
 	Modelv2.productsTable()
 
+
 	Modelv2.Product.setItems("abc123456", "Vacuum cleaner")
 	Modelv2.Product.setItems("abc123457", "Radio")
 	Modelv2.Product.setItems("abc123458", "Television")
 	Modelv2.Product.setItems("abc123459", "Laptop")
 	Modelv2.Product.setItems("abc123450", "Desktop")
+
+    Modelv2.write_data_sql()
+    Modelv2.Customer.checkCust()
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
@@ -109,7 +113,7 @@ def newsalebutton(list1):
 		else:
 			print("New Customer")
 		CC = int(list1[1])
-		SKU = list1[2]
+		SKU = SKUcode(list1)
 		sales = float(list1[3])
 # Check if sales > 400 or <=0
 		if sales > 400:
@@ -127,7 +131,24 @@ def newsalebutton(list1):
 		print("something broke")
 #		return formatError()
 
-# GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB
+def SKUcode(list1):
+    try:
+        skucode1 = list1[2]
+        if skucode1 == "Vacuum Cleaner":
+            return 'abc123456'
+        elif skucode1 == "Radio":
+            return 'abc123457'
+        elif skucode1 == "Television":
+            return 'abc123458'
+        elif skucode1 == "Laptop":
+            return 'abc123459'
+        elif skucode1 == "Desktop":
+            return "abc123460"
+    except:
+        pass
+
+"""# GETS VALUES FROM GUI, CHECKS FORMATS, CREATES CUSTOMER OBJECT, SUBMITS TO DB """
+
 def newcustbutton(clist):
 	try:
 		name = clist[0]
@@ -142,15 +163,15 @@ main()
 
 a= Modelv2.Customer("Brains","22/08/1990")
 Modelv2.Customer.push(a)
-
+"""
 b= Modelv2.POS(123,1,"aer135",12,"12/03/2016")
 Modelv2.POS.submit(b)
-
+"""
 a = Modelv2.POS.CRM()
 print(a)
 
 def getSKUItems():
-	skus =Modelv2.Product.getItems()
-	print(skus)
+    skus =Modelv2.Product.getItems()
+    return skus
 
 getSKUItems()
