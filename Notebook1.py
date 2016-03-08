@@ -35,13 +35,18 @@ def callback():
     print('Button Clicked')
 
 def callback1():
-    list1 = [C_ID.get(),CC.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    list1 = [C_ID.get(),CC_Var.get(),SKU.get(),Sales.get(),Date_POS_Var]
+    print(list1)
     Controllerv2.newsalebutton(list1)
 
 def callback2():
     list2 = [C_Name.get(), Date_CV_Var]
     print(list2)
     Controllerv2.newcustbutton(list2)
+
+def sel():
+    CC_1 = CC_Var.get()
+    
 
 def printerrors():
     Controllerv2.allerrors()
@@ -186,9 +191,12 @@ C_ID_Var = C_ID.get()
 f2_POS = Frame(POSView)
 f2_POS.pack(fill = X)
 Label(f2_POS,text = 'Credit Card').pack(side = LEFT)
-CC = IntVar()
-Checkbutton(f2_POS, text="Yes?", variable=CC).pack(side = LEFT)
-
+#CC = IntVar()
+#Checkbutton(f2_POS, text="Yes?", variable=CC).pack(side = LEFT)
+CC_Var = IntVar()
+CC = Radiobutton(f2_POS, text="CC", variable=CC_Var, value=1,
+                  command=sel).pack(side = LEFT)
+Cash = Radiobutton(f2_POS,text = "Cash",variable = CC_Var,value=0,command = sel).pack(side = LEFT)
 
 f3_POS = Frame(POSView)
 f3_POS.pack(fill = X)
@@ -216,9 +224,9 @@ f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit', command = callback1).pack()
 
 
-f7_POS = Frame(POSView)
-f7_POS.pack(fill=X)
-Label(f7_POS, text = printerrors()).pack(side= LEFT)
+#f7_POS = Frame(POSView)
+#f7_POS.pack(fill=X)
+#Label(f7_POS, text = printerrors()).pack(side= LEFT)
 
 
 
@@ -272,7 +280,7 @@ toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
-
+root.mainloop()
 
 #C_ID.delete(0,END)
 #SKU.delete(0,END)
