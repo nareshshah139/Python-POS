@@ -35,8 +35,12 @@ def load_data_sql():
     return(df)
 
 #load_data_sql()    THIS FUNCTION CAN BE CALLED THROUGH =>    Modelv2.POS.getPosData()  BUT WHERE??
-
 """
+
+def sel():
+    '''Callback function for radiobutton to return values'''
+    CC_1 = CC_Var.get()
+
 
 def callback1():
     '''Callback function to push values from GUI to controller'''
