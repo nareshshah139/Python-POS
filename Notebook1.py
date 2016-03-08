@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 import Controllerv2
 import matplotlib.pyplot as plt
-import modeldb as Modelv2
 ##from PIL import Image, ImageTk
 plt.style.use('ggplot')
 ##
@@ -27,7 +26,7 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-"""
+
 # SHOULD NOT GO IN THE GUI
 # CONSISTENCY -- THIS AND/OR FETCH?
 #-----Fotis-----
@@ -37,7 +36,7 @@ def load_data_sql():
     return(df)
 
 #load_data_sql()
-"""
+
 
 
 def callback1():
@@ -45,9 +44,6 @@ def callback1():
     list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
     print(list1)
     Controllerv2.newsalebutton(list1)
-
-
-
 
 def callback2():
     '''Callback function for adding new user to the database'''
@@ -64,6 +60,7 @@ def printerrors():
     '''Callback function to check values input in GUI for errors and return a printed value'''
     Controllerv2.allerrors()
 
+<<<<<<< HEAD
 def create_df():
     ''' Creates Dataframe from the Data collected in the database '''
     global df
@@ -73,6 +70,39 @@ def create_df():
     df['CashSales']=df.Sales*df.Cash
     return(df)
     
+=======
+
+
+#Placeholder Data for Fotis and Chris
+graphArray = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
+'CustID':['123','123','124','125','122','123','123','124','125','122'],
+'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
+'Payment':[1,0,1,0,1,0,0,1,1,0],
+'SKU':['123456789','123456788','123456788','123456787','123456784','123456789','123456788','123456788','123456787','123456784'],
+'Sales':[20,30,30,40,10,20,30,30,40,10],
+'Day':[1,1,2,3,4,4,5,5,5,6],
+'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
+
+transaction_data = {'SalesID': [1,2,3,4,5,6,7,8,9,10],
+'CustID':['123','123','124','125','122','123','123','124','125','122'],
+'Name':['Chris','Chris','Lionel','Jonas','Fotis','Chris','Chris','Lionel','Jonas','Fotis'],
+'Payment':[1,0,1,0,1,0,0,1,1,0],
+'SKU':['123456789','123456788','123456788','123456787','123456784','123456789','123456788','123456788','123456787','123456784'],
+'Sales':[20,30,30,40,20,20,30,30,40,30],
+'Date': ['2015-01-01', '2015-01-02', '2015-01-03', '2015-01-04','2015-01-05', '2015-01-05', '2015-01-06', '2015-01-07','2015-01-08', '2015-01-09']}
+
+
+
+def create_df():
+    ''' Creates Dataframe from the Data collected in the database '''
+    global df
+    df = pd.DataFrame(transaction_data)
+    df['CC'] = df['Payment']==1
+    df['Cash'] = df['Payment']==0
+    df['CCSales'] = df.Sales*df.CC
+    df['CashSales']= df.Sales*df.Cash
+    return df
+>>>>>>> origin/master
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
