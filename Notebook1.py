@@ -286,7 +286,23 @@ f1_CRM.pack(fill = X)
 Label(f1_CRM,text = 'CRM Reports').pack(padx = 10, pady = 10)
 
 f2_CRM = Frame(CRMView)
-f2_CRM.pack(fill = BOTH, expand = TRUE)
+f2_CRM.pack(fill = X)
+Label(f2_CRM,text = 'Total Sales').pack(side = LEFT)
+Label(f2_CRM,text = '260 Euros').pack(side = LEFT,padx = 5)
+
+f3_CRM = Frame(CRMView)
+f3_CRM.pack(fill=X)
+Label(f3_CRM,text = 'CC Sales').pack(side = LEFT)
+Label(f3_CRM,text = '110 Euros').pack(side = LEFT, padx = 5)
+
+f4_CRM = Frame(CRMView)
+f4_CRM.pack(fill=X)
+Label(f4_CRM,text = 'Cash Sales').pack(side = LEFT)
+Label(f4_CRM,text = '150 Euros').pack(side = LEFT, padx = 5)
+
+
+f5_CRM = Frame(CRMView)
+f5_CRM.pack(fill = BOTH, expand = TRUE)
 f1 = Figure(figsize = (5,5),dpi = 100)
 ax2 = f1.add_subplot(111)
 df5 = pd.DataFrame(graphArray)
@@ -294,10 +310,10 @@ df2 = df5.groupby('Name')['Sales'].sum()
 df3 = pd.DataFrame({'Name':df2.index, 'TotalSales':df2.values})
 df3.plot(x = 'Name', y= 'TotalSales',kind = 'bar', ax = ax2)
 
-canvas = FigureCanvasTkAgg(f1, f2_CRM)
+canvas = FigureCanvasTkAgg(f1, f5_CRM)
 canvas.show()
 canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
-toolbar = NavigationToolbar2TkAgg(canvas, f2_CRM)
+toolbar = NavigationToolbar2TkAgg(canvas, f5_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
