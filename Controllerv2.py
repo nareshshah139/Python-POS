@@ -89,8 +89,7 @@ def main():
 
     Modelv2.write_data_sql()
     a = Modelv2.Customer.checkCust()
-    b = a[0][0]
-    print(type(b))
+    
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB

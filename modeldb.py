@@ -141,9 +141,24 @@ class POS(object):
 
 	@staticmethod
 	def CRM():
-		c.execute("SELECT CustIDcol, SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) GROUP BY CustIDcol ")
+		c.execute("SELECT CustIDcol, Datecol, SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) GROUP BY CustIDcol ")
 		crm = c.fetchall()
 		return crm
+	@staticmethod
+	def totSales():
+		c.execute("SELECT SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales)")
+		report = c.fetchall()
+		return report
+	@staticmethod
+	def totCashSales():
+		c.execute("SELECT SUM (Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) AND CCcol = 0")
+		rep1 = c.fetchall()
+		return rep1
+	@staticmethod
+	def totCCsales():
+		c.execute("SELECT SUM (Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) AND CCcol = 0")
+		rep2 = c.fetchall()
+		return rep2
 
 
 

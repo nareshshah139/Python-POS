@@ -267,17 +267,17 @@ Label(f1_CRM,text = 'CRM Reports').pack(padx = 10, pady = 10)
 f2_CRM = Frame(CRMView)
 f2_CRM.pack(fill = X)
 Label(f2_CRM,text = 'Total Sales').pack(side = LEFT)
-Label(f2_CRM,text = '260 Euros').pack(side = LEFT,padx = 5)
+Label(f2_CRM,text = Modelv2.POS.totSales()).pack(side = LEFT,padx = 5)
 
 f3_CRM = Frame(CRMView)
 f3_CRM.pack(fill=X)
 Label(f3_CRM,text = 'CC Sales').pack(side = LEFT)
-Label(f3_CRM,text = '110 Euros').pack(side = LEFT, padx = 5)
+Label(f3_CRM,text = Modelv2.POS.totCCsales()).pack(side = LEFT, padx = 5)
 
 f4_CRM = Frame(CRMView)
 f4_CRM.pack(fill=X)
 Label(f4_CRM,text = 'Cash Sales').pack(side = LEFT)
-Label(f4_CRM,text = '150 Euros').pack(side = LEFT, padx = 5)
+Label(f4_CRM,text = Modelv2.POS.totCashSales()).pack(side = LEFT, padx = 5)
 
 
 f5_CRM = Frame(CRMView)
