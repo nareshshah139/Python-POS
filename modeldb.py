@@ -49,6 +49,10 @@ def productsTable():
 
 
 
+
+
+
+
 # Definition of the Customer class
 # Only created when CustID not found in customers table
 class Customer(object):
@@ -57,7 +61,7 @@ class Customer(object):
 
 	def __init__(self, Name, date):
 		'''Create a new instance of a Customer.'''
-		CustID = Customer.currentID
+		self.CustID = Customer.currentID
 		Customer.currentID +=1
 		self.Name = Name
 		self.date = date
@@ -71,8 +75,11 @@ class Customer(object):
 	def checkCust():
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchall()
-		print(custIDtuple)
+#		elon = pd.DataFrame(custIDtuple, columns=['custids'])
+#		return elon
 		return custIDtuple
+
+
 
 
 

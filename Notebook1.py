@@ -26,88 +26,75 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-
-# SHOULD NOT GO IN THE GUI
-# CONSISTENCY -- THIS AND/OR FETCH?
-#-----Fotis-----
-#def load_data_sql():
-#    connection = sqlite3.connect("pos.db")
-#    df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
-#    return(df)
-
-#load_data_sql()
-
-
 def callback1():
-    '''Callback function to push values from GUI to controller'''
-    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
-    print(list1)
-    Controllerv2.newsalebutton(list1)
+	'''Callback function to push values from GUI to controller'''
+	list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
+	print(list1)
+	Controllerv2.newsalebutton(list1)
 
 def callback2():
-    '''Callback function for adding new user to the database'''
-    list2 = [C_Name.get(), Date_CV_Var]
-    print(list2)
-    Controllerv2.newcustbutton(list2)
+	'''Callback function for adding new user to the database'''
+	list2 = [C_Name.get(), Date_CV_Var]
+	print(list2)
+	Controllerv2.newcustbutton(list2)
 
 def sel():
-    '''Callback function for radiobutton to return values'''
-    CC_1 = CC_Var.get()
-
+	'''Callback function for radiobutton to return values'''
+	CC_1 = CC_Var.get()
+	
 
 def printerrors():
-    '''Callback function to check values input in GUI for errors and return a printed value'''
-    Controllerv2.allerrors()
-
+	'''Callback function to check values input in GUI for errors and return a printed value'''
+	Controllerv2.allerrors()
 
 
 def create_df():
-    ''' Creates Dataframe from the Data collected in the database '''
-    global df
-    df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
-    df['Cash'] = df['CC']==0
-    df['CCSales'] = df.Sales*df.CC
-    df['CashSales']=df.Sales*df.Cash
-    return df
+	''' Creates Dataframe from the Data collected in the database '''
+	global df
+	df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
+	df['Cash'] = df['CC']==0
+	df['CCSales'] = df.Sales*df.CC
+	df['CashSales']=df.Sales*df.Cash
+	return df
 
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
 def top_customers():
-    '''Returns a dataframe of highest paying customers in the Database'''
-    df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
-    df_sales.columns = ['SalesAmount','ItemCount']
-    # Sort by sum of sales in descending order
-    df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
-    return df_sales.head(10)
+	'''Returns a dataframe of highest paying customers in the Database'''
+	df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
+	df_sales.columns = ['SalesAmount','ItemCount']
+	# Sort by sum of sales in descending order
+	df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
+	return df_sales.head(10)
 
 
 #Top SKU Table
 def top_sku():
-    '''Returns a dataframe of the highest selling items in the product database '''
-    df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
-    df_topSKU.columns=['SalesAmount','SalesCount']
-    df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
-    return df_topSKU_sort.head(10)
+	'''Returns a dataframe of the highest selling items in the product database '''
+	df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
+	df_topSKU.columns=['SalesAmount','SalesCount']
+	df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
+	return df_topSKU_sort.head(10)
 
 #PLOTTING
 #Create Sales by Day Table
 def sales_overview():
-    ''' Defines Daily sales variables. This allows us to plot graphs '''
-    global daily_sales
-    daily_sales = df[['Date','Sales','CCSales','CashSales']].groupby(['Date']).agg([np.sum])
-    daily_sales.columns = ['TotalSales','CCSales','CashSales']
-    return daily_sales
+	''' Defines Daily sales variables. This allows us to plot graphs '''
+	global daily_sales
+	daily_sales = df[['Date','Sales','CCSales','CashSales']].groupby(['Date']).agg([np.sum])
+	daily_sales.columns = ['TotalSales','CCSales','CashSales']
+	return daily_sales
 
 
 #Create Sales by SKU Table
 def sku_overview():
-    ''' Defines SKU Sales variable. This allows us to plot graphs '''
-    global sku_sales
-    sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
-    sku_sales.columns = ['CCSales','CashSales']
-    sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
-    return sku_sales.head(5)
+	''' Defines SKU Sales variable. This allows us to plot graphs '''
+	global sku_sales
+	sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
+	sku_sales.columns = ['CCSales','CashSales']
+	sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
+	return sku_sales.head(5)
 
 #created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
 def update_data():
