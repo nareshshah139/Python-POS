@@ -10,6 +10,8 @@ import numpy as np
 import Controllerv2
 import matplotlib.pyplot as plt
 import modeldb as Modelv2
+import matplotlib.animation as animation
+
 ##from PIL import Image, ImageTk
 plt.style.use('ggplot')
 ##
@@ -29,23 +31,26 @@ n = ttk.Notebook(master, name = 'n')
 def callback1():
 	'''Callback function to push values from GUI to controller'''
 	list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
-	print(list1)
-	Controllerv2.newsalebutton(list1)
+	error = Controllerv2.newsalebutton(list1)
+	j = '\n'.join(error)
+	Label_Var.set(j)
 
 def callback2():
 	'''Callback function for adding new user to the database'''
 	list2 = [C_Name.get(), Date_CV_Var]
 	print(list2)
-	Controllerv2.newcustbutton(list2)
+	poop = Controllerv2.newcustbutton(list2)
+	CV_Var_ID.set(poop)
 
 def sel():
 	'''Callback function for radiobutton to return values'''
 	CC_1 = CC_Var.get()
 	
 
-def printerrors():
-	'''Callback function to check values input in GUI for errors and return a printed value'''
-	Controllerv2.allerrors()
+#def printerrors():
+#	'''Callback function to check values input in GUI for errors and return a printed value'''
+#    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
+
 
 
 def create_df():
@@ -97,18 +102,19 @@ def sku_overview():
 	return sku_sales.head(5)
 
 #created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
-def update_data():
-    create_df()
-    sales_overview()
-    sku_overview()
-    ax1 = f.add_subplot(211)
-    ax3 = f.add_subplot(212)
-    #pd.options.display.mpl_style = 'default'
-    daily_sales.plot(ax=ax1)
-    #pd.options.display.mpl_style = 'default'
-    sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
-    print("clicked")
-    #possible to not display the graph until this function gets called?
+def animate(i):
+	create_df()
+	sales_overview()
+	sku_overview()
+	ax1 = f.add_subplot(211)
+	ax3 = f.add_subplot(212)
+	#pd.options.display.mpl_style = 'default'
+	#pd.options.display.mpl_style = 'default'
+	ax1.clear()
+	ax3.clear()
+	sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
+	daily_sales.plot(ax=ax1)
+	print("clicked")
 
 
 
@@ -158,6 +164,11 @@ f3_CV.pack(fill = X)
 Label(f3_CV,text = "Today's date is "+time.strftime("%d/%m/%Y")).pack(side = LEFT)
 Date_CV_Var = time.strftime("%d/%m/%Y")
 B_Add_User = Button(f3_CV,text = 'Add User', command = callback2).pack(side = RIGHT)
+
+f4_CV = Frame(CustomerView)
+f4_CV.pack(fill = X)
+CV_Var_ID = StringVar()
+Label(f4_CV,textvariable= CV_Var_ID).pack(fill = X)
 
 # POS View Tab
 # Make a frame to hold all elements
@@ -215,9 +226,11 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 ##f7_POS.pack(fill=BOTH,expand = TRUE)
 ##Label(f7_POS,image=photo).pack()
 
-#f7_POS = Frame(POSView)
-#f7_POS.pack(fill=X)
-#Label(f7_POS, text = printerrors()).pack(side= LEFT)
+f7_POS = Frame(POSView)
+f7_POS.pack(fill=BOTH)
+#B_POS_Check = Button(f7_POS,text = 'Check Errors',command = printerrors).pack(side= LEFT)
+Label_Var = StringVar()
+Label(f7_POS, textvariable = Label_Var).pack(fill=BOTH)
 
 
 #Report View
@@ -229,7 +242,6 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 f1_RV = Frame(ReportView)
 f1_RV.pack(fill=X)
-Refresh_data = Button(f1_RV,text = 'Refresh Data', command = update_data).pack()#check comments below at 256
 Label(f1_RV,text = 'Report and Graphs').pack(padx = 10,pady=10)
 
 f2_RV = Frame(ReportView)
@@ -295,6 +307,9 @@ canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
 toolbar = NavigationToolbar2TkAgg(canvas, f5_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
+
+
+ani = animation.FuncAnimation(f, animate, interval=2000)
 
 root.mainloop()
 

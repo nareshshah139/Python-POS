@@ -113,7 +113,7 @@ class Product(object):
 
 # Definition of the POS class
 class POS(object):
-	maxSaleID = 0
+	maxSaleID = 1000
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
 	def __init__(self, CustID, CC, SKU, sales, date):
@@ -125,11 +125,13 @@ class POS(object):
 		self.SKU = SKU
 		self.sales = sales
 		self.date = date
+		print("this is my creation...", self.CustID, self.CC, self.SKU, self.sales)
 
 # The insertDB method inserts the pos information into the sqlite database
-	def submit(self):
+	def submit1(self):
 		'''Adds a row in the sales table with the information
 		from the POS provided as an argument.'''
+		print("Am I reaching?")
 		c.execute("INSERT INTO sales VALUES (?,?,?,?,?,?)", (
 			POS.maxSaleID,
 			self.CustID,
@@ -138,13 +140,14 @@ class POS(object):
 			self.sales,
 			self.date
 			))
+		print("going, going, gone? Submit!")
 		conn.commit()
 
 	@staticmethod
 	def getPosData():
 		c.execute("SELECT * FROM sales")
 		sales_data = c.fetchall()
-		return(sales_data)
+		return (sales_data)
 
 
 	@staticmethod
