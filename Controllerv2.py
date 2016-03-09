@@ -91,6 +91,9 @@ def main():
 	Modelv2.Product.setItems("abc123450", "Desktop")
 
 	Modelv2.write_data_sql()
+#	a = Modelv2.Customer.checkCust()
+
+   # hold1 = Modelv2.POS(10,0,"123",356,"22/03/1999")
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
@@ -107,7 +110,7 @@ def newsalebutton(list1):
 #		hold = Modelv2.POS(CustID, CC, SKU, sales, datePOS)
 #		hold.submit()
 	try:
-		CustID = str(list1[0])
+		CustID = int(list1[0])
 		custIDT = Modelv2.Customer.checkCust()
 		zzz = [item for item in custIDT if CustID in item]
 		thresh = 0
@@ -148,8 +151,8 @@ def newsalebutton(list1):
 			else:
 #				print("not meeting all 3 criteria")
 				errors.append(formatError())
+		print("errors AFTER:  ",errors)
 		return errors
-#			print("errors AFTER:  ",errors)
 #		print("alphabet in try:  ", alphabet)
 #		return alphabet
 	except(RuntimeError, TypeError, NameError):
@@ -191,17 +194,15 @@ def allerrors():
 
 main()
 
-a= Modelv2.Customer("brains","22/08/1990")
-Modelv2.Customer.push(a)
-"""
-b= Modelv2.POS(123,1,"aer135",12,"12/03/2016")
-Modelv2.POS.submit(b)
-"""
-a = Modelv2.POS.CRM()
-print(a)
+#a= Modelv2.Customer("brains","22/08/1990")
+#Modelv2.Customer.push(a)
+#b= Modelv2.POS(123,1,"aer135",12,"12/03/2016")
+#Modelv2.POS.submit(b)
+#a = Modelv2.POS.CRM()
+#print(a)
 
-def getSKUItems():
-	skus =Modelv2.Product.getItems()
-	return skus
+#def getSKUItems():
+#	skus =Modelv2.Product.getItems()
+#	return skus
 
-getSKUItems()
+#getSKUItems()
