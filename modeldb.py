@@ -9,14 +9,13 @@ import os
 conn = sqlite3.connect('pos.db')
 c = conn.cursor()
 
-# MAKE SURE CONN AND C EXIST IN VIEW IF INTERACTING WITH SQLITE
 
 def salesTable():
 	'''Creates the sales table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS sales (
 		SaleIDcol INTEGER PRIMARY KEY AUTOINCREMENT ,
-		CustIDcol VARCHAR(20),
+		CustIDcol INTEGER,
 		CCcol BOOLEAN,
 		SKUcol VARCHAR(20),
 		Salescol FLOAT(20),
@@ -32,6 +31,7 @@ def customersTable():
 	'''Creates the customers table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
+
 		CustIDcol INTEGER PRIMARY KEY AUTOINCREMENT ,
 		Namecol VARCHAR(20),
 		Datecol VARCHAR(20)
@@ -52,10 +52,7 @@ def productsTable():
 
 
 
-# Definition of the Customer class
-# Only created when CustID not found in customers table
 class Customer(object):
-
 
 	def __init__(self, Name, date):
 		'''Create a new instance of a Customer.'''
@@ -71,12 +68,7 @@ class Customer(object):
 	def checkCust():
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchall()
-#		elon = pd.DataFrame(custIDtuple, columns=['custids'])
-#		return elon
 		return custIDtuple
-
-
-
 
 
 class Product(object):
@@ -93,10 +85,6 @@ class Product(object):
 		tupleSKU = c.fetchall()
 		return tupleSKU
 
-
-
-# Add products to the database
-
 	@staticmethod
 	def setItems(SKU, Product):
 		'''Adds a row in the Products table with the information
@@ -105,8 +93,6 @@ class Product(object):
 		conn.commit()
 
 
-
-# Definition of the POS class
 class POS(object):
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
@@ -142,7 +128,6 @@ class POS(object):
 		sales_data = c.fetchall()
 		return (sales_data)
 
-
 	@staticmethod
 	def CRM():
 		c.execute("SELECT CustIDcol, Datecol, SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) GROUP BY CustIDcol ")
@@ -165,13 +150,10 @@ class POS(object):
 		return rep2
 
 
-
-# Save and close the database.
 def closeDay():
-	"""Closes the books for the day."""
+	"""Saves and closes the books for the day."""
 	conn.commit()
 	conn.close()
-
 
 
 def write_data_sql():
@@ -181,6 +163,3 @@ def write_data_sql():
 	sales_table.to_sql('sales', conn, if_exists='append')
 	customer_table.to_sql('customers', conn, if_exists='append')
 
-
-#a= POS(2, 1,"ZRRTGf",123,"22/05/1992")
-#POS.submit(a)

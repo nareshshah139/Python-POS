@@ -40,18 +40,13 @@ def callback2():
 	list2 = [C_Name.get(), Date_CV_Var]
 	print(list2)
 	poop = Controllerv2.newcustbutton(list2)
+	print(poop)
 	CV_Var_ID.set(poop)
 
 def sel():
 	'''Callback function for radiobutton to return values'''
 	CC_1 = CC_Var.get()
 	
-
-#def printerrors():
-#	'''Callback function to check values input in GUI for errors and return a printed value'''
-#    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
-
-
 
 def create_df():
 	''' Creates Dataframe from the Data collected in the database '''
@@ -103,19 +98,22 @@ def sku_overview():
 
 #created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
 def animate(i):
-
-	create_df()
-	sales_overview()
-	sku_overview()
-	ax1 = f.add_subplot(211)
-	ax3 = f.add_subplot(212)
-	#pd.options.display.mpl_style = 'default'
-	#pd.options.display.mpl_style = 'default'
-	ax1.clear()
-	ax3.clear()
-	sku_sales.plot(kind = 'bar',stacked = True,ax = ax3,title = "SKUs by Payment Method")
-	daily_sales.plot(ax=ax1, title="Daily Sales")
-	print("clicked")
+    create_df()
+    sales_overview()
+    sku_overview()
+    ax1 = f.add_subplot(211)
+    ax3 = f.add_subplot(212)
+    #pd.options.display.mpl_style = 'default'
+    #pd.options.display.mpl_style = 'default'
+    ax1.clear()
+    ax3.clear()
+    sku_sales.plot(kind = 'bar',stacked = True,ax = ax3,title = "SKUs by Payment Method")
+    ax3.set_xlabel("SKU Numbers")
+    ax3.set_ylabel("Amount in €")
+    daily_sales.plot(ax=ax1, title="Daily Sales")
+    ax1.set_xlabel("Date")
+    ax1.set_ylabel("Amount in €")
+    print("clicked")
 
 
 
@@ -222,11 +220,6 @@ f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 
-
-##f7_POS = Frame(POSView)
-##f7_POS.pack(fill=BOTH,expand = TRUE)
-##Label(f7_POS,image=photo).pack()
-
 f7_POS = Frame(POSView)
 f7_POS.pack(fill=BOTH)
 #B_POS_Check = Button(f7_POS,text = 'Check Errors',command = printerrors).pack(side= LEFT)
@@ -310,10 +303,6 @@ toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
 
-ani = animation.FuncAnimation(f, animate, interval=2000)
+ani = animation.FuncAnimation(f, animate, interval=1000)
 
 root.mainloop()
-
-#C_ID.delete(0,END)
-#SKU.delete(0,END)
-#Sales.delete(0,END)
