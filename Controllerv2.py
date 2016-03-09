@@ -92,7 +92,7 @@ def main():
 
    # hold1 = Modelv2.POS(10,0,"123",356,"22/03/1999")
 
-    
+
 
 
 # GETS VALUES FROM GUI, CHECKS FORMATS, CREATES POC OBJECT, SUBMITS TO DB
