@@ -10,6 +10,8 @@ import numpy as np
 import Controllerv2
 import matplotlib.pyplot as plt
 import modeldb as Modelv2
+import matplotlib.animation as animation
+
 ##from PIL import Image, ImageTk
 plt.style.use('ggplot')
 ##
@@ -110,18 +112,19 @@ def sku_overview():
     return sku_sales.head(5)
 
 #created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
-def update_data():
+def animate(i):
     create_df()
     sales_overview()
     sku_overview()
     ax1 = f.add_subplot(211)
     ax3 = f.add_subplot(212)
     #pd.options.display.mpl_style = 'default'
-    daily_sales.plot(ax=ax1)
     #pd.options.display.mpl_style = 'default'
+    ax1.clear()
+    ax3.clear()
     sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
+    daily_sales.plot(ax=ax1)
     print("clicked")
-    #possible to not display the graph until this function gets called?
 
 
 
@@ -242,7 +245,6 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 f1_RV = Frame(ReportView)
 f1_RV.pack(fill=X)
-Refresh_data = Button(f1_RV,text = 'Refresh Data', command = update_data).pack()#check comments below at 256
 Label(f1_RV,text = 'Report and Graphs').pack(padx = 10,pady=10)
 
 f2_RV = Frame(ReportView)
@@ -308,6 +310,9 @@ canvas.get_tk_widget().pack(side=BOTTOM, fill=BOTH, expand=True)
 toolbar = NavigationToolbar2TkAgg(canvas, f5_CRM)
 toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
+
+
+ani = animation.FuncAnimation(f, animate, interval=10000)
 
 root.mainloop()
 
