@@ -89,7 +89,7 @@ def top_customers():
 #Top SKU Table
 def top_sku():
     '''Returns a dataframe of the highest selling items in the product database '''
-    df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
+    df_topSKU = df[['Item','Sales']].groupby(['Item']).agg([np.sum, np.count_nonzero])
     df_topSKU.columns=['SalesAmount','SalesCount']
     df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
     return df_topSKU_sort.head(10)
@@ -125,7 +125,11 @@ def animate(i):
     ax1.clear()
     ax3.clear()
     sku_sales.plot(kind = 'bar',stacked = True,ax = ax3,title = "SKUs by Payment Method")
+    ax3.set_xlabel("SKU Numbers")
+    ax3.set_ylabel("Amount in €")
     daily_sales.plot(ax=ax1, title="Daily Sales")
+    ax1.set_xlabel("Date")
+    ax1.set_ylabel("Amount in €")
     print("clicked")
 
 
@@ -317,7 +321,7 @@ toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
 
-ani = animation.FuncAnimation(f, animate, interval=10000)
+ani = animation.FuncAnimation(f, animate, interval=1000)
 
 root.mainloop()
 

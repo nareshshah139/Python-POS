@@ -32,6 +32,7 @@ def customersTable():
 	'''Creates the customers table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
+
 		CustIDcol INTEGER PRIMARY KEY AUTOINCREMENT ,
 		Namecol VARCHAR(20),
 		Datecol VARCHAR(20)
