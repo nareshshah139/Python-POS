@@ -124,8 +124,8 @@ def animate(i):
     #pd.options.display.mpl_style = 'default'
     ax1.clear()
     ax3.clear()
-    sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
-    daily_sales.plot(ax=ax1)
+    sku_sales.plot(kind = 'bar',stacked = True,ax = ax3,title = "SKUs by Payment Method")
+    daily_sales.plot(ax=ax1, title="Daily Sales")
     print("clicked")
 
 
