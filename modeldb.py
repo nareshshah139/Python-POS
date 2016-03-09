@@ -9,14 +9,13 @@ import os
 conn = sqlite3.connect('pos.db')
 c = conn.cursor()
 
-# MAKE SURE CONN AND C EXIST IN VIEW IF INTERACTING WITH SQLITE
 
 def salesTable():
 	'''Creates the sales table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS sales (
 		SaleIDcol INTEGER PRIMARY KEY AUTOINCREMENT ,
-		CustIDcol VARCHAR(20),
+		CustIDcol INTEGER,
 		CCcol BOOLEAN,
 		SKUcol VARCHAR(20),
 		Salescol FLOAT(20),
@@ -49,10 +48,11 @@ def productsTable():
 
 
 
-# Definition of the Customer class
-# Only created when CustID not found in customers table
-class Customer(object):
 
+
+
+
+class Customer(object):
 
 	def __init__(self, Name, date):
 		'''Create a new instance of a Customer.'''
@@ -68,9 +68,7 @@ class Customer(object):
 	def checkCust():
 		c.execute('''SELECT CustIDcol FROM customers''')
 		custIDtuple = c.fetchall()
-		print(custIDtuple)
 		return custIDtuple
-
 
 
 class Product(object):
@@ -87,10 +85,6 @@ class Product(object):
 		tupleSKU = c.fetchall()
 		return tupleSKU
 
-
-
-# Add products to the database
-
 	@staticmethod
 	def setItems(SKU, Product):
 		'''Adds a row in the Products table with the information
@@ -99,8 +93,6 @@ class Product(object):
 		conn.commit()
 
 
-
-# Definition of the POS class
 class POS(object):
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
@@ -112,11 +104,13 @@ class POS(object):
 		self.SKU = SKU
 		self.sales = sales
 		self.date = date
+		print("this is my creation...", self.CustID, self.CC, self.SKU, self.sales)
 
 # The insertDB method inserts the pos information into the sqlite database
-	def submit(self):
+	def submit1(self):
 		'''Adds a row in the sales table with the information
 		from the POS provided as an argument.'''
+		print("Am I reaching?")
 		c.execute("INSERT INTO sales VALUES (?,?,?,?,?,?)", (
 			None,
 			self.CustID,
@@ -125,14 +119,14 @@ class POS(object):
 			self.sales,
 			self.date
 			))
+		print("going, going, gone? Submit!")
 		conn.commit()
 
 	@staticmethod
 	def getPosData():
 		c.execute("SELECT * FROM sales")
 		sales_data = c.fetchall()
-		return(sales_data)
-
+		return (sales_data)
 
 	@staticmethod
 	def CRM():
@@ -156,13 +150,10 @@ class POS(object):
 		return rep2
 
 
-
-# Save and close the database.
 def closeDay():
-	"""Closes the books for the day."""
+	"""Saves and closes the books for the day."""
 	conn.commit()
 	conn.close()
-
 
 
 def write_data_sql():
@@ -172,6 +163,3 @@ def write_data_sql():
 	sales_table.to_sql('sales', conn, if_exists='append')
 	customer_table.to_sql('customers', conn, if_exists='append')
 
-
-a= POS(2, 1,"ZRRTGf",123,"22/05/1992")
-POS.submit(a)

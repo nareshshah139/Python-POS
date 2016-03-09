@@ -28,90 +28,73 @@ root.title('Point of Sale System')
 #root.protocol('WM_DELETE_WINDOW',master.quit)
 n = ttk.Notebook(master, name = 'n')
 
-
-# SHOULD NOT GO IN THE GUI
-# CONSISTENCY -- THIS AND/OR FETCH?
-#-----Fotis-----
-#def load_data_sql():
-#    connection = sqlite3.connect("pos.db")
-#    df = pd.read_sql_query("SELECT * FROM sales, customers WHERE sales.CustIDcol=customers.CustIDcol",connection)
-#    return(df)
-
-#load_data_sql()
-
-
 def callback1():
-    '''Callback function to push values from GUI to controller'''
-    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
-    print(list1)
-    Controllerv2.newsalebutton(list1)
+	'''Callback function to push values from GUI to controller'''
+	list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
+	error = Controllerv2.newsalebutton(list1)
+	j = '\n'.join(error)
+	Label_Var.set(j)
 
 def callback2():
-    '''Callback function for adding new user to the database'''
-    list2 = [C_Name.get(), Date_CV_Var]
-    print(list2)
-    Controllerv2.newcustbutton(list2)
+	'''Callback function for adding new user to the database'''
+	list2 = [C_Name.get(), Date_CV_Var]
+	print(list2)
+	poop = Controllerv2.newcustbutton(list2)
+	print(poop)
+	CV_Var_ID.set(poop)
 
 def sel():
-    '''Callback function for radiobutton to return values'''
-    CC_1 = CC_Var.get()
-
-
-def printerrors():
-    '''Callback function to check values input in GUI for errors and return a printed value'''
-    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
-    error = Controllerv2.allerrors(list1)
-    return error
-
-
+	'''Callback function for radiobutton to return values'''
+	CC_1 = CC_Var.get()
+	
 
 def create_df():
-    ''' Creates Dataframe from the Data collected in the database '''
-    global df
-    df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
-    df['Cash'] = df['CC']==0
-    df['CCSales'] = df.Sales*df.CC
-    df['CashSales']=df.Sales*df.Cash
-    return df
+	''' Creates Dataframe from the Data collected in the database '''
+	global df
+	df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
+	df['Cash'] = df['CC']==0
+	df['CCSales'] = df.Sales*df.CC
+	df['CashSales']=df.Sales*df.Cash
+	return df
 
 
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
 def top_customers():
-    '''Returns a dataframe of highest paying customers in the Database'''
-    df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
-    df_sales.columns = ['SalesAmount','ItemCount']
-    # Sort by sum of sales in descending order
-    df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
-    return df_sales.head(10)
+	'''Returns a dataframe of highest paying customers in the Database'''
+	df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
+	df_sales.columns = ['SalesAmount','ItemCount']
+	# Sort by sum of sales in descending order
+	df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
+	return df_sales.head(10)
 
 
 #Top SKU Table
 def top_sku():
-    '''Returns a dataframe of the highest selling items in the product database '''
-    df_topSKU = df[['Item','Sales']].groupby(['Item']).agg([np.sum, np.count_nonzero])
-    df_topSKU.columns=['SalesAmount','SalesCount']
-    df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
-    return df_topSKU_sort.head(10)
+	'''Returns a dataframe of the highest selling items in the product database '''
+	df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
+	df_topSKU.columns=['SalesAmount','SalesCount']
+	df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
+	return df_topSKU_sort.head(10)
 
 #PLOTTING
 #Create Sales by Day Table
 def sales_overview():
-    ''' Defines Daily sales variables. This allows us to plot graphs '''
-    global daily_sales
-    daily_sales = df[['Date','Sales','CCSales','CashSales']].groupby(['Date']).agg([np.sum])
-    daily_sales.columns = ['TotalSales','CCSales','CashSales']
-    return daily_sales
+	''' Defines Daily sales variables. This allows us to plot graphs '''
+	global daily_sales
+	daily_sales = df[['Date','Sales','CCSales','CashSales']].groupby(['Date']).agg([np.sum])
+	daily_sales.columns = ['TotalSales','CCSales','CashSales']
+	return daily_sales
 
 
 #Create Sales by SKU Table
 def sku_overview():
-    ''' Defines SKU Sales variable. This allows us to plot graphs '''
-    global sku_sales
-    sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
-    sku_sales.columns = ['CCSales','CashSales']
-    sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
-    return sku_sales.head(5)
+	''' Defines SKU Sales variable. This allows us to plot graphs '''
+	global sku_sales
+	sku_sales = df[['SKU','CCSales','CashSales']].groupby(['SKU']).agg([np.sum])
+	sku_sales.columns = ['CCSales','CashSales']
+	sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
+	return sku_sales.head(5)
 
 #created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
 def animate(i):
@@ -181,6 +164,11 @@ Label(f3_CV,text = "Today's date is "+time.strftime("%d/%m/%Y")).pack(side = LEF
 Date_CV_Var = time.strftime("%d/%m/%Y")
 B_Add_User = Button(f3_CV,text = 'Add User', command = callback2).pack(side = RIGHT)
 
+f4_CV = Frame(CustomerView)
+f4_CV.pack(fill = X)
+CV_Var_ID = StringVar()
+Label(f4_CV,textvariable= CV_Var_ID).pack(fill = X)
+
 # POS View Tab
 # Make a frame to hold all elements
 # Make smaller frames in order to hold pairs of elements per line.
@@ -232,17 +220,11 @@ f6_POS.pack(fill = X)
 B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 
-
-##f7_POS = Frame(POSView)
-##f7_POS.pack(fill=BOTH,expand = TRUE)
-##Label(f7_POS,image=photo).pack()
-
 f7_POS = Frame(POSView)
-f7_POS.pack(fill=X)
-B_POS_Check = Button(f7_POS,text = 'Check Errors',command = printerrors).pack(side= LEFT)
+f7_POS.pack(fill=BOTH)
+#B_POS_Check = Button(f7_POS,text = 'Check Errors',command = printerrors).pack(side= LEFT)
 Label_Var = StringVar()
-Label(f7_POS, textvariable = Label_Var).pack(side= LEFT)
-Label_Var.set(printerrors())
+Label(f7_POS, textvariable = Label_Var).pack(fill=BOTH)
 
 
 #Report View
@@ -324,7 +306,3 @@ canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 ani = animation.FuncAnimation(f, animate, interval=1000)
 
 root.mainloop()
-
-#C_ID.delete(0,END)
-#SKU.delete(0,END)
-#Sales.delete(0,END)
