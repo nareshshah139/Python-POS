@@ -1,3 +1,4 @@
+#import modules
 from tkinter import *
 from tkinter import ttk
 import matplotlib
@@ -12,13 +13,9 @@ import matplotlib.pyplot as plt
 import modeldb as Modelv2
 import matplotlib.animation as animation
 
-##from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 plt.style.use('ggplot')
-##
-##image = Image.open('Dilemma.jpg')
-##photo = ImageTk.PhotoImage(image)
-
-## Creating Master Frame. Naming Master Frame as root.
+# Creating Master Frame. Naming Master Frame as root.
 root = Tk()
 ## Creating a frame inside master frame called master.
 master = Frame(root, name = 'master')
@@ -46,7 +43,7 @@ def callback2():
 def sel():
 	'''Callback function for radiobutton to return values'''
 	CC_1 = CC_Var.get()
-	
+
 
 def create_df():
 	''' Creates Dataframe from the Data collected in the database '''
@@ -57,12 +54,18 @@ def create_df():
 	df['CashSales']=df.Sales*df.Cash
 	return df
 
-
+def create_CRM_df():
+	''' Creates Dataframe from today's sales data collected in the database '''
+	df = pd.DataFrame(Modelv2.POS.CRM(), columns=['CustID','Date','Amount'])
+	return df
+	
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
 def top_customers():
-	'''Returns a dataframe of highest paying customers in the Database'''
+	'''Returns a dataframe of the 10 highest paying customers in the Database and aggregates total sales'''
+	#group by CustID & Name and aggegate count and sum of sales
 	df_sales = df[['CustID','Name','Sales']].groupby(['CustID','Name']).agg([np.sum, np.count_nonzero])
+	#rename columns
 	df_sales.columns = ['SalesAmount','ItemCount']
 	# Sort by sum of sales in descending order
 	df_sales = df_sales.sort_values(['SalesAmount'], ascending=False)
@@ -71,9 +74,12 @@ def top_customers():
 
 #Top SKU Table
 def top_sku():
-	'''Returns a dataframe of the highest selling items in the product database '''
+	'''Returns a dataframe of up to 10 highest selling items in the product database '''
+	#group by SKU and aggregate sum and count of sales
 	df_topSKU = df[['SKU','Sales']].groupby(['SKU']).agg([np.sum, np.count_nonzero])
+	#rename columns
 	df_topSKU.columns=['SalesAmount','SalesCount']
+	#sort by sales amount in descending order
 	df_topSKU_sort = df_topSKU.sort_values(['SalesAmount'], ascending=False)
 	return df_topSKU_sort.head(10)
 
@@ -81,7 +87,6 @@ def top_sku():
 #Create Sales by Day Table
 def sales_overview():
 	''' Defines Daily sales variables. This allows us to plot graphs '''
-	global daily_sales
 	daily_sales = df[['Date','Sales','CCSales','CashSales']].groupby(['Date']).agg([np.sum])
 	daily_sales.columns = ['TotalSales','CCSales','CashSales']
 	return daily_sales
@@ -96,24 +101,32 @@ def sku_overview():
 	sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
 	return sku_sales.head(5)
 
-#created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
+#function to make the charts displayed accurate once new sales are added. Anything displayed in the report tab will plot what is currently in the database.
 def animate(i):
-    create_df()
-    sales_overview()
-    sku_overview()
-    ax1 = f.add_subplot(211)
-    ax3 = f.add_subplot(212)
+	#call create_df() funciton to get current data in df format
+	create_df()
+	sales_overview()
+	sku_overview()
+	ax1 = f.add_subplot(211)
+	ax3 = f.add_subplot(212)
     #pd.options.display.mpl_style = 'default'
     #pd.options.display.mpl_style = 'default'
-    ax1.clear()
-    ax3.clear()
-    sku_sales.plot(kind = 'bar',stacked = True,ax = ax3,title = "SKUs by Payment Method")
-    ax3.set_xlabel("SKU Numbers")
-    ax3.set_ylabel("Amount in €")
-    daily_sales.plot(ax=ax1, title="Daily Sales")
-    ax1.set_xlabel("Date")
-    ax1.set_ylabel("Amount in €")
-    print("clicked")
+	ax1.clear()
+	ax3.clear()
+	sku_overview().plot(kind = 'bar',stacked = True,ax = ax3,title = "SKUs by Payment Method")
+	ax3.set_xlabel("SKU Numbers")
+	ax3.set_ylabel("Amount in €")
+	sales_overview().plot(ax=ax1, title="Daily Sales")
+	ax1.set_xlabel("Date")
+	ax1.set_ylabel("Amount in €")
+
+def animateCRM(i):
+	create_CRM_df()
+	ax2 = f1.add_subplot(111)
+	ax2.clear()
+	create_CRM_df().plot(x = 'CustID', y= 'Amount',kind = 'bar', ax = ax2)
+
+
 
 
 
@@ -288,11 +301,8 @@ Label(f4_CRM,text = Modelv2.POS.totCashSales()).pack(side = LEFT, padx = 5)
 f5_CRM = Frame(CRMView)
 f5_CRM.pack(fill = BOTH, expand = TRUE)
 f1 = Figure(figsize = (5,5),dpi = 100)
-ax2 = f1.add_subplot(111)
-df5 = create_df()
-df2 = df5.groupby('CustID')['Sales'].sum()
-df3 = pd.DataFrame({'Name':df2.index, 'TotalSales':df2.values}).sort_values(['TotalSales'], ascending=False)
-df3.plot(x = 'Name', y= 'TotalSales',kind = 'bar', ax = ax2)
+#ax2 = f1.add_subplot(111)
+#create_CRM_df().plot(x = 'CustID', y= 'Amount',kind = 'bar', ax = ax2)
 
 
 canvas = FigureCanvasTkAgg(f1, f5_CRM)
@@ -303,6 +313,7 @@ toolbar.update()
 canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=True)
 
 
-ani = animation.FuncAnimation(f, animate, interval=1000)
+ani = animation.FuncAnimation(f, animate, interval=2000)
+ani2 = animation.FuncAnimation(f1,animateCRM, interval=2000)
 
 root.mainloop()
