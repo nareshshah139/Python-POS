@@ -120,42 +120,51 @@ class POS(object):
 
 	@staticmethod
 	def getPosData():
+		'''Gets the sales data out of the POS database'''
 		c.execute("SELECT * FROM sales")
 		sales_data = c.fetchall()
 		return (sales_data)
 
 	@staticmethod
 	def CRM():
+		'''gets the sales of the day per customer'''
 		c.execute("SELECT CustIDcol, Datecol, SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) GROUP BY CustIDcol ")
 		crm = c.fetchall()
 		return crm
 	@staticmethod
 	def totSales():
+		'''gets the sales of the day'''
 		c.execute("SELECT SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales)")
 		report = c.fetchall()
 		return report
 	@staticmethod
 	def totCashSales():
+		'''gets the Cash sales of the day'''
 		c.execute("SELECT SUM (Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) AND CCcol = 0")
 		rep1 = c.fetchall()
 		return rep1
 	@staticmethod
 	def totCCsales():
+		'''gets the Credit Card sales of the day'''
 		c.execute("SELECT SUM (Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) AND CCcol = 0")
 		rep2 = c.fetchall()
 		return rep2
 
 
-def closeDay():
-	"""Saves and closes the books for the day."""
-	conn.commit()
-	conn.close()
 
 
 def write_data_sql():
 	"""Function that takes sales.csv and customers.csv files and pushes them into the pos.db via SQLITE"""
-	sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
-	customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0)
-	sales_table.to_sql('sales', conn, if_exists='append')
-	customer_table.to_sql('customers', conn, if_exists='append')
+	c.execute("SELECT COUNT(*) FROM sales")
+	count1 = c.fetchone()
+	print(count1)
+	if count1[0] == 0:
+		sales_table = pd.DataFrame.from_csv(os.getcwd()+"/sales.csv",sep=";",header=0)
+		customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0)
+		sku_table = pd.DataFrame.from_csv(os.getcwd()+"/sku.csv",sep=";",header=0)
+		sales_table.to_sql('sales', conn, if_exists='append')
+		customer_table.to_sql('customers', conn, if_exists='append')
+		sku_table.to_sql('products', conn, if_exists='append')
+	else:
+		pass
 
