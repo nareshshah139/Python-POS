@@ -33,7 +33,7 @@ def customersTable():
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
 		CustIDcol VARCHAR(9),
-		Namecol VARCHAR(20),
+	2	Namecol VARCHAR(20),
 		Datecol VARCHAR(20),
 		PRIMARY KEY (CustIDcol)
 		)''')
