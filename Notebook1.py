@@ -59,7 +59,9 @@ def sel():
 
 def printerrors():
     '''Callback function to check values input in GUI for errors and return a printed value'''
-    Controllerv2.allerrors()
+    list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
+    error = Controllerv2.allerrors(list1)
+    return error
 
 
 
@@ -231,9 +233,12 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 ##f7_POS.pack(fill=BOTH,expand = TRUE)
 ##Label(f7_POS,image=photo).pack()
 
-#f7_POS = Frame(POSView)
-#f7_POS.pack(fill=X)
-#Label(f7_POS, text = printerrors()).pack(side= LEFT)
+f7_POS = Frame(POSView)
+f7_POS.pack(fill=X)
+B_POS_Check = Button(f7_POS,text = 'Check Errors',command = printerrors).pack(side= LEFT)
+Label_Var = StringVar()
+Label(f7_POS, textvariable = Label_Var).pack(side= LEFT)
+Label_Var.set(printerrors())
 
 
 #Report View
