@@ -8,9 +8,9 @@ from matplotlib.figure import Figure
 import time
 import pandas as pd
 import numpy as np
-import Controllerv2
+import controller
 import matplotlib.pyplot as plt
-import modeldb as Modelv2
+import model
 import matplotlib.animation as animation
 
 #from PIL import Image, ImageTk
@@ -47,7 +47,7 @@ def sel():
 def create_df():
 	''' Creates Dataframe from the Data collected in the database '''
 	global df
-	df = pd.DataFrame(Modelv2.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
+	df = pd.DataFrame(model.POS.getPosData(), columns=['SalesID','CustID','CC','SKU','Sales','Date'])
 	df['Cash'] = df['CC']==0
 	df['CCSales'] = df.Sales*df.CC
 	df['CashSales']=df.Sales*df.Cash
@@ -55,7 +55,7 @@ def create_df():
 
 def create_CRM_df():
 	''' Creates Dataframe from today's sales data collected in the database '''
-	df = pd.DataFrame(Modelv2.POS.CRM(), columns=['CustID','Date','Amount'])
+	df = pd.DataFrame(model.POS.CRM(), columns=['CustID','Date','Amount'])
 	return df
 
 #Top Customer Table
@@ -268,19 +268,19 @@ Label(f1_CRM,text = 'CRM Reports').pack(padx = 10, pady = 10)
 f2_CRM = Frame(CRMView)
 f2_CRM.pack(fill = X)
 Label(f2_CRM,text = 'Total Sales').pack(side = LEFT)
-Label(f2_CRM,text = Modelv2.POS.totSales()).pack(side = LEFT,padx = 5)
+Label(f2_CRM,text = model.POS.totSales()).pack(side = LEFT,padx = 5)
 
 #frame3 in crm
 f3_CRM = Frame(CRMView)
 f3_CRM.pack(fill=X)
 Label(f3_CRM,text = 'CC Sales').pack(side = LEFT)
-Label(f3_CRM,text = Modelv2.POS.totCCsales()).pack(side = LEFT, padx = 5)
+Label(f3_CRM,text = model.POS.totCCsales()).pack(side = LEFT, padx = 5)
 
 #frame4 in crm
 f4_CRM = Frame(CRMView)
 f4_CRM.pack(fill=X)
 Label(f4_CRM,text = 'Cash Sales').pack(side = LEFT)
-Label(f4_CRM,text = Modelv2.POS.totCashSales()).pack(side = LEFT, padx = 5)
+Label(f4_CRM,text = model.POS.totCashSales()).pack(side = LEFT, padx = 5)
 
 #frame5 in crm
 f5_CRM = Frame(CRMView)
