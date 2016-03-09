@@ -13,7 +13,7 @@ c = conn.cursor()
 
 def formatError():
 	"""Provides a message if the transaction is not pushed to the database."""
-	return "Sorry, transaction failed."
+	return "Sorry dude, your transaction failed."
 
 def broke():
 	"""Provides a message if the sales amount entered is zero or less."""
@@ -21,11 +21,11 @@ def broke():
 
 def bigspender():
 	"""Provides a message if the sales amount entered is greater than 500..."""
-	return "Are you sure? Toilet paper doesn't cost $500... Try again."
+	return "Are you sure? Toilet paper doesn't cost that much... Try again."
 
 def notcust():
 	"""Provides a message if the customer ID entered does not exist in the database."""
-	return "Transaction Failed. Please create a new customer ID."
+	return "Sorry, transaction failed. Start by creating a new customer ID (see tab above)."
 
 def existingcust():
 	"""Provides a message if the customer ID is recognized in the database."""
@@ -43,19 +43,19 @@ def newcustconf():
 
 def noproduct():
 	"""Provides a message if an item is not selected from the SKU dropdown."""
-	return "Please pick the product purchased."
+	return "You paid that much for nothing? Pick a product please."
 
 def idplease():
 	"""Provides a message if the Customer ID is left blank."""
-	return "Please enter a Customer ID."
+	return "Please enter your Customer ID. Don't remember (dummy)? Create a new one in the customer tab."
 
 def saleplease():
 	"""Provides a message if the sales amount is left blank."""
-	return "Please enter a sale amount."
+	return "And... how much money would you like to give us? (just the number, please)."
 
 def nameplease():
 	"""Provides a message if the Name is left blank."""
-	return "Come on, that's not your name. Please enter SOMETHING."
+	return "Come on, that's not your name. Enter SOMETHING."
 
 
 def main():
@@ -130,6 +130,7 @@ def newsalebutton(list1):
 		print(RuntimeError, TypeError, NameError)
 
 def SKUcode(list1):
+	'''Matches SKU code with product name. Our grocery store specializes in electronics.'''
 	try:
 		skucode1 = list1[2]
 		if skucode1 == "Vacuum Cleaner":
@@ -151,7 +152,7 @@ def newcustbutton(clist):
 	Calls a message to """
 	try:
 		myerrors = []
-		if list1[0] == '':
+		if clist[0] == '':
 			myerrors.append(nameplease())
 		else:
 			name = clist[0]
