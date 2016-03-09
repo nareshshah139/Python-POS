@@ -99,18 +99,15 @@ class POS(object):
 	def __init__(self, CustID, CC, SKU, sales, date):
 		'''Creates a new instance of a POS (sales transaction).'''
 		self.CustID = CustID
-#		if CustID NOT IN customers table, then print("must  create new customer")
 		self.CC = CC
 		self.SKU = SKU
 		self.sales = sales
 		self.date = date
-		print("this is my creation...", self.CustID, self.CC, self.SKU, self.sales)
 
 # The insertDB method inserts the pos information into the sqlite database
 	def submit1(self):
 		'''Adds a row in the sales table with the information
 		from the POS provided as an argument.'''
-		print("Am I reaching?")
 		c.execute("INSERT INTO sales VALUES (?,?,?,?,?,?)", (
 			None,
 			self.CustID,
@@ -119,7 +116,6 @@ class POS(object):
 			self.sales,
 			self.date
 			))
-		print("going, going, gone? Submit!")
 		conn.commit()
 
 	@staticmethod

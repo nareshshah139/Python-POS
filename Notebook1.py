@@ -38,9 +38,7 @@ def callback1():
 def callback2():
 	'''Callback function for adding new user to the database'''
 	list2 = [C_Name.get(), Date_CV_Var]
-	print(list2)
 	poop = Controllerv2.newcustbutton(list2)
-	print(poop)
 	CV_Var_ID.set(poop)
 
 def sel():
@@ -113,8 +111,7 @@ def animate(i):
     daily_sales.plot(ax=ax1, title="Daily Sales")
     ax1.set_xlabel("Date")
     ax1.set_ylabel("Amount in €")
-    print("clicked")
-
+ 
 
 
 
@@ -222,7 +219,6 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 f7_POS = Frame(POSView)
 f7_POS.pack(fill=BOTH)
-#B_POS_Check = Button(f7_POS,text = 'Check Errors',command = printerrors).pack(side= LEFT)
 Label_Var = StringVar()
 Label(f7_POS, textvariable = Label_Var).pack(fill=BOTH)
 
