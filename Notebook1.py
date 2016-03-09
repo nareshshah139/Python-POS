@@ -31,15 +31,16 @@ n = ttk.Notebook(master, name = 'n')
 def callback1():
 	'''Callback function to push values from GUI to controller'''
 	list1 = [C_ID.get(),CC_Var.get(),SKU_Var.get(),Sales.get(),Date_POS_Var]
-	error = Controllerv2.newsalebutton(list1)
-	j = '\n'.join(error)
+	bug = Controllerv2.newsalebutton(list1)
+	j = '\n'.join(bug)
 	Label_Var.set(j)
 
 def callback2():
 	'''Callback function for adding new user to the database'''
 	list2 = [C_Name.get(), Date_CV_Var]
 	poop = Controllerv2.newcustbutton(list2)
-	CV_Var_ID.set(poop)
+	k = '\n'.join(poop)
+	CV_Var_ID.set(k)
 
 def sel():
 	'''Callback function for radiobutton to return values'''

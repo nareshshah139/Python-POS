@@ -4,34 +4,59 @@ import modeldb as Modelv2
 import sqlite3
 import pandas as pd
 
+# Start by connecting and opening the sqlite database.
 conn = sqlite3.connect('pos.db')
 c = conn.cursor()
 
+# All of the below functions simply provide the text used for the GUI messages.
+# They are called when certain things happen, as described in the docstrings.
+
 def formatError():
+	"""Provides a message if the transaction is not pushed to the database."""
 	return "Sorry, transaction failed."
 
 def broke():
+	"""Provides a message if the sales amount entered is zero or less."""
 	return "Did you buy anything? Please enter a sale > 0"
 
 def bigspender():
+	"""Provides a message if the sales amount entered is greater than 500..."""
 	return "Are you sure? Toilet paper doesn't cost $500... Try again."
 
 def notcust():
+	"""Provides a message if the customer ID entered does not exist in the database."""
 	return "Transaction Failed. Please create a new customer ID."
 
 def existingcust():
+	"""Provides a message if the customer ID is recognized in the database."""
 	return "Welcome back, good sire."
 
 def saleconf():
+	"""Provides a message if the transaction is successfully pushed to the database."""
 	return "Thank you for your sale! Have dandy dia!"
 
 def newcustconf():
+	"""Provides a message with the new customer's ID after being successfully added to the database."""
 	c.execute("SELECT max(CustIDcol) FROM customers")
 	newest = c.fetchone()
 	return "Great to have a new customer! Your ID # is %s" % (newest)
 
 def noproduct():
+	"""Provides a message if an item is not selected from the SKU dropdown."""
 	return "Please pick the product purchased."
+
+def idplease():
+	"""Provides a message if the Customer ID is left blank."""
+	return "Please enter a Customer ID."
+
+def saleplease():
+	"""Provides a message if the sales amount is left blank."""
+	return "Please enter a sale amount."
+
+def nameplease():
+	"""Provides a message if the Name is left blank."""
+	return "Come on, that's not your name. Please enter SOMETHING."
+
 
 def main():
 
@@ -55,18 +80,18 @@ def main():
 
 	Modelv2.write_data_sql()
 
-def nameplease():
-	return "Please enter a Customer ID."
-
-def saleplease():
-	return "Please enter a sale amount."
-
 def newsalebutton(list1):
+	"""Receives the data input by the user in the GUI's POS view when the submit button is clicked.
+	Checks if the customer ID already exists or not;
+	checks the Customer ID, SKU and sales are not left blank;
+	checks the sales amount is a positive number 500 or less.
+	If all 3 criteria are passed, a POS object is created and its attributes are pushed to the databse.
+	For each scenario, functions are called to display relevant messages."""
 	try:
 		thresh = 0
 		errors = []
 		if list1[0] == '':
-			errors.append(nameplease())
+			errors.append(idplease())
 		elif list1[3] == '':
 			errors.append(saleplease())
 		else:
@@ -121,19 +146,23 @@ def SKUcode(list1):
 		pass
 
 def newcustbutton(clist):
+	"""Receives the data input by the user in the GUI's New Customer tab when the add new user
+	button is clicked. Creates a new Customer object and pushes to the database.
+	Calls a message to """
 	try:
-		name = clist[0]
-		dateCV = clist[1]
-		cnew = Modelv2.Customer(name, dateCV)
-		cnew.push()
-		return newcustconf()
+		myerrors = []
+		if list1[0] == '':
+			myerrors.append(nameplease())
+		else:
+			name = clist[0]
+			dateCV = clist[1]
+			cnew = Modelv2.Customer(name, dateCV)
+			cnew.push()
+			myerrors.append(newcustconf())
+		return myerrors
 	except:
 		pass
 
-
-def allerrors():
-	print("allerrors: ", alphabet)
-	return alphabet
 
 main()
 
