@@ -15,7 +15,7 @@ def salesTable():
 	'''Creates the sales table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS sales (
-		SaleIDcol INTEGER PRIMARY KEY ,
+		SaleIDcol INTEGER PRIMARY KEY AUTOINCREMENT ,
 		CustIDcol VARCHAR(20),
 		CCcol BOOLEAN,
 		SKUcol VARCHAR(20),
@@ -103,15 +103,12 @@ class Product(object):
 
 
 
-
 # Definition of the POS class
 class POS(object):
-	maxSaleID = 0
 # Each pos gets a unique SaleID equal to one more than the max SaleID in the database
 # Each pos receives arguments CustID, Name, CC, SKU, sales, !!?day?!! that are returned from the GUI.
 	def __init__(self, CustID, CC, SKU, sales, date):
 		'''Creates a new instance of a POS (sales transaction).'''
-		POS.maxSaleID += 1
 		self.CustID = CustID
 #		if CustID NOT IN customers table, then print("must  create new customer")
 		self.CC = CC
@@ -124,7 +121,7 @@ class POS(object):
 		'''Adds a row in the sales table with the information
 		from the POS provided as an argument.'''
 		c.execute("INSERT INTO sales VALUES (?,?,?,?,?,?)", (
-			POS.maxSaleID,
+			None,
 			self.CustID,
 			self.CC,
 			self.SKU,
@@ -177,3 +174,7 @@ def write_data_sql():
 	customer_table = pd.DataFrame.from_csv(os.getcwd()+"/customers.csv",sep=";",header=0)
 	sales_table.to_sql('sales', conn, if_exists='append')
 	customer_table.to_sql('customers', conn, if_exists='append')
+
+
+a= POS(2, 1,"ZRRTGf",123,"22/05/1992")
+POS.submit(a)
