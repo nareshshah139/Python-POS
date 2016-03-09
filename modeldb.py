@@ -139,6 +139,7 @@ class POS(object):
 		sales_data = c.fetchall()
 		return(sales_data)
 
+
 	@staticmethod
 	def CRM():
 		c.execute("SELECT CustIDcol, Datecol, SUM(Salescol) FROM sales WHERE Datecol = (SELECT MAX(Datecol) FROM sales) GROUP BY CustIDcol ")

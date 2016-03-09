@@ -70,6 +70,7 @@ def create_df():
     df['CashSales']=df.Sales*df.Cash
     return df
 
+
 #Top Customer Table
 #Group dataframe by CustID and take sum of sales
 def top_customers():
@@ -108,8 +109,19 @@ def sku_overview():
     sku_sales = sku_sales.sort_values(['CCSales'], ascending=False)
     return sku_sales.head(5)
 
-
-
+#created update_data function to ensure that data entered in the POS will be displayed on graphs once the refresh button is clicked. Have not managed to get this to work.
+def update_data():
+    create_df()
+    sales_overview()
+    sku_overview()
+    ax1 = f.add_subplot(211)
+    ax3 = f.add_subplot(212)
+    #pd.options.display.mpl_style = 'default'
+    daily_sales.plot(ax=ax1)
+    #pd.options.display.mpl_style = 'default'
+    sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
+    print("clicked")
+    #possible to not display the graph until this function gets called?
 
 
 
@@ -181,8 +193,7 @@ f2_POS = Frame(POSView)
 f2_POS.pack(fill = X)
 Label(f2_POS,text = 'Payment').pack(side = LEFT)
 CC_Var = IntVar()
-CC = Radiobutton(f2_POS, text="Credit Card", variable=CC_Var, value=1,
-                  command=sel).pack(side = LEFT)
+CC = Radiobutton(f2_POS, text="Credit Card", variable=CC_Var, value=1,command=sel).pack(side = LEFT)
 Cash = Radiobutton(f2_POS,text = "Cash",variable = CC_Var,value=0,command = sel).pack(side = LEFT)
 
 f3_POS = Frame(POSView)
@@ -222,9 +233,6 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 #Label(f7_POS, text = printerrors()).pack(side= LEFT)
 
 
-
-
-
 #Report View
 #Plotting works like this
 # 1. Create a figure in a frame using f = Figure(figsize(5,5), dpi = 100)
@@ -234,6 +242,7 @@ B_POS_Submit = Button(f6_POS,text = 'Submit Sale', command = callback1).pack()
 
 f1_RV = Frame(ReportView)
 f1_RV.pack(fill=X)
+Refresh_data = Button(f1_RV,text = 'Refresh Data', command = update_data).pack()#check comments below at 256
 Label(f1_RV,text = 'Report and Graphs').pack(padx = 10,pady=10)
 
 f2_RV = Frame(ReportView)
@@ -244,12 +253,15 @@ create_df()
 sales_overview()
 sku_overview()
 
-ax1 = f.add_subplot(211)
-ax3 = f.add_subplot(212)
+
+## commenting out the plots for now. Checking to see whether I can create the frame and two graphs by calling the function
+## update_data() when pressing the button Refresh_data in f1_RV above.
+#ax1 = f.add_subplot(211)
+#ax3 = f.add_subplot(212)
 #pd.options.display.mpl_style = 'default'
-daily_sales.plot(ax=ax1)
+#daily_sales.plot(ax=ax1)
 #pd.options.display.mpl_style = 'default'
-sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
+#sku_sales.plot(kind = 'bar',stacked = True,ax = ax3)
 
 
 canvas = FigureCanvasTkAgg(f, f2_RV)
