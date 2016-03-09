@@ -32,10 +32,9 @@ def customersTable():
 	'''Creates the customers table in the sqlite database
 	if it does not already exist.'''
 	c.execute('''CREATE TABLE IF NOT EXISTS customers (
-		CustIDcol VARCHAR(9),
+		CustIDcol INTEGER PRIMARY KEY AUTOINCREMENT ,
 		Namecol VARCHAR(20),
-		Datecol VARCHAR(20),
-		PRIMARY KEY (CustIDcol)
+		Datecol VARCHAR(20)
 		)''')
 	conn.commit()
 
@@ -52,20 +51,17 @@ def productsTable():
 # Definition of the Customer class
 # Only created when CustID not found in customers table
 class Customer(object):
-	totalCustomers = 0
-	currentID = 100000000
+
 
 	def __init__(self, Name, date):
 		'''Create a new instance of a Customer.'''
-		CustID = Customer.currentID
-		Customer.currentID +=1
 		self.Name = Name
 		self.date = date
 
 	def push(self):
 		'''Adds a row in the customers table with the information
 		from the customer provided as an argument.'''
-		c.execute('''INSERT INTO customers VALUES (?,?,?)''', (Customer.currentID, self.Name, self.date))
+		c.execute('''INSERT INTO customers VALUES (?,?,?)''', (None, self.Name, self.date))
 		conn.commit()
 	@staticmethod
 	def checkCust():
